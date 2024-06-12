@@ -26,7 +26,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdb-data
       volumes:
-        - name: postgresdb
+        - name: postgresdb-data
           persistentVolumeClaim:
-            claimName: postgresql-data
+            claimName: postgresql-data-pvc

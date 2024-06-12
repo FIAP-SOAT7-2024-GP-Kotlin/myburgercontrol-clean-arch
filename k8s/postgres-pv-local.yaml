@@ -1,16 +1,15 @@
-# Este PV eh para deploy em um kubernetes local (minikube ou kind)
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postgresql-data
+  name: postgresql-data-pv
 spec:
+  storageClassName: manual
   capacity:
     storage: 1Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: postgresql-data-storage
   hostPath:
-    path: "/data/postgresql"
+    path: /data/postgresql
     type: DirectoryOrCreate
