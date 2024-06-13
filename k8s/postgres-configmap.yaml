@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: postgres-config
   labels:
-    app: postgres
+    app: postgres-config
 data:
   POSTGRES_PASSWORD: a
