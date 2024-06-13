@@ -37,7 +37,7 @@ if (!javaVersion.isCompatibleWith(JavaVersion.current())) {
         =======================================================
         RUN WITH JAVA $javaVersion
         =======================================================
-        """.trimIndent()
+        """.trimIndent(),
     )
 }
 
@@ -120,14 +120,14 @@ tasks.withType<Test> {
     useJUnitPlatform()
 //    forkEvery = 0
     environment.putAll(
-        props.entries.associate { it.key.toString() to it.value.toString() }
+        props.entries.associate { it.key.toString() to it.value.toString() },
     )
     testLogging {
         showStandardStreams = true
         events = setOf(
             org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
             org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-            org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+            org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
         )
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
     }
@@ -166,7 +166,7 @@ liquibase {
             "classpath" to sourceSets.main.get().output.resourcesDir?.absolutePath,
             "url" to "jdbc:${props["DATABASE_URL"]}",
             "username" to props["DATABASE_USER"],
-            "password" to props["DATABASE_PASSWORD"]
+            "password" to props["DATABASE_PASSWORD"],
         )
     }
     activities.register("rollback") {
@@ -176,7 +176,7 @@ liquibase {
             "url" to "jdbc:${props["DATABASE_URL"]}",
             "username" to props["DATABASE_USER"],
             "password" to props["DATABASE_PASSWORD"],
-            "count" to 1
+            "count" to 1,
         )
     }
     activities.register("diffLog") {
@@ -190,7 +190,7 @@ liquibase {
                 "dialect=org.hibernate.dialect.PostgreSQLDialect&" +
                 "hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&" +
                 "hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
-            "defaultSchemaName" to "myburguer"
+            "defaultSchemaName" to "myburguer",
             // "logLevel" to "debug",
         )
     }

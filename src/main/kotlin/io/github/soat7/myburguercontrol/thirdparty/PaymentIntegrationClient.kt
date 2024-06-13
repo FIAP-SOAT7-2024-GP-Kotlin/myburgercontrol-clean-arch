@@ -19,7 +19,7 @@ private val logger = KotlinLogging.logger {}
 @Component
 class PaymentIntegrationClient(
     @Value("\${third-party.payment-integration.url}") private val paymentServiceUrl: String,
-    private val paymentRestTemplate: RestTemplate
+    private val paymentRestTemplate: RestTemplate,
 ) : PaymentIntegrationRepository {
 
     override fun requestPayment(order: Order): PaymentResult {
@@ -29,7 +29,7 @@ class PaymentIntegrationClient(
             val response = paymentRestTemplate.postForEntity(
                 paymentServiceUrl,
                 order.toPaymentRequest(),
-                PaymentIntegrationResponse::class.java
+                PaymentIntegrationResponse::class.java,
             )
 
             if (response.statusCode.is2xxSuccessful) {

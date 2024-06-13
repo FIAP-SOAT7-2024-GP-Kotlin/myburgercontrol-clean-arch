@@ -15,7 +15,7 @@ private val logger = KotlinLogging.logger {}
 @Service
 class PaymentService(
     private val paymentIntegrationRepository: PaymentIntegrationRepository,
-    private val paymentRepository: PaymentRepository
+    private val paymentRepository: PaymentRepository,
 ) {
 
     fun createPayment(): Payment {
@@ -35,7 +35,7 @@ class PaymentService(
 
         val updatedPayment = payment.copy(
             status = checkApproval(paymentResult.approved),
-            authorizationId = paymentResult.authorizationId
+            authorizationId = paymentResult.authorizationId,
         )
         paymentRepository.update(updatedPayment)
 

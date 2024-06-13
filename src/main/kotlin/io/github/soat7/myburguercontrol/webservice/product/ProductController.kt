@@ -28,19 +28,19 @@ private val logger = KotlinLogging.logger {}
 @RestController("product-controller")
 @RequestMapping(
     path = ["products"],
-    produces = [MediaType.APPLICATION_JSON_VALUE]
+    produces = [MediaType.APPLICATION_JSON_VALUE],
 )
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
 class ProductController(
-    private val service: ProductService
+    private val service: ProductService,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
         tags = ["99 - Adminstrativo"],
         summary = "Utilize esta rota para cadastrar um novo produto",
-        description = "Utilize esta rota para cadastrar um novo produto"
+        description = "Utilize esta rota para cadastrar um novo produto",
     )
     fun createProduct(@RequestBody request: ProductCreationRequest): ResponseEntity<ProductResponse> = run {
         logger.debug { "Creating product" }
@@ -53,7 +53,7 @@ class ProductController(
     @Operation(
         tags = ["99 - Adminstrativo"],
         summary = "Utilize esta rota para apagar um produto utilizando o identificador na base de dados",
-        description = "Utilize esta rota para apagar um produto utilizando o identificador na base de dados"
+        description = "Utilize esta rota para apagar um produto utilizando o identificador na base de dados",
     )
     fun deleteProduct(@PathVariable("id") id: UUID): ResponseEntity<Void> = run {
         logger.debug { "Deleting product by id: [$id]" }
@@ -65,7 +65,7 @@ class ProductController(
     @Operation(
         tags = ["99 - Adminstrativo"],
         summary = "Utilize esta rota para encontrar um produto utilizando o identificador na base de dados",
-        description = "Utilize esta rota para encontrar um produto utilizando o identificador na base de dados"
+        description = "Utilize esta rota para encontrar um produto utilizando o identificador na base de dados",
     )
     fun getProductById(@PathVariable("id") id: UUID): ResponseEntity<ProductResponse> = run {
         logger.debug { "Getting product by id: [$id]" }
@@ -78,7 +78,7 @@ class ProductController(
     @Operation(
         tags = ["2 - Jornada do Pedido"],
         summary = "Utilize esta rota para buscar todos os produtos cadastrados por categoria",
-        description = "Utilize esta rota para buscar todos os produtos cadastrados por categoria"
+        description = "Utilize esta rota para buscar todos os produtos cadastrados por categoria",
     )
     fun getProductByType(@RequestParam type: String): ResponseEntity<List<ProductResponse>> = run {
         logger.debug { "Getting product by type: [$type]" }
@@ -90,11 +90,11 @@ class ProductController(
     @Operation(
         tags = ["2 - Jornada do Pedido"],
         summary = "Utilize esta rota para buscar todos os produtos cadastrados",
-        description = "Utilize esta rota para buscar todos os produtos cadastrados"
+        description = "Utilize esta rota para buscar todos os produtos cadastrados",
     )
     fun findAll(
         @RequestParam(defaultValue = "0") page: Int,
-        @RequestParam(defaultValue = "10") size: Int
+        @RequestParam(defaultValue = "10") size: Int,
     ): ResponseEntity<PaginatedResponse<ProductResponse>> = run {
         logger.debug { "Listing all products" }
         val pageable = PageRequest.of(page, size)
@@ -107,8 +107,8 @@ class ProductController(
                 totalPages = response.totalPages,
                 totalElements = response.totalElements,
                 currentPage = response.number,
-                pageSize = response.size
-            )
+                pageSize = response.size,
+            ),
         )
     }
 }

@@ -15,7 +15,7 @@ private val logger = KotlinLogging.logger {}
 
 @Service
 class ProductService(
-    private val databasePort: ProductRepository
+    private val databasePort: ProductRepository,
 ) {
 
     fun create(product: Product): Product = try {

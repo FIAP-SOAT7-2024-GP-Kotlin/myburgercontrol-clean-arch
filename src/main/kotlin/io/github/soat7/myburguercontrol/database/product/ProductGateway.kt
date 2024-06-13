@@ -16,7 +16,7 @@ private val logger = KotlinLogging.logger {}
 
 @Component
 class ProductGateway(
-    private val repository: ProductJpaRepository
+    private val repository: ProductJpaRepository,
 ) : ProductRepository {
 
     override fun create(product: Product): Product = try {

@@ -9,7 +9,8 @@ enum class OrderStatus {
     RECEIVED,
     IN_PROGRESS,
     READY,
-    FINISHED;
+    FINISHED,
+    ;
 
     companion object {
 

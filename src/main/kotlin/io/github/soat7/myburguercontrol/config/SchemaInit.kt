@@ -30,7 +30,7 @@ class SchemaInit {
     @Component
     class SchemaInitBean @Autowired constructor(
         private val dataSource: DataSource,
-        @Value("\${spring.datasource.schema}") private val schemaName: String
+        @Value("\${spring.datasource.schema}") private val schemaName: String,
     ) : InitializingBean {
         override fun afterPropertiesSet() {
             dataSource.connection.use { conn ->

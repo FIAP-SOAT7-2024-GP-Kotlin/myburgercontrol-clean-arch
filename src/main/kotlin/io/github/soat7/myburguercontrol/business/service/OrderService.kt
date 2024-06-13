@@ -21,7 +21,7 @@ class OrderService(
     private val orderRepository: OrderRepository,
     private val customerService: CustomerService,
     private val productService: ProductService,
-    private val paymentService: PaymentService
+    private val paymentService: PaymentService,
 ) {
 
     fun createOrder(orderDetail: OrderDetail): Order {
@@ -53,7 +53,7 @@ class OrderService(
     fun changeOrderStatus(status: OrderStatus, orderId: UUID): Order {
         return orderRepository.update(
             orderRepository.findById(orderId)?.copy(status = status)
-                ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
+                ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND),
         )
     }
 
@@ -64,7 +64,7 @@ class OrderService(
                     id = UUID.randomUUID(),
                     product = product,
                     quantity = item.quantity,
-                    comment = item.comment
+                    comment = item.comment,
                 )
             } ?: throw ReasonCodeException(ReasonCode.INVALID_PRODUCT)
         }
@@ -73,14 +73,14 @@ class OrderService(
 
     private fun setupOrder(
         customer: Customer,
-        items: List<OrderItem>
+        items: List<OrderItem>,
     ): Order {
         val order = orderRepository.create(
             Order(
                 id = UUID.randomUUID(),
                 customer = customer,
-                items = items
-            )
+                items = items,
+            ),
         )
 
         val payment = paymentService.createPayment()

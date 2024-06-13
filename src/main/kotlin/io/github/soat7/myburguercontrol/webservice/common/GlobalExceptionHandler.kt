@@ -25,7 +25,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     internal data class HttpError(
         val httpStatus: HttpStatus,
         val code: String,
-        val message: String
+        val message: String,
     ) {
         constructor(reasonCode: ReasonCode) : this(reasonCode.status, reasonCode.code, reasonCode.description)
     }
@@ -37,7 +37,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             is ResponseStatusException -> HttpError(
                 HttpStatus.valueOf(t.statusCode.value()),
                 ReasonCode.UNEXPECTED_ERROR.code,
-                t.reason ?: "An unexpected error occurred"
+                t.reason ?: "An unexpected error occurred",
             )
 
             else -> HttpError(ReasonCode.UNEXPECTED_ERROR)
@@ -46,7 +46,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
 
         val problemDetail = ProblemDetail.forStatusAndDetail(
             error.httpStatus,
-            error.message
+            error.message,
         ).apply {
             title = error.httpStatus.reasonPhrase
             detail = t.message ?: "Unexpected  error occurred"
@@ -65,7 +65,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             "status" to error.httpStatus.value().toString(),
             "code" to error.code,
             "message" to t.message,
-            "cause" to t.cause?.message
+            "cause" to t.cause?.message,
         ) {
             if (error.httpStatus == HttpStatus.INTERNAL_SERVER_ERROR) {
                 logger.error { "Unexpected error occurred while processing request" }

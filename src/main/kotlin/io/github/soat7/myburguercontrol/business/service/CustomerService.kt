@@ -12,7 +12,7 @@ private val logger = KotlinLogging.logger {}
 
 @Service
 class CustomerService(
-    private val databasePort: CustomerRepository
+    private val databasePort: CustomerRepository,
 ) {
 
     fun create(customer: Customer): Customer = try {
