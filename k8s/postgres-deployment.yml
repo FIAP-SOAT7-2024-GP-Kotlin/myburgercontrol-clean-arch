@@ -21,8 +21,8 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           ports:
-          - containerPort: 5432
-            name: postgres-port
+            - containerPort: 5432
+              name: postgres-port
           envFrom:
             - configMapRef:
                 name: postgres-config

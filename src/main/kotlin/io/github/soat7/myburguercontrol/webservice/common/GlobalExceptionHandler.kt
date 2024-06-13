@@ -1,9 +1,9 @@
 package io.github.soat7.myburguercontrol.webservice.common
 
+import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.oshai.kotlinlogging.withLoggingContext
 import io.github.soat7.myburguercontrol.business.exception.ReasonCode
 import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
-import mu.KLogging
-import mu.withLoggingContext
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -16,11 +16,11 @@ import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.net.URI
 
+private val logger = KotlinLogging.logger {}
+
 @ControllerAdvice
 @Order(-2)
 class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
-
-    companion object : KLogging()
 
     internal data class HttpError(
         val httpStatus: HttpStatus,

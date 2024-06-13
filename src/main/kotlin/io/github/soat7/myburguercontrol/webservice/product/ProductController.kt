@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.webservice.product
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.soat7.myburguercontrol.business.mapper.toDomain
 import io.github.soat7.myburguercontrol.business.mapper.toResponse
 import io.github.soat7.myburguercontrol.business.service.ProductService
@@ -8,7 +9,6 @@ import io.github.soat7.myburguercontrol.webservice.product.api.ProductCreationRe
 import io.github.soat7.myburguercontrol.webservice.product.api.ProductResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import mu.KLogging
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
+private val logger = KotlinLogging.logger {}
+
 @RestController("product-controller")
 @RequestMapping(
     path = ["products"],
@@ -33,8 +35,6 @@ import java.util.UUID
 class ProductController(
     private val service: ProductService
 ) {
-
-    private companion object : KLogging()
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(

@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.business.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.soat7.myburguercontrol.business.enum.OrderStatus
 import io.github.soat7.myburguercontrol.business.exception.ReasonCode
 import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
@@ -8,11 +9,12 @@ import io.github.soat7.myburguercontrol.business.model.Order
 import io.github.soat7.myburguercontrol.business.model.OrderDetail
 import io.github.soat7.myburguercontrol.business.model.OrderItem
 import io.github.soat7.myburguercontrol.business.repository.OrderRepository
-import mu.KLogging
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.UUID
+
+private val logger = KotlinLogging.logger {}
 
 @Service
 class OrderService(
@@ -21,8 +23,6 @@ class OrderService(
     private val productService: ProductService,
     private val paymentService: PaymentService
 ) {
-
-    private companion object : KLogging()
 
     fun createOrder(orderDetail: OrderDetail): Order {
         val customer = customerService.findCustomerByCpf(orderDetail.customerCpf)

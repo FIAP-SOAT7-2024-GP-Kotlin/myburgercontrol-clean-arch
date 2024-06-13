@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.business.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.soat7.myburguercontrol.business.enum.PaymentStatus
 import io.github.soat7.myburguercontrol.business.exception.ReasonCode
 import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
@@ -7,16 +8,15 @@ import io.github.soat7.myburguercontrol.business.model.Order
 import io.github.soat7.myburguercontrol.business.model.Payment
 import io.github.soat7.myburguercontrol.business.repository.PaymentIntegrationRepository
 import io.github.soat7.myburguercontrol.business.repository.PaymentRepository
-import mu.KLogging
 import org.springframework.stereotype.Service
+
+private val logger = KotlinLogging.logger {}
 
 @Service
 class PaymentService(
     private val paymentIntegrationRepository: PaymentIntegrationRepository,
     private val paymentRepository: PaymentRepository
 ) {
-
-    private companion object : KLogging()
 
     fun createPayment(): Payment {
         logger.info { "Creating payment" }
