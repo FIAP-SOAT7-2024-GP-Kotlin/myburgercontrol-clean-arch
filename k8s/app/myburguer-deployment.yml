@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: myburguer
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -25,17 +25,4 @@ spec:
           envFrom:
             - configMapRef:
                 name: myburguer-config
-          livenessProbe:
-            httpGet:
-              port: 8080
-              path: /actuator/health/liveness
-            initialDelaySeconds: 20
-            periodSeconds: 10
-            failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              port: 8080
-              path: /actuator/health/readiness
-            initialDelaySeconds: 20
-            periodSeconds: 10
-            failureThreshold: 5
+
