@@ -31,6 +31,7 @@ class SecurityConfiguration(
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/webjars/**",
+                        "/actuator/**",
                     )
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/users")
