@@ -27,4 +27,6 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: fiapmyburguer/myburgercontrol-clean-arch:latest
+        tags: |
+          fiapmyburguer/myburgercontrol-clean-arch:latest
+          fiapmyburguer/myburgercontrol-clean-arch:${{ steps.docker_tags.outputs.tags }}
