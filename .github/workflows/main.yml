@@ -28,5 +28,5 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
+          fiapmyburguer/myburgercontrol-clean-arch:${{ steps.meta.outputs.tags }}
           fiapmyburguer/myburgercontrol-clean-arch:latest
-          fiapmyburguer/myburgercontrol-clean-arch:tag
