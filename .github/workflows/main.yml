@@ -28,5 +28,5 @@ jobs:
         file: ./Dockerfile
         push: true
         tags:
-          FIAPPostech/Myburguer:${{github.run_number}}
-          FIAPPostech/Myburguer:latest
+          myburgercontrol/myburgercontrol-clean-arch:${{github.run_number}}
+          myburgercontrol/myburgercontrol-clean-arch:latest
