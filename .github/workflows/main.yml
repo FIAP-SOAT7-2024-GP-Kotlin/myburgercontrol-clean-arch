@@ -28,5 +28,5 @@ jobs:
         file: ./Dockerfile
         push: true
         tags:
-          ${{ secrets.DOCKERHUB_USERNAME }}/Myburguer:${{github.run_number}}
-          ${{ secrets.DOCKERHUB_USERNAME }}/Myburguer:latest
+          ${{ secrets.DOCKERHUB_USER }}/Myburguer:${{github.run_number}}
+          ${{ secrets.DOCKERHUB_USER }}/Myburguer:latest
