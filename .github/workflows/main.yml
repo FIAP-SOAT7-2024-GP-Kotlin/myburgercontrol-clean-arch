@@ -27,6 +27,4 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags:
-          myburgercontrol/myburgercontrol-clean-arch:${{github.run_number}}
-          myburgercontrol/myburgercontrol-clean-arch:latest
+        tags: myburgercontrol/myburgercontrol:latest
