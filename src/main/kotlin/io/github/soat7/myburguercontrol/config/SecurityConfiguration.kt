@@ -25,13 +25,13 @@ class SecurityConfiguration(
             .authorizeHttpRequests {
                 it
                     .requestMatchers(
-                        "/api/v1/auth",
-                        "/api/v1/auth/refresh",
-                        "/api/v1/error",
-                        "/api/v1/swagger-ui/**",
-                        "/api/v1/v3/api-docs/**",
-                        "/api/v1/webjars/**",
-                        "/api/v1/actuator/**",
+                        "/auth",
+                        "/auth/refresh",
+                        "/error",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/webjars/**",
+                        "/actuator/**",
                     )
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/users")
