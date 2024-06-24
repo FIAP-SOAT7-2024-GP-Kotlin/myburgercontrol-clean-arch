@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myburguer
+  name: myburger
 spec:
   selector:
     matchLabels:
-      app: myburguer
+      app: myburger
   replicas: 2
   template:
     metadata:
       labels:
-        app: myburguer
+        app: myburger
     spec:
       containers:
-        - name: myburguer
-          image: fiapmyburguer/myburgercontrol-clean-arch:latest
+        - name: myburger
+          image: fiapmyburger/myburgercontrol-clean-arch:latest
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -24,7 +24,7 @@ spec:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: myburguer-config
+                name: myburger-config
           livenessProbe:
             httpGet:
               port: 8080
