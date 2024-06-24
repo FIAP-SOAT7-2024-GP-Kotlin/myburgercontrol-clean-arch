@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
     - name: myburger
-      image: fiapmyburger/myburgercontrol-clean-arch:latest
+      image: fiapmyburguer/myburgercontrol-clean-arch:latest
       resources:
         limits:
           memory: "512Mi"
