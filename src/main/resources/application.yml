@@ -80,7 +80,8 @@ springdoc:
     tagsSorter: alpha
     operationsSorter: alpha
     writer-with-order-by-keys: true
-  path: /api/v1/swagger-ui/index.html
+  show-actuator: true
+  path: /swagger-ui/index.html
 
 logging:
   level:

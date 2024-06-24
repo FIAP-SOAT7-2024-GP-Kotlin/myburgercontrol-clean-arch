@@ -10,7 +10,4 @@ data:
   DATABASE_PASSWORD: "password"
   JWT_KEY: "lkjhaskljdajkdlsfjklsdgjklssdljkgff"
   WIREMOCK_URL: "http://wiremock:8080/mercadopago/pagamento"
-  POSTGRES_USER: "my_burger"
-  POSTGRES_PASSWORD: "password"
-  POSTGRES_DB: "my_burger"
   LOG_LEVEL: "DEBUG"
