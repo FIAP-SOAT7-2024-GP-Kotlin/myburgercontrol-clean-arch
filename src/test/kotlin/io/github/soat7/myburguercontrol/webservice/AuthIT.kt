@@ -28,11 +28,9 @@ class AuthIT : BaseIntegrationTest() {
 
         val response = restTemplate.postForEntity<String>("/auth", inputAuthData)
 
-        assertAll(
-            Executable { assertTrue(response.statusCode.is2xxSuccessful) },
-            Executable { assertNotNull(response.body) },
-            Executable { assertTrue(response.body!!.contains("accessToken")) },
-        )
+        assertTrue(response.statusCode.is2xxSuccessful)
+        assertNotNull(response.body)
+        assertTrue(response.body!!.contains("access_token"))
     }
 
     @Test
