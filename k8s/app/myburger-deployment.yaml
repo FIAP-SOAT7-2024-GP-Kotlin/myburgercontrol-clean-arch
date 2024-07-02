@@ -15,11 +15,14 @@ spec:
       containers:
         - name: myburger
           image: fiapmyburguer/myburgercontrol-clean-arch:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "1000m"
+              memory: "1000Mi"
+              cpu: "50m"
+            requests:
+                memory: "512Mi"
+                cpu: "50m"
           ports:
             - containerPort: 8080
           envFrom:
