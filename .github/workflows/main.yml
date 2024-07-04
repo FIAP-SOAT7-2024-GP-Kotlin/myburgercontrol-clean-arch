@@ -22,7 +22,7 @@ jobs:
         distribution: 'adopt'
 
     - name: Build with Gradle
-      run: ./gradlew build --info --stacktrace --warning-mode all
+      run: ./gradlew clean build --no-daemon
 
     - name: Upload test results
       if: failure()
