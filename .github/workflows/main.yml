@@ -33,7 +33,7 @@ jobs:
 
     - name: Wait for services to be up
       run: |
-        sleep 30
+        sleep 90
 
     - name: Run build
       run: ./gradlew clean build --no-daemon -x test    
