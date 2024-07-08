@@ -43,7 +43,17 @@ jobs:
         docker ps -a
         
     - name: Run tests
-      run: ./gradlew test
+      run: ./gradlew test --info --stacktrace
+
+    - name: Upload Test Results
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-reports
+        path: build/reports/tests/test
+
+    - name: Stop Docker Compose
+      run: docker-compose down
 
     - name: Authentication Docker Hub [MyBurguer ≡]
       uses: docker/login-action@v3.2.0
