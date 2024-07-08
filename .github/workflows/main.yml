@@ -28,20 +28,20 @@ jobs:
         build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
         build-scan-terms-of-use-agree: "yes"
 
+    - name: Run build
+      run: ./gradlew clean build --no-daemon -x test    
+
     - name: Start Docker Compose
       run: docker-compose up -d
 
     - name: Wait for services to be up
       run: |
-        sleep 120
+        sleep 100
 
     - name: Wait for services to be up
       run: |
         docker ps -a
-
-    - name: Run build
-      run: ./gradlew clean build --no-daemon -x test    
-
+        
     - name: Run tests
       run: ./gradlew test
 
