@@ -27,6 +27,7 @@ class SecurityConfiguration(
                     .requestMatchers(
                         "/auth",
                         "/auth/refresh",
+                        "/webhook",
                         "/error",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
