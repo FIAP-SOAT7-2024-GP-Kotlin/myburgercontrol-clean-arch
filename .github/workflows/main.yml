@@ -35,6 +35,10 @@ jobs:
       run: |
         sleep 120
 
+    - name: Wait for services to be up
+      run: |
+        docker ps -a
+
     - name: Run build
       run: ./gradlew clean build --no-daemon -x test    
 
