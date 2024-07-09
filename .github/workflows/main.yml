@@ -30,17 +30,6 @@ jobs:
 
     - name: Run build
       run: ./gradlew clean build --no-daemon -x test
-
-    - name: Start Docker Compose
-      run: docker-compose up -d
-
-    - name: Wait for services to be up
-      run: |
-        sleep 100
-
-    - name: Show services 
-      run: |
-        docker ps -a
         
     - name: Run tests
       run: ./gradlew test --info --stacktrace
