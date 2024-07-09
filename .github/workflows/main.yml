@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: CI [MyBurguer ≡]
 
 on:
   push:
@@ -21,28 +21,25 @@ jobs:
         distribution: 'temurin'
         java-version: 21
 
-    - name: Setup Gradle
+    - name: Setup Gradle [MyBurguer ≡]
       uses: gradle/actions/setup-gradle@v3
       with:
         build-scan-publish: true
         build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
         build-scan-terms-of-use-agree: "yes"
 
-    - name: Run build
+    - name: Run build [MyBurguer ≡]
       run: ./gradlew clean build --no-daemon -x test
         
-    - name: Run tests
+    - name: Run tests [MyBurguer ≡]
       run: ./gradlew test --info --stacktrace
 
-    - name: Upload Test Results
+    - name: Upload Test Results [MyBurguer ≡]
       if: failure()
       uses: actions/upload-artifact@v2
       with:
         name: test-reports
         path: build/reports/tests/test
-
-    - name: Stop Docker Compose
-      run: docker-compose down
 
     - name: Authentication Docker Hub [MyBurguer ≡]
       uses: docker/login-action@v3.2.0
