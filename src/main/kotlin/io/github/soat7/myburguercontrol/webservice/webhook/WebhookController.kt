@@ -1,6 +1,8 @@
 package io.github.soat7.myburguercontrol.webservice.webhook
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.soat7.myburguercontrol.business.service.WebhookService
+import io.github.soat7.myburguercontrol.webservice.webhook.api.WebhookEvent
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType
@@ -21,7 +23,9 @@ private val logger = KotlinLogging.logger {}
 )
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
-class WebhookController {
+class WebhookController (
+    private val webhookService: WebhookService,
+){
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -29,12 +33,9 @@ class WebhookController {
         summary = "Rota utilizada para receber atualizações de pagamento",
         description = "Rota utilizada para receber atualizações de pagamento",
     )
-    fun receiveNotification(@RequestHeader headers: Map<String, String>, @RequestBody body: String): ResponseEntity<String> = run {
-        logger.debug { "\nRecebeu notificação" }
-        println("\nHeaders")
-        headers.forEach { (key, value) -> logger.debug { "$key: $value" } }
-        println("\nBody")
-        logger.debug { body }
+    fun receiveNotification(@RequestHeader header: Map<String, String>, @RequestBody body: WebhookEvent): ResponseEntity<String> = run {
+        logger.debug { "\nRecebeu notificação\nHeader:\n$header\nBody:\n$body" }
+        webhookService.processEvent(header, body)
         ResponseEntity.ok("OK")
     }
 }
