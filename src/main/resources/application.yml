@@ -69,7 +69,7 @@ spring:
 
 third-party:
   payment-integration:
-    url: ${WIREMOCK_URL}
+    url: ${PAYMENT_INTEGRATION_URL}
     connectionTimeout: 5000
     readTimeout: 5000
 

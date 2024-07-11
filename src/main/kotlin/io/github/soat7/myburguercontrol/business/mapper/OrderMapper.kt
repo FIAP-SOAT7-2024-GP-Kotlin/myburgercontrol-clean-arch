@@ -95,8 +95,6 @@ fun Order.toPaymentRequest() = PaymentIntegrationRequest(
 )
 
 fun OrderItem.toPaymentRequestItem(totalAmount: BigDecimal) = Item(
-    skuNumber = this.id.toString(),
-    category = "",
     title = this.product.name,
     description = this.product.description,
     unitPrice = this.product.price,

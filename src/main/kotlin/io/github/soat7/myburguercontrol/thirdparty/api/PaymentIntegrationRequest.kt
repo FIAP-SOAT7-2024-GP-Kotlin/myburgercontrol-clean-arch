@@ -11,8 +11,6 @@ data class PaymentIntegrationRequest(
     val externalReference: String,
     val items: List<Item>,
     val notificationUrl: String = "",
-    val sponsor: Sponsor = Sponsor(),
-    val tittle: String = "",
     val totalAmount: BigDecimal,
 )
 
@@ -23,17 +21,10 @@ data class CashOut(
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class Item(
-    val skuNumber: String,
-    val category: String,
     val title: String,
     val description: String,
     val unitPrice: BigDecimal,
     val quantity: Int,
     val unitMeasure: String,
     val totalAmount: BigDecimal,
-)
-
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class Sponsor(
-    val id: BigDecimal = BigDecimal(10),
 )

@@ -31,7 +31,7 @@ class OrderServiceTest {
     private val customerService = mockk<CustomerService>()
     private val productService = mockk<ProductService>()
     private val paymentService = mockk<PaymentService>()
-    private val service = OrderService(repository, customerService, productService, paymentService)
+    private val service = OrderService(repository, customerService, productService)
 
     @BeforeTest
     fun setUp() {
@@ -52,10 +52,6 @@ class OrderServiceTest {
             (this.firstArg() as OrderModel).copy(id = UUID.randomUUID())
         }
         every { productService.findById(any()) } returns product
-        every {
-            paymentService.requestPayment(any())
-        } returns payment
-        every { paymentService.createPayment() } returns payment
         every { repository.update(any<OrderModel>()) } answers {
             (this.firstArg() as OrderModel).copy(id = UUID.randomUUID())
         }
@@ -65,8 +61,6 @@ class OrderServiceTest {
         verify(exactly = 1) { customerService.findCustomerByCpf(any()) }
         verify(exactly = 2) { repository.update(any()) }
         verify(exactly = 1) { repository.create(any()) }
-        verify(exactly = 1) { paymentService.createPayment() }
-        verify(exactly = 1) { paymentService.requestPayment(any()) }
 
         assertNotNull(order.id)
         assertEquals(cpf, order.customer.cpf)
