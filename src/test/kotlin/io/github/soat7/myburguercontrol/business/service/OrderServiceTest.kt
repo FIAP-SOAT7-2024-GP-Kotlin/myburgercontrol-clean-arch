@@ -4,7 +4,6 @@ import io.github.soat7.myburguercontrol.business.enum.OrderStatus
 import io.github.soat7.myburguercontrol.business.repository.OrderRepository
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
 import io.github.soat7.myburguercontrol.fixtures.OrderDetailFixtures
-import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockPayment
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
 import io.github.soat7.myburguercontrol.util.toBigDecimal
 import io.mockk.clearMocks
@@ -30,7 +29,6 @@ class OrderServiceTest {
     private val repository = mockk<OrderRepository>()
     private val customerService = mockk<CustomerService>()
     private val productService = mockk<ProductService>()
-    private val paymentService = mockk<PaymentService>()
     private val service = OrderService(repository, customerService, productService)
 
     @BeforeTest
@@ -45,7 +43,6 @@ class OrderServiceTest {
         val cpf = "23282711034"
         val customer = mockDomainCustomer(cpf = cpf)
         val product = ProductFixtures.mockDomainProduct()
-        val payment = mockPayment()
 
         every { customerService.findCustomerByCpf(cpf) } returns customer
         every { repository.create(any<OrderModel>()) } answers {

@@ -70,6 +70,7 @@ spring:
 third-party:
   payment-integration:
     url: ${PAYMENT_INTEGRATION_URL}
+    auth-token: ${PAYMENT_INTEGRATION_AUTH_TOKEN}
     connectionTimeout: 5000
     readTimeout: 5000
 

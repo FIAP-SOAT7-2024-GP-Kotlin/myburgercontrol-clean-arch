@@ -8,6 +8,10 @@ import io.github.soat7.myburguercontrol.business.model.Order
 import io.github.soat7.myburguercontrol.business.repository.PaymentIntegrationRepository
 import io.github.soat7.myburguercontrol.thirdparty.api.QRCodeData
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClientResponseException
 import org.springframework.web.client.RestTemplate
@@ -17,14 +21,21 @@ private val logger = KotlinLogging.logger {}
 @Component
 class PaymentIntegrationClient(
     @Value("\${third-party.payment-integration.url}") private val paymentServiceUrl: String,
+    @Value("\${third-party.payment-integration. auth-token}") private val authToken: String,
     private val paymentRestTemplate: RestTemplate,
 ) : PaymentIntegrationRepository {
 
     override fun requestQRCodeDataForPayment(order: Order): QRCodeData {
         try {
-            val response = paymentRestTemplate.postForEntity(
+            val headers = HttpHeaders().apply {
+                contentType = MediaType.APPLICATION_JSON
+                add("Authorization", authToken)
+            }
+
+            val response = paymentRestTemplate.exchange(
                 paymentServiceUrl,
-                order.toPaymentRequest(),
+                HttpMethod.POST,
+                HttpEntity(order.toPaymentRequest(), headers),
                 QRCodeData::class.java,
             )
 
