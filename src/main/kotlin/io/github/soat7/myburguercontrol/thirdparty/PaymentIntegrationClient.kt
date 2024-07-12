@@ -21,7 +21,7 @@ private val logger = KotlinLogging.logger {}
 @Component
 class PaymentIntegrationClient(
     @Value("\${third-party.payment-integration.url}") private val paymentServiceUrl: String,
-    @Value("\${third-party.payment-integration. auth-token}") private val authToken: String,
+    @Value("\${third-party.payment-integration.auth-token}") private val authToken: String,
     private val paymentRestTemplate: RestTemplate,
 ) : PaymentIntegrationRepository {
 
@@ -32,12 +32,16 @@ class PaymentIntegrationClient(
                 add("Authorization", authToken)
             }
 
+            val orderToRequest = order.toPaymentRequest()
+
+            logger.info { "Requesting PaymentData with [payload: $orderToRequest]" }
+
             val response = paymentRestTemplate.exchange(
                 paymentServiceUrl,
                 HttpMethod.POST,
-                HttpEntity(order.toPaymentRequest(), headers),
+                HttpEntity(orderToRequest, headers),
                 QRCodeData::class.java,
-            )
+            ).also { logger.info { "Received response ${it.body}" } }
 
             if (response.statusCode.is2xxSuccessful) {
                 response.body?.let {

@@ -9,7 +9,6 @@ import io.github.soat7.myburguercontrol.database.order.entity.OrderEntity
 import io.github.soat7.myburguercontrol.database.order.entity.OrderItemEntity
 import io.github.soat7.myburguercontrol.database.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.database.product.entity.ProductEntity
-import io.github.soat7.myburguercontrol.thirdparty.api.CashOut
 import io.github.soat7.myburguercontrol.thirdparty.api.Item
 import io.github.soat7.myburguercontrol.thirdparty.api.PaymentIntegrationRequest
 import io.github.soat7.myburguercontrol.webservice.order.api.request.OrderCreationRequest
@@ -87,7 +86,6 @@ fun OrderItemEntity.toDomain() = OrderItem(
 )
 
 fun Order.toPaymentRequest() = PaymentIntegrationRequest(
-    cashOut = CashOut(this.total.toString()),
     description = "",
     externalReference = this.id.toString(),
     items = items.map { it.toPaymentRequestItem(this.total) },

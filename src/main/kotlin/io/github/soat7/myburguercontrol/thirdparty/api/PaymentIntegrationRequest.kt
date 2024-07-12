@@ -6,17 +6,12 @@ import java.math.BigDecimal
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class PaymentIntegrationRequest(
-    val cashOut: CashOut,
     val description: String,
     val externalReference: String,
     val items: List<Item>,
-    val notificationUrl: String = "",
+    val notificationUrl: String = "https://www.yourserver.com/notifications",
     val totalAmount: BigDecimal,
-)
-
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class CashOut(
-    val amount: String,
+    val title: String = "Oder",
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
