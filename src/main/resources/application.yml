@@ -79,3 +79,8 @@ jwt:
   key: ${JWT_KEY}
   access-token-expiration: 3600000
   refresh-token-expiration: 86400000
+
+mercadopago:
+  paymentURL: ${MERCADOPAGO_URL}
+  acessToken: ${MP_ACCESS_TOKEN}
+  webhookKey: ${MP_WEBHOOK_KEY}

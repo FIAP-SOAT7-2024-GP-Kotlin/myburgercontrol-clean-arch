@@ -9,6 +9,7 @@ import io.github.soat7.myburguercontrol.business.model.Payment
 import io.github.soat7.myburguercontrol.business.repository.PaymentIntegrationRepository
 import io.github.soat7.myburguercontrol.business.repository.PaymentRepository
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 private val logger = KotlinLogging.logger {}
 
@@ -40,6 +41,25 @@ class PaymentService(
         paymentRepository.update(updatedPayment)
 
         logger.info { "Successfully integrated with status return: [${updatedPayment.status.name}]" }
+
+        if (updatedPayment.status == PaymentStatus.DENIED) throw ReasonCodeException(ReasonCode.PAYMENT_INTEGRATION_ERROR)
+
+        return updatedPayment
+    }
+
+    fun updatePayment(paymentId: String, paymentStatus: PaymentStatus): Payment {
+        logger.info { "Update payment: $paymentId status: $paymentStatus" }
+
+        val payment = paymentId.let {
+            paymentRepository.findById(UUID.fromString(paymentId))
+        } ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
+
+        val updatedPayment = payment.copy(
+            status = paymentStatus,
+        )
+        paymentRepository.update(updatedPayment)
+
+        logger.info { "Successfully update with status return: [${updatedPayment.status.name}]" }
 
         if (updatedPayment.status == PaymentStatus.DENIED) throw ReasonCodeException(ReasonCode.PAYMENT_INTEGRATION_ERROR)
 

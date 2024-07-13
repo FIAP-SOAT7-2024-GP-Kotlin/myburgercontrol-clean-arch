@@ -23,9 +23,9 @@ private val logger = KotlinLogging.logger {}
 )
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
-class WebhookController (
+class WebhookController(
     private val webhookService: WebhookService,
-){
+) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
