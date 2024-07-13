@@ -57,12 +57,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.testcontainers:testcontainers-bom:$testContainerVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    implementation("io.github.oshai:kotlin-logging-jvm:6.+")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")

@@ -21,7 +21,6 @@ class OrderService(
     private val orderRepository: OrderRepository,
     private val customerService: CustomerService,
     private val productService: ProductService,
-    private val paymentService: PaymentService,
 ) {
 
     fun createOrder(orderDetail: OrderDetail): Order {
@@ -31,8 +30,6 @@ class OrderService(
         val items = buildOrderItems(orderDetail)
 
         val order = setupOrder(customer, items)
-
-        paymentService.requestPayment(order)
 
         return orderRepository.update(order.copy(status = OrderStatus.RECEIVED))
     }
@@ -83,8 +80,6 @@ class OrderService(
             ),
         )
 
-        val payment = paymentService.createPayment()
-
-        return orderRepository.update(order.copy(payment = payment))
+        return orderRepository.update(order.copy())
     }
 }

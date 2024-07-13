@@ -5,4 +5,4 @@ metadata:
   labels:
     app: postgres-config
 data:
-  POSTGRES_PASSWORD: a
+  POSTGRES_PASSWORD: "password"
