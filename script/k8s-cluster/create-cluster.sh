@@ -8,7 +8,7 @@ doctl vpcs list
 
 # Create K8S Cluster - soat7myburger-k8s
 echo "Creating K8s Cluster on $PROJECT_NAME-vpc"
-doctl kubernetes cluster create $PROJECT_NAME-k8s --node-pool "name=$PROJECT_NAME-node-pool;size=s-2vcpu-2gb;count=1;auto-scale=true;min-nodes=1;max-nodes=2" --region nyc3 --vpc-uuid eb696938-4f6a-46e6-9bae-3e0f63f94fee
+doctl kubernetes cluster create $PROJECT_NAME-k8s --node-pool "name=$PROJECT_NAME-node-pool;size=s-2vcpu-4gb;count=1;auto-scale=true;min-nodes=1;max-nodes=3" --region nyc3 --vpc-uuid eb696938-4f6a-46e6-9bae-3e0f63f94fee
 
 # List K8S Clusteres
 # doctl kubernetes cluster list
