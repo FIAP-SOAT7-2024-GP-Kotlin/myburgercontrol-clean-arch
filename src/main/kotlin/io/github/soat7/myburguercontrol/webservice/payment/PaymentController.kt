@@ -39,14 +39,14 @@ class PaymentController(
         return ResponseEntity.ok(paymentService.startPaymentRequest(orderID.id))
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/order/{id}")
     @Operation(
         tags = ["Jornada de Pagamento"],
         summary = "Utilize esta rota consultar o status de um pagamento",
         description = "Essa rota consulta o status do pagamento de uma ordem e retorna seu valor",
     )
-    fun getPaymentStatus(@PathVariable("id") paymentId: UUID): ResponseEntity<PaymentStatusResponse> = run {
-        paymentService.getPaymentStatus(paymentId)?.let {
+    fun getPaymentStatus(@PathVariable("id") orderID: UUID): ResponseEntity<PaymentStatusResponse> = run {
+        paymentService.getPaymentStatus(orderID)?.let {
             ResponseEntity.ok().body(it.toPaymentStatusResponse())
         } ?: ResponseEntity.notFound().build()
     }

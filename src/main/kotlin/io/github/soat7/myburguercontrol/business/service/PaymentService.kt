@@ -34,8 +34,11 @@ class PaymentService(
         return paymentRepository.create(Payment())
     }
 
-    fun getPaymentStatus(paymentId: UUID): Payment? {
+    fun getPaymentStatus(orderId: UUID): Payment? {
         logger.info { "Getting PaymentStatus" }
+
+        val paymentId = orderRepository.findById(orderId)?.payment?.id ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
+
 
         return paymentRepository.findById(paymentId)
     }
