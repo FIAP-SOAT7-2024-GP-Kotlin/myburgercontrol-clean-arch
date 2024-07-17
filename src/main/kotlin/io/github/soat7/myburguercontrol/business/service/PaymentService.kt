@@ -33,4 +33,10 @@ class PaymentService(
 
         return paymentRepository.create(Payment())
     }
+
+    fun getPaymentStatus(paymentId: UUID): Payment? {
+        logger.info { "Getting PaymentStatus" }
+
+        return paymentRepository.findById(paymentId)
+    }
 }
