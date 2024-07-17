@@ -5,6 +5,14 @@ metadata:
   labels:
     app: myburger-config
 data:
+  JAVA_OPTS: >-
+    -server
+    -XX:+UseContainerSupport
+    -XX:+UseParallelGC
+    -XX:MaxRAMPercentage=70.0
+    -XX:ActiveProcessorCount=1600
+    -XX:+CrashOnOutOfMemoryError
+    -Xlog:gc
   DATABASE_URL: "postgresql://postgres:5432/my_burger"
   DATABASE_USER: "my_burger"
   DATABASE_PASSWORD: "password"
