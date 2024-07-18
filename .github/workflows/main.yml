@@ -60,6 +60,6 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
-          fiapmyburguer/myburgercontrol-clean-arch:$GITHUB_WORKFLOW_SHA
+          fiapmyburguer/myburgercontrol-clean-arch:${{GITHUB_WORKFLOW_SHA}}
           fiapmyburguer/myburgercontrol-clean-arch:latest
   
