@@ -87,16 +87,16 @@ fun OrderItemEntity.toDomain() = OrderItem(
 
 fun Order.toPaymentRequest() = PaymentIntegrationRequest(
     description = "",
-    externalReference = this.id.toString(),
-    items = items.map { it.toPaymentRequestItem(this.total) },
+    externalReference = this.payment?.id.toString(),
+    items = items.map { it.toPaymentRequestItem() },
     totalAmount = this.total,
 )
 
-fun OrderItem.toPaymentRequestItem(totalAmount: BigDecimal) = Item(
+fun OrderItem.toPaymentRequestItem() = Item(
     title = this.product.name,
     description = this.product.description,
     unitPrice = this.product.price,
     quantity = this.quantity,
     unitMeasure = "Unit",
-    totalAmount = totalAmount,
+    totalAmount = this.product.price.multiply(this.quantity.toBigDecimal()),
 )

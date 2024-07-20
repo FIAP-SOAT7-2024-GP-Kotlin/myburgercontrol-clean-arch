@@ -30,7 +30,7 @@ class PaymentService(
         )
         orderRepository.update(orderUpdated)
 
-        return paymentIntegrationRepository.requestQRCodeDataForPayment(order)
+        return paymentIntegrationRepository.requestQRCodeDataForPayment(orderUpdated)
     }
 
     private fun createPayment(): Payment {
