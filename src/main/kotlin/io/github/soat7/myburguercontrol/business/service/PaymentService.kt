@@ -24,7 +24,11 @@ class PaymentService(
     fun startPaymentRequest(orderId: UUID): QRCodeData {
         val order = orderRepository.findById(orderId) ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
 
-        createPayment()
+        val payment = createPayment()
+        val orderUpdated = order.copy(
+            payment = payment,
+        )
+        orderRepository.update(orderUpdated)
 
         return paymentIntegrationRepository.requestQRCodeDataForPayment(order)
     }
