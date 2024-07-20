@@ -9,7 +9,7 @@ data class PaymentIntegrationRequest(
     val description: String,
     val externalReference: String,
     val items: List<Item>,
-    val notificationUrl: String = "https://www.yourserver.com/notifications",
+    val notificationUrl: String = "https://concise-humble-mosquito.ngrok-free.app/api/v1/webhook",
     val totalAmount: BigDecimal,
     val title: String = "Oder",
 )

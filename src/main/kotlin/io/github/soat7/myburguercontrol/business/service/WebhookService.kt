@@ -9,6 +9,7 @@ import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
 import io.github.soat7.myburguercontrol.webservice.webhook.api.MercadoPagoPaymentResponse
 import io.github.soat7.myburguercontrol.webservice.webhook.api.WebhookEvent
 import org.apache.commons.codec.digest.HmacUtils
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -19,11 +20,17 @@ private val logger: KLogger = KotlinLogging.logger {}
 
 @Service
 class WebhookService(
+    @Value("\${mercadopago.paymentURL}")
+    private val baseURL: String,
+
+    @Value("\${mercadopago.webhookKey}")
+    private val wbSecretKey: String,
+
+    @Value("\${mercadopago.acessToken")
+    private val mpAccessToken: String,
+
     private val paymentService: PaymentService,
 ) {
-    private val baseURL: String = "\${mercadopago.paymentURL}"
-    private val wbSecretKey = "\${mercadopago.webhookKey}"
-    private val mpAccessToken = "\${mercadopago.acessToken}"
 
     fun processEvent(headerEvent: Map<String, String>, bodyEvent: WebhookEvent): Boolean {
         val validatedEvent: Boolean?
@@ -36,7 +43,11 @@ class WebhookService(
             throw ReasonCodeException(ReasonCode.UNEXPECTED_ERROR, ex)
         }
 
-        if (validatedEvent) {
+        if (!validatedEvent) {
+            return false
+        }
+
+        if (bodyEvent.action == "payment.updated") {
             val mercadoPagoPayment = getPaymentDetail(bodyEvent.data.id)
             paymentService.updatePayment(
                 mercadoPagoPayment.externalReference.toString(),
