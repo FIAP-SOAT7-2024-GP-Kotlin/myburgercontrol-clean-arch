@@ -39,7 +39,7 @@ class PaymentService(
         return paymentRepository.create(Payment())
     }
 
-    fun updatePayment(paymentId: String, paymentStatus: PaymentStatus): Payment {
+    fun updatePayment(paymentId: String, paymentStatus: String): Payment {
         logger.info { "Update payment: $paymentId status: $paymentStatus" }
 
         val payment = paymentId.let {
@@ -47,7 +47,7 @@ class PaymentService(
         } ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
 
         val updatedPayment = payment.copy(
-            status = paymentStatus,
+            status = PaymentStatus.fromString(paymentStatus),
         )
         paymentRepository.update(updatedPayment)
 

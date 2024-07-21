@@ -20,8 +20,15 @@ private val logger = KotlinLogging.logger {}
 
 @Component
 class PaymentIntegrationClient(
-    @Value("\${third-party.payment-integration.url}") private val paymentServiceUrl: String,
-    @Value("\${third-party.payment-integration.auth-token}") private val authToken: String,
+    @Value("\${third-party.payment-integration.url}")
+    private val paymentServiceUrl: String,
+
+    @Value("\${third-party.payment-integration.auth-token}")
+    private val authToken: String,
+
+    @Value("\${mercadopago.notificationUrl}")
+    private val notificationUrl: String,
+
     private val paymentRestTemplate: RestTemplate,
 ) : PaymentIntegrationRepository {
 
@@ -32,7 +39,7 @@ class PaymentIntegrationClient(
                 add("Authorization", authToken)
             }
 
-            val orderToRequest = order.toPaymentRequest()
+            val orderToRequest = order.toPaymentRequest(notificationUrl)
 
             logger.info { "Requesting PaymentData with [payload: $orderToRequest]" }
 

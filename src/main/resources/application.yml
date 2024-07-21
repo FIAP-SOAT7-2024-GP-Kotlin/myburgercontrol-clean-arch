@@ -100,6 +100,8 @@ jwt:
   refresh-token-expiration: 86400000
 
 mercadopago:
-  paymentURL: ${MERCADOPAGO_URL}
+  paymentURL: ${MP_PAYMENT_URL}
+  merchantURL: ${MP_MERCHANT_URL}
   acessToken: ${MP_ACCESS_TOKEN}
   webhookKey: ${MP_WEBHOOK_KEY}
+  notificationUrl: ${MP_NOTIFICATION_URL}

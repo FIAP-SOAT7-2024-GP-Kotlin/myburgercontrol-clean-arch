@@ -14,7 +14,6 @@ import io.github.soat7.myburguercontrol.thirdparty.api.PaymentIntegrationRequest
 import io.github.soat7.myburguercontrol.webservice.order.api.request.OrderCreationRequest
 import io.github.soat7.myburguercontrol.webservice.order.api.response.OrderItemResponse
 import io.github.soat7.myburguercontrol.webservice.order.api.response.OrderResponse
-import java.math.BigDecimal
 import java.util.UUID
 
 fun OrderCreationRequest.toOrderDetails() = OrderDetail(
@@ -85,11 +84,12 @@ fun OrderItemEntity.toDomain() = OrderItem(
     comment = this.comment,
 )
 
-fun Order.toPaymentRequest() = PaymentIntegrationRequest(
+fun Order.toPaymentRequest(notificationUrl: String) = PaymentIntegrationRequest(
     description = "",
     externalReference = this.payment?.id.toString(),
     items = items.map { it.toPaymentRequestItem() },
     totalAmount = this.total,
+    notificationUrl = notificationUrl,
 )
 
 fun OrderItem.toPaymentRequestItem() = Item(

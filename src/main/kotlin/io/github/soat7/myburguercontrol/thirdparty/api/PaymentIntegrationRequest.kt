@@ -9,9 +9,9 @@ data class PaymentIntegrationRequest(
     val description: String,
     val externalReference: String,
     val items: List<Item>,
-    val notificationUrl: String = "https://concise-humble-mosquito.ngrok-free.app/api/v1/webhook",
+    val notificationUrl: String,
     val totalAmount: BigDecimal,
-    val title: String = "Oder",
+    val title: String = "Order",
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
