@@ -46,8 +46,12 @@ class OrderService(
     }
 
     fun findQueuedOrders(pageable: Pageable): Page<Order> {
-        logger.info { "Finding orders with status: [${OrderStatus.NEW}]" }
+        logger.info { "Finding orders queue" }
         return orderRepository.findNewOrders(OrderStatus.NEW.name, pageable)
+    }
+    fun findAll(pageable: Pageable): Page<Order> {
+        logger.info { "Listing orders" }
+        return orderRepository.findAll(pageable)
     }
 
     fun changeOrderStatus(status: OrderStatus, orderId: UUID): Order {

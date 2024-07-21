@@ -11,4 +11,5 @@ interface OrderRepository {
     fun findNewOrders(status: String, pageable: Pageable): Page<Order>
     fun update(order: Order): Order
     fun findById(orderId: UUID): Order?
+    fun findAll(pageable: Pageable): Page<Order>
 }

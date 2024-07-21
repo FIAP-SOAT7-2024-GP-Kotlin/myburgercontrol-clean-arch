@@ -56,8 +56,8 @@ class OrderController(
     @GetMapping("/queue")
     @Operation(
         tags = ["2 - Jornada do Pedido"],
-        summary = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
-        description = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
+        summary = "Utilize esta rota para encontrar a fila de novos pedidos",
+        description = "Utilize esta rota para encontrar a fila de novos pedidos",
     )
     fun findOrderQueue(
         @RequestParam(defaultValue = "0") page: Int,
@@ -65,6 +65,30 @@ class OrderController(
     ): ResponseEntity<PaginatedResponse<OrderResponse>> = run {
         val pageable = PageRequest.of(page, size)
         val response = service.findQueuedOrders(pageable)
+
+        ResponseEntity.ok(
+            PaginatedResponse(
+                content = response.content.map { it.toResponse() },
+                totalPages = response.totalPages,
+                totalElements = response.totalElements,
+                currentPage = response.number,
+                pageSize = response.size,
+            ),
+        )
+    }
+
+    @GetMapping("/list")
+    @Operation(
+        tags = ["2 - Jornada do Pedido"],
+        summary = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
+        description = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
+    )
+    fun findAll(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int,
+    ): ResponseEntity<PaginatedResponse<OrderResponse>> = run {
+        val pageable = PageRequest.of(page, size)
+        val response = service.findAll(pageable)
 
         ResponseEntity.ok(
             PaginatedResponse(
