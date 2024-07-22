@@ -9,12 +9,15 @@ import io.github.soat7.myburguercontrol.container.MockServerContainer
 import io.github.soat7.myburguercontrol.container.PostgresContainer
 import io.github.soat7.myburguercontrol.database.customer.entity.CustomerEntity
 import io.github.soat7.myburguercontrol.database.customer.repository.CustomerJpaRepository
+import io.github.soat7.myburguercontrol.database.order.entity.OrderEntity
 import io.github.soat7.myburguercontrol.database.order.repository.OrderJpaRepository
+import io.github.soat7.myburguercontrol.database.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.database.payment.repository.PaymentJpaRepository
 import io.github.soat7.myburguercontrol.database.product.entity.ProductEntity
 import io.github.soat7.myburguercontrol.database.product.repository.ProductJpaRepository
 import io.github.soat7.myburguercontrol.database.user.repository.UserJpaRepository
 import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
+import io.github.soat7.myburguercontrol.fixtures.OrderFixtures
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
 import io.github.soat7.myburguercontrol.fixtures.UserFixtures
 import io.github.soat7.myburguercontrol.webservice.auth.api.AuthResponse
@@ -66,6 +69,10 @@ class BaseIntegrationTest {
     fun setUpAuthentication() {
         println("Cleaning User database...")
         userJpaRepository.deleteAll()
+
+        println("Cleaning Order database...")
+        orderJpaRepository.deleteAll()
+
         authenticationHeader = buildAuthentication()
     }
 
@@ -105,5 +112,14 @@ class BaseIntegrationTest {
         header.add("Content-Type", MediaType.APPLICATION_JSON_VALUE)
 
         return header
+    }
+
+    protected fun saveOrder(
+        customer: CustomerEntity,
+        product: ProductEntity,
+        payment: PaymentEntity,
+        status: String? = null,
+    ): OrderEntity {
+        return orderJpaRepository.save(OrderFixtures.mockOrderEntity(customer, product, payment, status))
     }
 }

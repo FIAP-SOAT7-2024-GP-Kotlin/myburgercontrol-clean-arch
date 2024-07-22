@@ -37,10 +37,11 @@ object OrderFixtures {
         customerEntity: CustomerEntity,
         product: ProductEntity,
         paymentEntity: PaymentEntity,
+        status: String? = null,
     ) = OrderEntity(
         id = UUID.randomUUID(),
         customer = customerEntity,
-        status = OrderStatus.NEW.name,
+        status = status ?: OrderStatus.NEW.name,
         createdAt = Instant.now(),
         payment = paymentEntity,
     ).apply {
