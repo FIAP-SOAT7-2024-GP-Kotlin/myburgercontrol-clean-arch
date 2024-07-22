@@ -2,7 +2,7 @@
 
 ___
 
-## `myburgercontrol-monolith`
+## `myburgercontrol-clean-arch`
 
 Este projeto é um monolito para o curso de Software Architeture da turma 7SOAT na instituição FIAP no ano de 2024.
 ___
@@ -117,6 +117,14 @@ dados em execução e a implementação do JPA que consta no código fonte.
 
 Para acessar a interface gráfica do wiremock basta acessar o endereço abaixo:
 > http://localhost:9090/__admin/webapp/mappings
+
+## Infraestrutura de Cloud
+
+Nós optamos por usar a DigitalOcean. Sendo assim precismos subir um cluester Kubernetes (k8s) na cloud da DigitalOcean. Para tal vamos usar, nesse momento o `doctl` [CLI fornecido pela Digital Ocean](https://docs.digitalocean.com/reference/doctl/how-to/install/).
+
+Os scripts em `scripts/k8s-cluster` contém 2 shell scripts:
+- `create-cluster.sh` - que cria um cluster na Digital Ocean no projeto Myburger
+- `drop-cluster.sh` - que apaga o cluster. **Esse Script apaga TODOS OS RECURSOS associados ao cluster**
 
 ## Contatos
 

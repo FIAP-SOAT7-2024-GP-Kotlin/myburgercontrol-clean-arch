@@ -12,7 +12,7 @@ class MockServerContainer : BeforeAllCallback {
     companion object {
         private const val PORT = 1080
         private const val CONTAINER_NAME = "mock-server-test"
-        private const val VERSION = "5.13.2"
+        private const val VERSION = "5.15.0"
 
         val container: MockServerContainer = MockServerContainer(
             DockerImageName.parse("mockserver/mockserver:mockserver-$VERSION"),
