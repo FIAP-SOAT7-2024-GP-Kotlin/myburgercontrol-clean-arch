@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.config
 
 import io.github.soat7.myburguercontrol.domain.usecase.CustomUserDetailsUseCase
-import io.github.soat7.myburguercontrol.infrastructure.user.repository.UserJpaRepository
+import io.github.soat7.myburguercontrol.infrastructure.user.UserGateway
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class JwtConfiguration {
 
     @Bean
-    fun userDetailsService(userJpaRepository: UserJpaRepository): UserDetailsService =
-        CustomUserDetailsUseCase(userJpaRepository)
+    fun userDetailsService(userGateway: UserGateway): UserDetailsService =
+        CustomUserDetailsUseCase(userGateway)
 
     @Bean
     fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
@@ -27,11 +27,11 @@ class JwtConfiguration {
     @Bean
     fun authenticationProvider(
         userDetailsService: UserDetailsService,
-        userJpaRepository: UserJpaRepository,
+        userGateway: UserGateway,
     ): AuthenticationProvider =
         DaoAuthenticationProvider()
             .also {
-                it.setUserDetailsService(userDetailsService(userJpaRepository))
+                it.setUserDetailsService(userDetailsService(userGateway))
                 it.setPasswordEncoder(encoder())
             }
 
