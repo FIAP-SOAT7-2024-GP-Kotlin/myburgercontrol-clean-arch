@@ -42,7 +42,8 @@ jobs:
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
-        echo {{$GITHUB_WORKFLOW_SHA}}
+        echo $GITHUB_WORKFLOW_SHA
+        echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
         cat build/reports/jacoco/test/html/index.html
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
@@ -64,6 +65,6 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
-          fiapmyburguer/myburgercontrol-clean-arch:{{$GITHUB_WORKFLOW_SHA}}
+          fiapmyburguer/myburgercontrol-clean-arch:$GITHUB_WORKFLOW_SHA
           fiapmyburguer/myburgercontrol-clean-arch:latest
   
