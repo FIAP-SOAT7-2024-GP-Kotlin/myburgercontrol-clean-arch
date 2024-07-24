@@ -10,16 +10,14 @@ jobs:
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
+      
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: 21
         cache: 'gradle'
-        cache-dependency-path: |
-          sub-project/*.gradle*
-          sub-project/**/gradle-wrapper.properties
-
+        
     - name: Setup Gradle [MyBurguer ≡]
       uses: gradle/actions/setup-gradle@v3
       with:
