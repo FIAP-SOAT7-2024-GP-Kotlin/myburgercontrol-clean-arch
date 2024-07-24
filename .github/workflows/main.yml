@@ -40,8 +40,6 @@ jobs:
 
     - name: Update Coverage Badge
       uses: tj-actions/coverage-badge-py@v2.0.3
-      with:
-        working-directory: build/reports/jacoco/test/html/
 
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
