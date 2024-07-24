@@ -24,6 +24,10 @@ jobs:
         build-scan-publish: true
         build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
         build-scan-terms-of-use-agree: "yes"
+    
+    - name: Get current date [MyBurguer ≡]
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y%m%d')"
 
     - name: Run build [MyBurguer ≡]
       run: ./gradlew clean build --no-daemon -x test
@@ -33,10 +37,6 @@ jobs:
 
     - name: Generate JaCoCo Test Coverage Report [MyBurguer ≡]
       run: ./gradlew jacocoTestReport
-
-    - name: Get current date [MyBurguer ≡]
-      id: date
-      run: echo "::set-output name=date::$(date +'%Y%m%d')"
 
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
@@ -50,7 +50,7 @@ jobs:
         path: build/reports/jacoco/test/html/
 
     - name: Update Coverage Badge
-      uses: cicirello/jacoco-badge-generator@v2.11.0
+      uses: tj-actions/coverage-badge-py@v2.0.3
 
     - name: Authentication Docker Hub [MyBurguer ≡]
       uses: docker/login-action@v3.2.0
