@@ -43,7 +43,8 @@ jobs:
       run: |
         echo "Test Coverage Report:"
         echo $GITHUB_WORKFLOW_SHA
-        echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        echo $GITHUB_OUTPUT
         cat build/reports/jacoco/test/html/index.html
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
