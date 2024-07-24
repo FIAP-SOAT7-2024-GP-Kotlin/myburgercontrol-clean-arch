@@ -1,15 +1,11 @@
 package io.github.soat7.myburguercontrol.webservice.order
 
 import io.github.soat7.myburguercontrol.domain.enum.OrderStatus
-import io.github.soat7.myburguercontrol.domain.mapper.toOrderDetails
-import io.github.soat7.myburguercontrol.domain.mapper.toResponse
-import io.github.soat7.myburguercontrol.domain.usecase.OrderUseCase
 import io.github.soat7.myburguercontrol.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.webservice.order.api.request.OrderCreationRequest
 import io.github.soat7.myburguercontrol.webservice.order.api.response.OrderResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -29,7 +25,7 @@ import java.util.UUID
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
 class OrderController(
-    private val service: OrderUseCase,
+    private val orderHandler: OrderHandler,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
@@ -38,10 +34,7 @@ class OrderController(
         summary = "Utilize esta rota para criar um pedido",
         description = "Utilize esta rota para criar um pedido",
     )
-    fun create(@RequestBody request: OrderCreationRequest): ResponseEntity<OrderResponse> = run {
-        val response = service.createOrder(request.toOrderDetails())
-        ResponseEntity.ok(response.toResponse())
-    }
+    fun create(@RequestBody request: OrderCreationRequest): ResponseEntity<OrderResponse> = orderHandler.create(request)
 
     @GetMapping
     @Operation(
@@ -49,9 +42,8 @@ class OrderController(
         summary = "Utilize esta rota para encontrar o(s) pedido(s) por cpf de cliente",
         description = "Utilize esta rota para encontrar o(s) pedido(s) por cpf de cliente",
     )
-    fun findOrdersByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<List<OrderResponse>> = run {
-        ResponseEntity.ok(service.findOrdersByCustomerCpf(cpf).map { it.toResponse() })
-    }
+    fun findOrdersByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<List<OrderResponse>> =
+        orderHandler.findOrdersByCustomerCpf(cpf)
 
     @GetMapping("/queue")
     @Operation(
@@ -62,20 +54,7 @@ class OrderController(
     fun findOrderQueue(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-    ): ResponseEntity<PaginatedResponse<OrderResponse>> = run {
-        val pageable = PageRequest.of(page, size)
-        val response = service.findQueuedOrders(pageable)
-
-        ResponseEntity.ok(
-            PaginatedResponse(
-                content = response.content.map { it.toResponse() },
-                totalPages = response.totalPages,
-                totalElements = response.totalElements,
-                currentPage = response.number,
-                pageSize = response.size,
-            ),
-        )
-    }
+    ): ResponseEntity<PaginatedResponse<OrderResponse>> = orderHandler.findOrderQueue(page, size)
 
     @PostMapping("/received", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -85,9 +64,7 @@ class OrderController(
     )
     fun updateOrderStatusToReceived(
         @RequestBody orderID: UUID,
-    ) = run {
-        ResponseEntity.ok(service.changeOrderStatus(OrderStatus.RECEIVED, orderID))
-    }
+    ) = orderHandler.changeOrderStatus(OrderStatus.RECEIVED, orderID)
 
     @PostMapping("/in-progress", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -97,9 +74,7 @@ class OrderController(
     )
     fun updateOrderStatusToInProgress(
         @RequestBody orderID: UUID,
-    ) = run {
-        ResponseEntity.ok(service.changeOrderStatus(OrderStatus.IN_PROGRESS, orderID))
-    }
+    ) = orderHandler.changeOrderStatus(OrderStatus.IN_PROGRESS, orderID)
 
     @PostMapping("/ready", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -109,9 +84,7 @@ class OrderController(
     )
     fun updateOrderStatusToReady(
         @RequestBody orderID: UUID,
-    ) = run {
-        ResponseEntity.ok(service.changeOrderStatus(OrderStatus.READY, orderID))
-    }
+    ) = orderHandler.changeOrderStatus(OrderStatus.READY, orderID)
 
     @PostMapping("/finished", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -121,7 +94,5 @@ class OrderController(
     )
     fun updateOrderStatusToFinished(
         @RequestBody orderID: UUID,
-    ) = run {
-        ResponseEntity.ok(service.changeOrderStatus(OrderStatus.FINISHED, orderID))
-    }
+    ) = orderHandler.changeOrderStatus(OrderStatus.FINISHED, orderID)
 }
