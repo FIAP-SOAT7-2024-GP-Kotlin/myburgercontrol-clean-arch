@@ -41,19 +41,10 @@ jobs:
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
-        ls -la build/
-        ls -la build/jacoco/
-        ls -la build/test-results/
-        ls -la build/reports/
         cat build/reports/jacoco/test/html/index.html
     
     - name: Generate Jacoco Badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2
-      with:
-        badges-directory: badges
-        generate-branches-badge: true
-        jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.xml
+      uses: we-cli/coverage-badge-action@v1.0.1
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
       uses: actions/upload-artifact@v3
