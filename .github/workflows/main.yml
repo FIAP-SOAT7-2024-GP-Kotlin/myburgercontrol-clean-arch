@@ -1,13 +1,6 @@
 name: CI [MyBurguer ≡]
 
-on:
-  push:
-    branches: [ "feature/actions" ]
-  pull_request:
-    branches: [ "feature/actions" ]
-
-env:
-  GITHUB_WORKFLOW_SHA: $GITHUB_WORKFLOW_SHA
+on: [push, pull_request]
 
 jobs:
 
@@ -39,26 +32,13 @@ jobs:
     - name: Generate JaCoCo Test Coverage Report [MyBurguer ≡]
       run: ./gradlew jacocoTestReport
 
-    - name: Get current date
+    - name: Get current date [MyBurguer ≡]
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      
-    - name: Test with environment variables
-      run: echo $TAG_NAME - $RELEASE_NAME
-      env:
-        TAG_NAME: tag-${{ steps.date.outputs.date }}
-        RELEASE_NAME: release-${{ steps.date.outputs.date }}
-        
-    - name: Test with input
-      uses: actions/hello-world-docker-action@master
-      with:
-        who-to-greet: Mona-the-Octocat-${{ steps.date.outputs.date }}
+      run: echo "::set-output name=date::$(date +'%Y%m%d')"
 
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
-        echo $GITHUB_WORKFLOW_SHA
-        echo $TAG_NAME
         cat build/reports/jacoco/test/html/index.html
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
