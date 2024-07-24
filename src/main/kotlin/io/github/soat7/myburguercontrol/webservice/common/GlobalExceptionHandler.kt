@@ -2,8 +2,8 @@ package io.github.soat7.myburguercontrol.webservice.common
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.oshai.kotlinlogging.withLoggingContext
-import io.github.soat7.myburguercontrol.business.exception.ReasonCode
-import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.domain.exception.ReasonCode
+import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType

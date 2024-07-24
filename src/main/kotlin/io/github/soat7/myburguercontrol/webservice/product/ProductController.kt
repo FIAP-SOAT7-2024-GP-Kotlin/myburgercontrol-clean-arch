@@ -1,9 +1,9 @@
 package io.github.soat7.myburguercontrol.webservice.product
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.business.mapper.toDomain
-import io.github.soat7.myburguercontrol.business.mapper.toResponse
-import io.github.soat7.myburguercontrol.business.service.ProductService
+import io.github.soat7.myburguercontrol.domain.mapper.toDomain
+import io.github.soat7.myburguercontrol.domain.mapper.toResponse
+import io.github.soat7.myburguercontrol.domain.usecase.ProductUseCase
 import io.github.soat7.myburguercontrol.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.webservice.product.api.ProductCreationRequest
 import io.github.soat7.myburguercontrol.webservice.product.api.ProductResponse
@@ -33,7 +33,7 @@ private val logger = KotlinLogging.logger {}
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
 class ProductController(
-    private val service: ProductService,
+    private val service: ProductUseCase,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])

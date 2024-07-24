@@ -1,15 +1,15 @@
 package io.github.soat7.myburguercontrol.fixtures
 
-import io.github.soat7.myburguercontrol.business.enum.OrderStatus
-import io.github.soat7.myburguercontrol.business.model.Customer
-import io.github.soat7.myburguercontrol.business.model.Order
-import io.github.soat7.myburguercontrol.business.model.OrderItem
-import io.github.soat7.myburguercontrol.business.model.Payment
-import io.github.soat7.myburguercontrol.database.customer.entity.CustomerEntity
-import io.github.soat7.myburguercontrol.database.order.entity.OrderEntity
-import io.github.soat7.myburguercontrol.database.order.entity.OrderItemEntity
-import io.github.soat7.myburguercontrol.database.payment.entity.PaymentEntity
-import io.github.soat7.myburguercontrol.database.product.entity.ProductEntity
+import io.github.soat7.myburguercontrol.domain.enum.OrderStatus
+import io.github.soat7.myburguercontrol.domain.model.Customer
+import io.github.soat7.myburguercontrol.domain.model.Order
+import io.github.soat7.myburguercontrol.domain.model.OrderItem
+import io.github.soat7.myburguercontrol.domain.model.Payment
+import io.github.soat7.myburguercontrol.infrastructure.customer.entity.CustomerEntity
+import io.github.soat7.myburguercontrol.infrastructure.order.entity.OrderEntity
+import io.github.soat7.myburguercontrol.infrastructure.order.entity.OrderItemEntity
+import io.github.soat7.myburguercontrol.infrastructure.payment.entity.PaymentEntity
+import io.github.soat7.myburguercontrol.infrastructure.product.entity.ProductEntity
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures.mockDomainProduct
 import java.time.Instant
 import java.util.UUID

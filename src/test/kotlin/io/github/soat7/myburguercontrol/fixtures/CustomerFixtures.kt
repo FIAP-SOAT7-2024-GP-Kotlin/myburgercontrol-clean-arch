@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.fixtures
 
-import io.github.soat7.myburguercontrol.business.model.Customer
-import io.github.soat7.myburguercontrol.database.customer.entity.CustomerEntity
+import io.github.soat7.myburguercontrol.domain.model.Customer
+import io.github.soat7.myburguercontrol.infrastructure.customer.entity.CustomerEntity
 import io.github.soat7.myburguercontrol.webservice.customer.api.request.CustomerCreationRequest
 import java.time.Instant
 import java.util.UUID

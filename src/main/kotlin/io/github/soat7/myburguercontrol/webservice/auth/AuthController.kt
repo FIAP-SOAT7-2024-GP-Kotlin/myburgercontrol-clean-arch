@@ -1,6 +1,6 @@
 package io.github.soat7.myburguercontrol.webservice.auth
 
-import io.github.soat7.myburguercontrol.business.service.AuthenticationService
+import io.github.soat7.myburguercontrol.domain.usecase.AuthenticationUseCase
 import io.github.soat7.myburguercontrol.webservice.auth.api.AuthRequest
 import io.github.soat7.myburguercontrol.webservice.auth.api.AuthResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
     consumes = [MediaType.APPLICATION_JSON_VALUE],
 )
 class AuthController(
-    private val authenticationService: AuthenticationService,
+    private val authenticationUseCase: AuthenticationUseCase,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
@@ -28,5 +28,5 @@ class AuthController(
         operationId = "auth_3",
     )
     fun authenticate(@RequestBody authRequest: AuthRequest): AuthResponse =
-        authenticationService.authenticate(authRequest)
+        authenticationUseCase.authenticate(authRequest)
 }

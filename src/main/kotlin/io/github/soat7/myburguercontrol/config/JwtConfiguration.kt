@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.config
 
-import io.github.soat7.myburguercontrol.business.service.CustomUserDetailsService
-import io.github.soat7.myburguercontrol.database.user.repository.UserJpaRepository
+import io.github.soat7.myburguercontrol.domain.usecase.CustomUserDetailsUseCase
+import io.github.soat7.myburguercontrol.infrastructure.user.repository.UserJpaRepository
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -19,7 +19,7 @@ class JwtConfiguration {
 
     @Bean
     fun userDetailsService(userJpaRepository: UserJpaRepository): UserDetailsService =
-        CustomUserDetailsService(userJpaRepository)
+        CustomUserDetailsUseCase(userJpaRepository)
 
     @Bean
     fun encoder(): PasswordEncoder = BCryptPasswordEncoder()

@@ -1,9 +1,9 @@
 package io.github.soat7.myburguercontrol.webservice.order
 
-import io.github.soat7.myburguercontrol.business.enum.OrderStatus
-import io.github.soat7.myburguercontrol.business.mapper.toOrderDetails
-import io.github.soat7.myburguercontrol.business.mapper.toResponse
-import io.github.soat7.myburguercontrol.business.service.OrderService
+import io.github.soat7.myburguercontrol.domain.enum.OrderStatus
+import io.github.soat7.myburguercontrol.domain.mapper.toOrderDetails
+import io.github.soat7.myburguercontrol.domain.mapper.toResponse
+import io.github.soat7.myburguercontrol.domain.usecase.OrderUseCase
 import io.github.soat7.myburguercontrol.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.webservice.order.api.request.OrderCreationRequest
 import io.github.soat7.myburguercontrol.webservice.order.api.response.OrderResponse
@@ -29,7 +29,7 @@ import java.util.UUID
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
 class OrderController(
-    private val service: OrderService,
+    private val service: OrderUseCase,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])

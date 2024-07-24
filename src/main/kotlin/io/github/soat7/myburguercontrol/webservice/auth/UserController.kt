@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.webservice.auth
 
-import io.github.soat7.myburguercontrol.business.mapper.toDomain
-import io.github.soat7.myburguercontrol.business.mapper.toResponse
-import io.github.soat7.myburguercontrol.business.service.UserService
+import io.github.soat7.myburguercontrol.domain.mapper.toDomain
+import io.github.soat7.myburguercontrol.domain.mapper.toResponse
+import io.github.soat7.myburguercontrol.domain.usecase.UserUseCase
 import io.github.soat7.myburguercontrol.webservice.auth.api.UserCreationRequest
 import io.github.soat7.myburguercontrol.webservice.auth.api.UserResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -26,7 +26,7 @@ import java.util.UUID
 )
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class UserController(
-    private val service: UserService,
+    private val service: UserUseCase,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])

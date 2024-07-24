@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.webservice
 
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
-import io.github.soat7.myburguercontrol.business.enum.ProductType
+import io.github.soat7.myburguercontrol.domain.enum.ProductType
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
 import io.github.soat7.myburguercontrol.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.webservice.product.api.ProductResponse

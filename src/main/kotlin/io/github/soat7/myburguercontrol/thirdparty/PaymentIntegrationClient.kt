@@ -1,12 +1,12 @@
 package io.github.soat7.myburguercontrol.thirdparty
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.business.exception.ReasonCode
-import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.business.mapper.toDto
-import io.github.soat7.myburguercontrol.business.mapper.toPaymentRequest
-import io.github.soat7.myburguercontrol.business.model.Order
-import io.github.soat7.myburguercontrol.business.repository.PaymentIntegrationRepository
+import io.github.soat7.myburguercontrol.domain.exception.ReasonCode
+import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.domain.mapper.toDto
+import io.github.soat7.myburguercontrol.domain.mapper.toPaymentRequest
+import io.github.soat7.myburguercontrol.domain.model.Order
+import io.github.soat7.myburguercontrol.domain.repository.PaymentIntegrationRepository
 import io.github.soat7.myburguercontrol.thirdparty.api.PaymentIntegrationResponse
 import io.github.soat7.myburguercontrol.thirdparty.api.PaymentResult
 import org.springframework.beans.factory.annotation.Value
