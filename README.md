@@ -1,6 +1,6 @@
 [![CI [MyBurguer ≡]](https://github.com/FIAP-SOAT7-2024-GP-Kotlin/myburgercontrol-clean-arch/actions/workflows/main.yml/badge.svg)](https://github.com/FIAP-SOAT7-2024-GP-Kotlin/myburgercontrol-clean-arch/actions/workflows/main.yml)
 
-[![cov](https://github.com/FIAP-SOAT7-2024-GP-Kotlin/myburgercontrol-clean-arch/badges/coverage.svg)](https://github.com/FIAP-SOAT7-2024-GP-Kotlin/myburgercontrol-clean-arch/actions)
+[![Coverage Status](https://github.com/FIAP-SOAT7-2024-GP-Kotlin/myburgercontrol-clean-arch/badges/coverage.svg)](https://github.com/FIAP-SOAT7-2024-GP-Kotlin/myburgercontrol-clean-arch/actions)
 
 # My Burguer Control - 7SOAT
 ___
