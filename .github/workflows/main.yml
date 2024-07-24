@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "feature/actions" ]
 
+env:
+  GITHUB_WORKFLOW_SHA: $GITHUB_WORKFLOW_SHA
+
 jobs:
 
   build:
@@ -39,6 +42,7 @@ jobs:
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
+        echo {{$GITHUB_WORKFLOW_SHA}}
         cat build/reports/jacoco/test/html/index.html
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
@@ -60,6 +64,6 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
-          fiapmyburguer/myburgercontrol-clean-arch:"$GITHUB_WORKFLOW_SHA"
+          fiapmyburguer/myburgercontrol-clean-arch:{{$GITHUB_WORKFLOW_SHA}}
           fiapmyburguer/myburgercontrol-clean-arch:latest
   
