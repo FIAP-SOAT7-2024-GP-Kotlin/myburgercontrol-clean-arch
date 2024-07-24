@@ -41,6 +41,7 @@ jobs:
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
+        echo ${{ github.ref }}
         cat build/reports/jacoco/test/html/index.html
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
