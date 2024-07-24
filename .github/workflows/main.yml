@@ -42,21 +42,22 @@ jobs:
       run: |
         echo "Test Coverage Report:"
         pwd
+        ls -la
         cat build/reports/jacoco/test/html/index.html
-
-    - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
-      uses: actions/upload-artifact@v3
-      with:
-        name: jacoco-report
-        path: build/reports/jacoco/test/html/
-
+    
     - name: Generate Jacoco Badge
       id: jacoco
       uses: cicirello/jacoco-badge-generator@v2
       with:
         badges-directory: badges
         generate-branches-badge: true
-        jacoco-csv-file: build/reports/jacoco/test/html/jacoco.csv
+        jacoco-csv-file: build/reports/jacoco/test/
+
+    - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
+      uses: actions/upload-artifact@v3
+      with:
+        name: jacoco-report
+        path: build/reports/jacoco/test/html/
 
     - name: Authentication Docker Hub [MyBurguer ≡]
       uses: docker/login-action@v3.2.0
