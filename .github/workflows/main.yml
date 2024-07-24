@@ -38,6 +38,11 @@ jobs:
     - name: Generate JaCoCo Test Coverage Report [MyBurguer ≡]
       run: ./gradlew jacocoTestReport
 
+    - name: Update Coverage Badge
+      uses: tj-actions/coverage-badge-py@v2.0.3
+      with:
+        working-directory: build/reports/jacoco/test/html/
+
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
@@ -48,9 +53,6 @@ jobs:
       with:
         name: jacoco-report
         path: build/reports/jacoco/test/html/
-
-    - name: Update Coverage Badge
-      uses: tj-actions/coverage-badge-py@v2.0.3
 
     - name: Authentication Docker Hub [MyBurguer ≡]
       uses: docker/login-action@v3.2.0
