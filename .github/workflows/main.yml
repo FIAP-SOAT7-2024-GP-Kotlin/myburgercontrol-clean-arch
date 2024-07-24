@@ -41,8 +41,8 @@ jobs:
     - name: Check Test Coverage [MyBurguer ≡]
       run: |
         echo "Test Coverage Report:"
-        pwd
-        ls -la
+        ls -la build/reports/jacoco/
+        ls -la build/reports/jacoco/test
         cat build/reports/jacoco/test/html/index.html
     
     - name: Generate Jacoco Badge
