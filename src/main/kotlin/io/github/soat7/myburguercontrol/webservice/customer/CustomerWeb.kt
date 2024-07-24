@@ -23,8 +23,8 @@ import java.util.UUID
 )
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
-class CustomerRestController(
-    private val customerHandler: CustomerHandler,
+class CustomerWeb(
+    private val customerController: CustomerController,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
@@ -34,7 +34,7 @@ class CustomerRestController(
         description = "Utilize esta rota para criar um novo cliente",
     )
     fun createCustomer(@RequestBody request: CustomerCreationRequest): ResponseEntity<CustomerResponse> =
-        customerHandler.createCustomer(request)
+        customerController.createCustomer(request)
 
     @GetMapping("/{id}")
     @Operation(
@@ -43,7 +43,7 @@ class CustomerRestController(
         description = "Utilize esta rota para encontrar um cliente utilizando o identificador na base de dados",
     )
     fun findCustomerById(@PathVariable("id") id: UUID): ResponseEntity<CustomerResponse> =
-        customerHandler.findCustomerById(id)
+        customerController.findCustomerById(id)
 
 
     @GetMapping
@@ -53,6 +53,6 @@ class CustomerRestController(
         description = "Utilize esta rota para encontrar um cliente pelo CPF",
     )
     fun findCustomerByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<CustomerResponse> =
-        customerHandler.findCustomerByCpf(cpf)
+        customerController.findCustomerByCpf(cpf)
 
 }

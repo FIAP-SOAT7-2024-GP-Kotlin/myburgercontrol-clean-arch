@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 import java.util.UUID
 
 @Component
-class CustomerHandler(
+class CustomerController(
     private val customerUseCase: CustomerUseCase
 ) {
 
