@@ -5,12 +5,12 @@ import io.github.soat7.myburguercontrol.domain.model.Customer
 import io.github.soat7.myburguercontrol.domain.model.Order
 import io.github.soat7.myburguercontrol.domain.model.OrderItem
 import io.github.soat7.myburguercontrol.domain.model.Payment
+import io.github.soat7.myburguercontrol.fixtures.ProductFixtures.mockDomainProduct
 import io.github.soat7.myburguercontrol.infrastructure.customer.entity.CustomerEntity
 import io.github.soat7.myburguercontrol.infrastructure.order.entity.OrderEntity
 import io.github.soat7.myburguercontrol.infrastructure.order.entity.OrderItemEntity
 import io.github.soat7.myburguercontrol.infrastructure.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.infrastructure.product.entity.ProductEntity
-import io.github.soat7.myburguercontrol.fixtures.ProductFixtures.mockDomainProduct
 import java.time.Instant
 import java.util.UUID
 

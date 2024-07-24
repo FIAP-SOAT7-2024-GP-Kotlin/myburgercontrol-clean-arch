@@ -1,12 +1,15 @@
 package io.github.soat7.myburguercontrol.base
 
 import io.github.soat7.myburguercontrol.Application
+import io.github.soat7.myburguercontrol.container.MockServerContainer
+import io.github.soat7.myburguercontrol.container.PostgresContainer
 import io.github.soat7.myburguercontrol.domain.enum.UserRole
 import io.github.soat7.myburguercontrol.domain.mapper.toPersistence
 import io.github.soat7.myburguercontrol.domain.model.Customer
 import io.github.soat7.myburguercontrol.domain.model.Payment
-import io.github.soat7.myburguercontrol.container.MockServerContainer
-import io.github.soat7.myburguercontrol.container.PostgresContainer
+import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
+import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
+import io.github.soat7.myburguercontrol.fixtures.UserFixtures
 import io.github.soat7.myburguercontrol.infrastructure.customer.entity.CustomerEntity
 import io.github.soat7.myburguercontrol.infrastructure.customer.repository.CustomerJpaRepository
 import io.github.soat7.myburguercontrol.infrastructure.order.repository.OrderJpaRepository
@@ -14,9 +17,6 @@ import io.github.soat7.myburguercontrol.infrastructure.payment.repository.Paymen
 import io.github.soat7.myburguercontrol.infrastructure.product.entity.ProductEntity
 import io.github.soat7.myburguercontrol.infrastructure.product.repository.ProductJpaRepository
 import io.github.soat7.myburguercontrol.infrastructure.user.repository.UserJpaRepository
-import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
-import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
-import io.github.soat7.myburguercontrol.fixtures.UserFixtures
 import io.github.soat7.myburguercontrol.webservice.auth.api.AuthResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
