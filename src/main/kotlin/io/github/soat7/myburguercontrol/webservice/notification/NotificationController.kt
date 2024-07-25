@@ -46,7 +46,7 @@ class NotificationController(
     ): ResponseEntity<String> = run {
         logger.debug { "\nRecebeu notificação IPN \n$header \n$body" }
         val result = notificationIpnService.processIpn(header, body)
-        return if(result) {
+        return if (result) {
             ResponseEntity.ok().build()
         } else {
             ResponseEntity.notFound().build()
@@ -70,7 +70,7 @@ class NotificationController(
     ): ResponseEntity<String> = run {
         logger.debug { "\nRecebeu notificação WebHook \n$header \n$body" }
         val result = notificationWebhookService.processWebhook(header, body)
-        return if(result) {
+        return if (result) {
             ResponseEntity.ok().build()
         } else {
             ResponseEntity.notFound().build()
