@@ -51,7 +51,7 @@ jobs:
         badges-directory: .github/badges
         generate-branches-badge: true
         generate-summary: true
-        jacoco-badge-file: coverage.svg
+        jacoco-badge-file: jacoco.svg
         jacoco-csv-file: "build/reports/jacoco/test/jacocoTestReport.csv"
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
