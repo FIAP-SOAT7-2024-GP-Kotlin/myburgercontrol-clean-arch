@@ -27,7 +27,7 @@ jobs:
     
     - name: Get current date [MyBurguer ≡]
       id: date
-      run: echo "::set-output name=date::$(date +'%Y%m%d%h%m')"
+      run: echo "::set-output name=date::$(date +'%Y%m%d%H%M')"
 
     - name: Run build [MyBurguer ≡]
       run: ./gradlew clean build --no-daemon -x test
