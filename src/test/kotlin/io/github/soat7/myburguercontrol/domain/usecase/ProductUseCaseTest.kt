@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.domain.model.Product
-import io.github.soat7.myburguercontrol.domain.repository.ProductRepository
+import io.github.soat7.myburguercontrol.domain.entities.Product
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.external.db.product.ProductGateway
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures.mockDomainProduct
 import io.mockk.clearMocks
 import io.mockk.every
@@ -28,7 +28,7 @@ import kotlin.test.assertNull
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProductUseCaseTest {
 
-    private val repository = mockk<ProductRepository>()
+    private val repository = mockk<ProductGateway>()
     private val service = ProductUseCase(repository)
 
     @BeforeTest

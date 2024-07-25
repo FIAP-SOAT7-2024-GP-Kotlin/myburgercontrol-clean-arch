@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.config
 
 import io.github.soat7.myburguercontrol.domain.usecase.CustomUserDetailsUseCase
-import io.github.soat7.myburguercontrol.infrastructure.user.UserGateway
+import io.github.soat7.myburguercontrol.external.db.user.UserGateway
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

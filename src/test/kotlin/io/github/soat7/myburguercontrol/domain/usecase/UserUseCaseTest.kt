@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
-import io.github.soat7.myburguercontrol.domain.enum.UserRole
-import io.github.soat7.myburguercontrol.domain.model.User
-import io.github.soat7.myburguercontrol.domain.repository.UserRepository
+import io.github.soat7.myburguercontrol.domain.entities.User
+import io.github.soat7.myburguercontrol.domain.entities.enum.UserRole
+import io.github.soat7.myburguercontrol.external.db.user.UserGateway
 import io.github.soat7.myburguercontrol.fixtures.UserFixtures
 import io.mockk.clearMocks
 import io.mockk.every
@@ -25,7 +25,7 @@ import kotlin.test.assertNotNull
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class UserUseCaseTest {
 
-    private val userRepository = mockk<UserRepository>()
+    private val userRepository = mockk<UserGateway>()
     private val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
 
     private val service = UserUseCase(userRepository, passwordEncoder)

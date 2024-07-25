@@ -1,9 +1,9 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
-import io.github.soat7.myburguercontrol.domain.enum.PaymentStatus
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.domain.repository.PaymentIntegrationRepository
-import io.github.soat7.myburguercontrol.domain.repository.PaymentRepository
+import io.github.soat7.myburguercontrol.adapters.gateway.PaymentIntegrationRepository
+import io.github.soat7.myburguercontrol.domain.entities.enum.PaymentStatus
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.external.db.payment.PaymentGateway
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
 import io.github.soat7.myburguercontrol.fixtures.OrderFixtures.mockOrder
 import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockPayment
@@ -22,15 +22,15 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import io.github.soat7.myburguercontrol.domain.model.Order as OrderModel
+import io.github.soat7.myburguercontrol.domain.entities.Order as OrderModel
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class PaymentUseCaseTest {
 
     private val paymentIntegrationRepository = mockk<PaymentIntegrationRepository>()
-    private val paymentRepository = mockk<PaymentRepository>()
-    private val service = PaymentUseCase(paymentIntegrationRepository, paymentRepository)
+    private val paymentGateway = mockk<PaymentGateway>()
+    private val service = PaymentUseCase(paymentIntegrationRepository, paymentGateway)
 
     @BeforeTest
     fun setUp() {
@@ -46,9 +46,9 @@ class PaymentUseCaseTest {
             UUID.randomUUID().toString(),
             approved = true,
         )
-        every { paymentRepository.findById(any()) } returns mockPayment()
-        every { paymentRepository.create(any()) } returns mockPayment()
-        every { paymentRepository.update(any()) } returns mockPayment()
+        every { paymentGateway.findById(any()) } returns mockPayment()
+        every { paymentGateway.create(any()) } returns mockPayment()
+        every { paymentGateway.update(any()) } returns mockPayment()
 
         val response = assertDoesNotThrow {
             service.requestPayment(order)
@@ -67,9 +67,9 @@ class PaymentUseCaseTest {
             paymentIntegrationRepository.requestPayment(any<OrderModel>())
         } returns mockPaymentResult(null, false)
 
-        every { paymentRepository.findById(any()) } returns mockPayment()
-        every { paymentRepository.create(any()) } returns mockPayment()
-        every { paymentRepository.update(any()) } returns mockPayment()
+        every { paymentGateway.findById(any()) } returns mockPayment()
+        every { paymentGateway.create(any()) } returns mockPayment()
+        every { paymentGateway.update(any()) } returns mockPayment()
 
         assertThrows<ReasonCodeException> {
             service.requestPayment(order)

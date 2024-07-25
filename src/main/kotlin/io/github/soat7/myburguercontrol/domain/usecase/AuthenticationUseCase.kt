@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
 import io.github.soat7.myburguercontrol.config.JwtProperties
-import io.github.soat7.myburguercontrol.webservice.auth.api.AuthRequest
-import io.github.soat7.myburguercontrol.webservice.auth.api.AuthResponse
+import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthRequest
+import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthResponse
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import java.util.Date

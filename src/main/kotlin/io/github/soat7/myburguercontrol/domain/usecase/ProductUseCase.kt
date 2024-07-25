@@ -1,11 +1,11 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCode
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCode.PRODUCT_NOT_FOUND
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.domain.model.Product
-import io.github.soat7.myburguercontrol.infrastructure.product.ProductGateway
+import io.github.soat7.myburguercontrol.domain.entities.Product
+import io.github.soat7.myburguercontrol.exception.ReasonCode
+import io.github.soat7.myburguercontrol.exception.ReasonCode.PRODUCT_NOT_FOUND
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.external.db.product.ProductGateway
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.UUID

@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.domain.model.Customer
-import io.github.soat7.myburguercontrol.domain.repository.CustomerRepository
+import io.github.soat7.myburguercontrol.domain.entities.Customer
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.external.db.customer.CustomerGateway
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures
 import io.mockk.clearMocks
 import io.mockk.every
@@ -29,7 +29,7 @@ import kotlin.test.assertNotNull
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class CustomerUseCaseTest {
 
-    private val customerRepository = mockk<CustomerRepository>()
+    private val customerRepository = mockk<CustomerGateway>()
     private val service = CustomerUseCase(customerRepository)
 
     @BeforeTest

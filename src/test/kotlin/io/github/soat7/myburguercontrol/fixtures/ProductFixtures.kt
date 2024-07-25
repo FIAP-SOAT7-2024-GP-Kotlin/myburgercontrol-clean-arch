@@ -1,9 +1,9 @@
 package io.github.soat7.myburguercontrol.fixtures
 
-import io.github.soat7.myburguercontrol.domain.enum.ProductType
-import io.github.soat7.myburguercontrol.domain.model.Product
-import io.github.soat7.myburguercontrol.infrastructure.product.entity.ProductEntity
-import io.github.soat7.myburguercontrol.webservice.product.api.ProductCreationRequest
+import io.github.soat7.myburguercontrol.domain.entities.Product
+import io.github.soat7.myburguercontrol.domain.entities.enum.ProductType
+import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
+import io.github.soat7.myburguercontrol.external.webservice.product.api.ProductCreationRequest
 import java.math.BigDecimal
 import java.time.Instant
 import java.util.UUID

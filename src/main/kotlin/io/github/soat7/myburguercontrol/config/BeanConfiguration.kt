@@ -1,6 +1,6 @@
 package io.github.soat7.myburguercontrol.config
 
-import io.github.soat7.myburguercontrol.domain.repository.PaymentIntegrationRepository
+import io.github.soat7.myburguercontrol.adapters.gateway.PaymentIntegrationRepository
 import io.github.soat7.myburguercontrol.domain.usecase.AuthenticationUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.CustomUserDetailsUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.CustomerUseCase
@@ -9,11 +9,11 @@ import io.github.soat7.myburguercontrol.domain.usecase.PaymentUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.ProductUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.TokenUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.UserUseCase
-import io.github.soat7.myburguercontrol.infrastructure.customer.CustomerGateway
-import io.github.soat7.myburguercontrol.infrastructure.order.OrderGateway
-import io.github.soat7.myburguercontrol.infrastructure.payment.PaymentGateway
-import io.github.soat7.myburguercontrol.infrastructure.product.ProductGateway
-import io.github.soat7.myburguercontrol.infrastructure.user.UserGateway
+import io.github.soat7.myburguercontrol.external.db.customer.CustomerGateway
+import io.github.soat7.myburguercontrol.external.db.order.OrderGateway
+import io.github.soat7.myburguercontrol.external.db.payment.PaymentGateway
+import io.github.soat7.myburguercontrol.external.db.product.ProductGateway
+import io.github.soat7.myburguercontrol.external.db.user.UserGateway
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

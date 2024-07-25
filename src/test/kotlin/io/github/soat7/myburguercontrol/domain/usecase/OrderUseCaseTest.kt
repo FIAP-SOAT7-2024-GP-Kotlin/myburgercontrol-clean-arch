@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
-import io.github.soat7.myburguercontrol.domain.enum.OrderStatus
-import io.github.soat7.myburguercontrol.domain.repository.OrderRepository
+import io.github.soat7.myburguercontrol.domain.entities.enum.OrderStatus
+import io.github.soat7.myburguercontrol.external.db.order.OrderGateway
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
 import io.github.soat7.myburguercontrol.fixtures.OrderDetailFixtures
 import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockPayment
@@ -21,13 +21,13 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
-import io.github.soat7.myburguercontrol.domain.model.Order as OrderModel
+import io.github.soat7.myburguercontrol.domain.entities.Order as OrderModel
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class OrderUseCaseTest {
 
-    private val repository = mockk<OrderRepository>()
+    private val repository = mockk<OrderGateway>()
     private val customerUseCase = mockk<CustomerUseCase>()
     private val productUseCase = mockk<ProductUseCase>()
     private val paymentUseCase = mockk<PaymentUseCase>()

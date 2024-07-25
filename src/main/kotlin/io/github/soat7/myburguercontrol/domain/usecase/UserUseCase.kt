@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
-import io.github.soat7.myburguercontrol.domain.model.User
-import io.github.soat7.myburguercontrol.infrastructure.user.UserGateway
+import io.github.soat7.myburguercontrol.domain.entities.User
+import io.github.soat7.myburguercontrol.external.db.user.UserGateway
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.UUID
 

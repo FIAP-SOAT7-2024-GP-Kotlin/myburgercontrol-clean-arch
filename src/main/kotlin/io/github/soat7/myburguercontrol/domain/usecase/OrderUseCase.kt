@@ -1,14 +1,14 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.domain.enum.OrderStatus
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCode
-import io.github.soat7.myburguercontrol.domain.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.domain.model.Customer
-import io.github.soat7.myburguercontrol.domain.model.Order
-import io.github.soat7.myburguercontrol.domain.model.OrderDetail
-import io.github.soat7.myburguercontrol.domain.model.OrderItem
-import io.github.soat7.myburguercontrol.infrastructure.order.OrderGateway
+import io.github.soat7.myburguercontrol.domain.entities.Customer
+import io.github.soat7.myburguercontrol.domain.entities.Order
+import io.github.soat7.myburguercontrol.domain.entities.OrderDetail
+import io.github.soat7.myburguercontrol.domain.entities.OrderItem
+import io.github.soat7.myburguercontrol.domain.entities.enum.OrderStatus
+import io.github.soat7.myburguercontrol.exception.ReasonCode
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.external.db.order.OrderGateway
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.UUID

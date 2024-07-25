@@ -187,7 +187,7 @@ liquibase {
             "password" to props["DATABASE_PASSWORD"],
             "referenceUrl" to "hibernate:spring:io.github.soat7.myburguercontrol.infrastructure.persistence?" +
                 "dialect=org.hibernate.dialect.PostgreSQLDialect&" +
-                "hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&" +
+                "hibernate.physical_naming_strategy=org.hibernate.boot.entities.naming.CamelCaseToUnderscoresNamingStrategy&" +
                 "hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
             "defaultSchemaName" to "myburguer",
             // "logLevel" to "debug",
