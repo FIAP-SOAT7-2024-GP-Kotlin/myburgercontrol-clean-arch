@@ -49,6 +49,7 @@ jobs:
       id: jacoco
       with:
         generate-summary: true
+        badges-directory: .github/badges/
         jacoco-csv-file: "build/reports/jacoco/test/jacocoTestReport.csv"
 
     - name: Update Coverage Badge
