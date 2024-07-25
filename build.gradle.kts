@@ -135,7 +135,7 @@ tasks.withType<Test> {
 tasks.jacocoTestReport {
     reports {
         xml.required = true
-        csv.required = false
+        csv.required = true
         html.outputLocation = layout.buildDirectory.dir("reports/jacoco/test/html")
     }
     dependsOn(tasks.test)
