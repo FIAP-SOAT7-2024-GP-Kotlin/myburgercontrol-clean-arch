@@ -51,6 +51,9 @@ jobs:
         generate-summary: true
         jacoco-csv-file: "build/reports/jacoco/test/jacocoTestReport.csv"
 
+    - name: Update Coverage Badge
+      uses: we-cli/coverage-badge-action@main
+
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
       uses: actions/upload-artifact@v3
       with:
