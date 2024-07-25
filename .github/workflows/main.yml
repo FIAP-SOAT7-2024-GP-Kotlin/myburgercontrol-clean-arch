@@ -27,7 +27,7 @@ jobs:
     
     - name: Get current date [MyBurguer ≡]
       id: date
-      run: echo "::set-output name=date::$(date +'%Y%m%d')"
+      run: echo "::set-output name=date::$(date +'%Y%m%d%h%m')"
 
     - name: Run build [MyBurguer ≡]
       run: ./gradlew clean build --no-daemon -x test
@@ -48,10 +48,7 @@ jobs:
       uses: cicirello/jacoco-badge-generator@v2
       id: jacoco
       with:
-        badges-directory: .github/badges
-        generate-branches-badge: true
         generate-summary: true
-        jacoco-badge-file: jacoco.svg
         jacoco-csv-file: "build/reports/jacoco/test/jacocoTestReport.csv"
 
     - name: Upload JaCoCo Test Coverage Report to Artifacts [MyBurguer ≡]
