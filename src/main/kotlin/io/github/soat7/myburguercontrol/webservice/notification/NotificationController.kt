@@ -45,8 +45,12 @@ class NotificationController(
         @RequestBody body: String,
     ): ResponseEntity<String> = run {
         logger.debug { "\nRecebeu notificação IPN \n$header \n$body" }
-        notificationIpnService.processIpn(header, body)
-        ResponseEntity.ok().build()
+        val result = notificationIpnService.processIpn(header, body)
+        return if(result) {
+            ResponseEntity.ok().build()
+        } else {
+            ResponseEntity.notFound().build()
+        }
     }
 
     @PostMapping(
@@ -65,7 +69,11 @@ class NotificationController(
         @RequestBody body: String,
     ): ResponseEntity<String> = run {
         logger.debug { "\nRecebeu notificação WebHook \n$header \n$body" }
-        notificationWebhookService.processWebhook(header, body)
-        ResponseEntity.ok().build()
+        val result = notificationWebhookService.processWebhook(header, body)
+        return if(result) {
+            ResponseEntity.ok().build()
+        } else {
+            ResponseEntity.notFound().build()
+        }
     }
 }
