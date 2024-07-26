@@ -4,7 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
 import io.github.soat7.myburguercontrol.domain.entities.enum.UserRole
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.UserResponse
+import io.github.soat7.myburguercontrol.external.webservice.user.api.UserResponse
 import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
 import io.github.soat7.myburguercontrol.fixtures.UserFixtures
 import org.junit.jupiter.api.Assertions.assertAll

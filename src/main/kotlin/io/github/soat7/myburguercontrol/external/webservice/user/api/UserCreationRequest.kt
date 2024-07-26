@@ -1,4 +1,4 @@
-package io.github.soat7.myburguercontrol.external.webservice.auth.api
+package io.github.soat7.myburguercontrol.external.webservice.user.api
 
 import io.github.soat7.myburguercontrol.domain.entities.enum.UserRole
 import jakarta.validation.constraints.NotBlank

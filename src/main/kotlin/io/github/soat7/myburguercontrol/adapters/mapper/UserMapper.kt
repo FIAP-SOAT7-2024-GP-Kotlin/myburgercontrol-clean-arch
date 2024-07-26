@@ -2,8 +2,8 @@ package io.github.soat7.myburguercontrol.adapters.mapper
 
 import io.github.soat7.myburguercontrol.domain.entities.User
 import io.github.soat7.myburguercontrol.external.db.user.entity.UserEntity
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.UserCreationRequest
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.UserResponse
+import io.github.soat7.myburguercontrol.external.webservice.user.api.UserCreationRequest
+import io.github.soat7.myburguercontrol.external.webservice.user.api.UserResponse
 import java.util.UUID
 
 fun UserCreationRequest.toDomain() = User(

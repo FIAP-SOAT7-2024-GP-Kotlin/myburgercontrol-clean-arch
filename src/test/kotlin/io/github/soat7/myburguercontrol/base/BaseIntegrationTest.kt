@@ -14,7 +14,7 @@ import io.github.soat7.myburguercontrol.external.db.payment.repository.PaymentJp
 import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
 import io.github.soat7.myburguercontrol.external.db.product.repository.ProductJpaRepository
 import io.github.soat7.myburguercontrol.external.db.user.repository.UserJpaRepository
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthResponse
+import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthenticationResponse
 import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
 import io.github.soat7.myburguercontrol.fixtures.UserFixtures
@@ -94,7 +94,7 @@ class BaseIntegrationTest {
             ),
         )
 
-        val response = restTemplate.postForEntity<AuthResponse>(
+        val response = restTemplate.postForEntity<AuthenticationResponse>(
             "/auth",
             AuthFixtures.mockAuthCreationRequest(cpf, password),
         ).body

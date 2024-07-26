@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.domain.usecase
 
 import io.github.soat7.myburguercontrol.config.JwtProperties
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthRequest
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthResponse
+import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthenticationRequest
+import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthenticationResponse
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import java.util.Date
@@ -14,20 +14,20 @@ class AuthenticationUseCase(
     private val jwtProperties: JwtProperties,
 ) {
 
-    fun authenticate(authRequest: AuthRequest): AuthResponse {
+    fun authenticate(request: AuthenticationRequest): AuthenticationResponse {
         authManager.authenticate(
             UsernamePasswordAuthenticationToken(
-                authRequest.cpf,
-                authRequest.password,
+                request.cpf,
+                request.password,
             ),
         )
-        val user = userDetailsService.loadUserByUsername(authRequest.cpf)
+        val user = userDetailsService.loadUserByUsername(request.cpf)
 
         val accessToken = tokenUseCase.generate(
             userDetails = user,
             expirationDate = Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration),
         )
 
-        return AuthResponse(accessToken)
+        return AuthenticationResponse(accessToken)
     }
 }

@@ -1,10 +1,7 @@
-package io.github.soat7.myburguercontrol.external.webservice.auth
+package io.github.soat7.myburguercontrol.external.webservice.user
 
-import io.github.soat7.myburguercontrol.adapters.mapper.toDomain
-import io.github.soat7.myburguercontrol.adapters.mapper.toResponse
-import io.github.soat7.myburguercontrol.domain.usecase.UserUseCase
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.UserCreationRequest
-import io.github.soat7.myburguercontrol.external.webservice.auth.api.UserResponse
+import io.github.soat7.myburguercontrol.external.webservice.user.api.UserCreationRequest
+import io.github.soat7.myburguercontrol.external.webservice.user.api.UserResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType
@@ -26,7 +23,7 @@ import java.util.UUID
 )
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class UserController(
-    private val service: UserUseCase,
+    private val userHandler: UserHandler,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
@@ -35,10 +32,8 @@ class UserController(
         summary = "Utilize esta rota para criar um novo usuário",
         description = "Utilize esta rota para criar um novo usuário",
     )
-    fun createUser(@RequestBody request: UserCreationRequest): ResponseEntity<UserResponse> = run {
-        val resp = service.create(request.toDomain())
-        ResponseEntity.ok(resp.toResponse())
-    }
+    fun createUser(@RequestBody request: UserCreationRequest): ResponseEntity<UserResponse> =
+        userHandler.create(request)
 
     @GetMapping("/{id}")
     @Operation(
@@ -47,11 +42,7 @@ class UserController(
         description = "Utilize esta rota para encontrar um usuário utilizando o identificador na base de dados",
     )
     @SecurityRequirement(name = "Bearer Authentication")
-    fun findUserById(@PathVariable("id") id: UUID): ResponseEntity<UserResponse> = run {
-        service.findUserById(id)?.let {
-            ResponseEntity.ok().body(it.toResponse())
-        } ?: ResponseEntity.notFound().build()
-    }
+    fun findUserById(@PathVariable("id") id: UUID): ResponseEntity<UserResponse> = userHandler.findUserById(id)
 
     @GetMapping
     @Operation(
@@ -60,9 +51,5 @@ class UserController(
         description = "Utilize esta rota para encontrar um usuário utilizando o cpf",
     )
     @SecurityRequirement(name = "Bearer Authentication")
-    fun findUserByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<UserResponse> = run {
-        service.findUserByCpf(cpf)?.let {
-            ResponseEntity.ok(it.toResponse())
-        } ?: ResponseEntity.notFound().build()
-    }
+    fun findUserByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<UserResponse> = userHandler.findUserByCpf(cpf)
 }
