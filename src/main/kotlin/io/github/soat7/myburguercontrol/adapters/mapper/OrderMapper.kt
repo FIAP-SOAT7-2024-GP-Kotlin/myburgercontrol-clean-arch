@@ -10,9 +10,9 @@ import io.github.soat7.myburguercontrol.external.db.order.entity.OrderItemEntity
 import io.github.soat7.myburguercontrol.external.db.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
 import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentIntegrationRequest
-import io.github.soat7.myburguercontrol.external.webservice.order.api.request.OrderCreationRequest
-import io.github.soat7.myburguercontrol.external.webservice.order.api.response.OrderItemResponse
-import io.github.soat7.myburguercontrol.external.webservice.order.api.response.OrderResponse
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderItemResponse
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import java.util.UUID
 
 fun OrderCreationRequest.toOrderDetails() = OrderDetail(

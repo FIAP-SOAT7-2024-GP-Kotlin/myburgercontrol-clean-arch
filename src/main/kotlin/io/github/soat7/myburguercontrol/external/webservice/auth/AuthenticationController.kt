@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.external.webservice.auth
 
+import io.github.soat7.myburguercontrol.adapters.controller.AuthenticationHandler
 import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthenticationRequest
 import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthenticationResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -28,5 +29,5 @@ class AuthenticationController(
         operationId = "auth_3",
     )
     fun authenticate(@RequestBody authenticationRequest: AuthenticationRequest): ResponseEntity<AuthenticationResponse> =
-        authenticationHandler.authenticate(authenticationRequest)
+        ResponseEntity.ok(authenticationHandler.authenticate(authenticationRequest))
 }

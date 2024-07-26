@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.external.webservice.product
 
+import io.github.soat7.myburguercontrol.adapters.controller.ProductHandler
 import io.github.soat7.myburguercontrol.external.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.external.webservice.product.api.ProductCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.product.api.ProductResponse
@@ -36,7 +37,7 @@ class ProductController(
         description = "Utilize esta rota para cadastrar um novo produto",
     )
     fun createProduct(@RequestBody request: ProductCreationRequest): ResponseEntity<ProductResponse> =
-        productHandler.create(request)
+        ResponseEntity.ok(productHandler.create(request))
 
     @DeleteMapping(path = ["/{id}"])
     @Operation(
@@ -44,8 +45,10 @@ class ProductController(
         summary = "Utilize esta rota para apagar um produto utilizando o identificador na base de dados",
         description = "Utilize esta rota para apagar um produto utilizando o identificador na base de dados",
     )
-    fun deleteProduct(@PathVariable("id") id: UUID): ResponseEntity<Void> =
+    fun deleteProduct(@PathVariable("id") id: UUID): ResponseEntity<Void> = run {
         productHandler.delete(id)
+        ResponseEntity.noContent().build()
+    }
 
     @GetMapping(path = ["/{id}"])
     @Operation(
@@ -53,7 +56,10 @@ class ProductController(
         summary = "Utilize esta rota para encontrar um produto utilizando o identificador na base de dados",
         description = "Utilize esta rota para encontrar um produto utilizando o identificador na base de dados",
     )
-    fun getProductById(@PathVariable("id") id: UUID): ResponseEntity<ProductResponse> = productHandler.getById(id)
+    fun getProductById(@PathVariable("id") id: UUID): ResponseEntity<ProductResponse> =
+        productHandler.getById(id)?.let {
+            ResponseEntity.ok(it)
+        } ?: ResponseEntity.notFound().build()
 
     @GetMapping("/type")
     @Operation(
@@ -62,7 +68,7 @@ class ProductController(
         description = "Utilize esta rota para buscar todos os produtos cadastrados por categoria",
     )
     fun getProductByType(@RequestParam type: String): ResponseEntity<List<ProductResponse>> =
-        productHandler.getByProductType(type)
+        ResponseEntity.ok(productHandler.getByProductType(type))
 
     @GetMapping
     @Operation(
@@ -73,5 +79,5 @@ class ProductController(
     fun findAll(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-    ): ResponseEntity<PaginatedResponse<ProductResponse>> = productHandler.findAll(page, size)
+    ): ResponseEntity<PaginatedResponse<ProductResponse>> = ResponseEntity.ok(productHandler.findAll(page, size))
 }

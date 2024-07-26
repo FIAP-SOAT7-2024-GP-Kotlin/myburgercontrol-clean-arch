@@ -1,4 +1,4 @@
-package io.github.soat7.myburguercontrol.external.webservice.customer.api.request
+package io.github.soat7.myburguercontrol.external.webservice.customer.api
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size

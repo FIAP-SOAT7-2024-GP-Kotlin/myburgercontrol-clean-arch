@@ -2,8 +2,8 @@ package io.github.soat7.myburguercontrol.webservice
 
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
 import io.github.soat7.myburguercontrol.domain.entities.enum.OrderStatus
-import io.github.soat7.myburguercontrol.external.webservice.order.api.request.OrderCreationRequest
-import io.github.soat7.myburguercontrol.external.webservice.order.api.response.OrderResponse
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
 import io.github.soat7.myburguercontrol.fixtures.HttpMockRequest
 import io.github.soat7.myburguercontrol.fixtures.OrderFixtures

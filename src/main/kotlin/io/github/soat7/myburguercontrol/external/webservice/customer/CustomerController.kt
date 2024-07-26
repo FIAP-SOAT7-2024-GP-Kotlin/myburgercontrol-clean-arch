@@ -1,7 +1,8 @@
 package io.github.soat7.myburguercontrol.external.webservice.customer
 
-import io.github.soat7.myburguercontrol.external.webservice.customer.api.request.CustomerCreationRequest
-import io.github.soat7.myburguercontrol.external.webservice.customer.api.response.CustomerResponse
+import io.github.soat7.myburguercontrol.adapters.controller.CustomerHandler
+import io.github.soat7.myburguercontrol.external.webservice.customer.api.CustomerCreationRequest
+import io.github.soat7.myburguercontrol.external.webservice.customer.api.CustomerResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType
@@ -34,7 +35,7 @@ class CustomerController(
         description = "Utilize esta rota para criar um novo cliente",
     )
     fun createCustomer(@RequestBody request: CustomerCreationRequest): ResponseEntity<CustomerResponse> =
-        customerHandler.createCustomer(request)
+        ResponseEntity.ok().body(customerHandler.createCustomer(request))
 
     @GetMapping("/{id}")
     @Operation(
@@ -43,7 +44,9 @@ class CustomerController(
         description = "Utilize esta rota para encontrar um cliente utilizando o identificador na base de dados",
     )
     fun findCustomerById(@PathVariable("id") id: UUID): ResponseEntity<CustomerResponse> =
-        customerHandler.findCustomerById(id)
+        customerHandler.findCustomerById(id)?.let {
+            ResponseEntity.ok().body(it)
+        } ?: ResponseEntity.notFound().build()
 
     @GetMapping
     @Operation(
@@ -52,5 +55,7 @@ class CustomerController(
         description = "Utilize esta rota para encontrar um cliente pelo CPF",
     )
     fun findCustomerByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<CustomerResponse> =
-        customerHandler.findCustomerByCpf(cpf)
+        customerHandler.findCustomerByCpf(cpf)?.let {
+            ResponseEntity.ok().body(it)
+        } ?: ResponseEntity.notFound().build()
 }

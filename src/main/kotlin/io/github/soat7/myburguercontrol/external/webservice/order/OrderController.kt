@@ -1,9 +1,10 @@
 package io.github.soat7.myburguercontrol.external.webservice.order
 
+import io.github.soat7.myburguercontrol.adapters.controller.OrderHandler
 import io.github.soat7.myburguercontrol.domain.entities.enum.OrderStatus
 import io.github.soat7.myburguercontrol.external.webservice.common.PaginatedResponse
-import io.github.soat7.myburguercontrol.external.webservice.order.api.request.OrderCreationRequest
-import io.github.soat7.myburguercontrol.external.webservice.order.api.response.OrderResponse
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
+import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType
@@ -34,7 +35,8 @@ class OrderController(
         summary = "Utilize esta rota para criar um pedido",
         description = "Utilize esta rota para criar um pedido",
     )
-    fun create(@RequestBody request: OrderCreationRequest): ResponseEntity<OrderResponse> = orderHandler.create(request)
+    fun create(@RequestBody request: OrderCreationRequest): ResponseEntity<OrderResponse> =
+        ResponseEntity.ok(orderHandler.create(request))
 
     @GetMapping
     @Operation(
@@ -43,7 +45,7 @@ class OrderController(
         description = "Utilize esta rota para encontrar o(s) pedido(s) por cpf de cliente",
     )
     fun findOrdersByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<List<OrderResponse>> =
-        orderHandler.findOrdersByCustomerCpf(cpf)
+        ResponseEntity.ok(orderHandler.findOrdersByCustomerCpf(cpf))
 
     @GetMapping("/queue")
     @Operation(
@@ -54,7 +56,7 @@ class OrderController(
     fun findOrderQueue(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-    ): ResponseEntity<PaginatedResponse<OrderResponse>> = orderHandler.findOrderQueue(page, size)
+    ): ResponseEntity<PaginatedResponse<OrderResponse>> = ResponseEntity.ok(orderHandler.findOrderQueue(page, size))
 
     @PostMapping("/received", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -64,7 +66,7 @@ class OrderController(
     )
     fun updateOrderStatusToReceived(
         @RequestBody orderID: UUID,
-    ) = orderHandler.changeOrderStatus(OrderStatus.RECEIVED, orderID)
+    ) = ResponseEntity.ok(orderHandler.changeOrderStatus(OrderStatus.RECEIVED, orderID))
 
     @PostMapping("/in-progress", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -74,7 +76,7 @@ class OrderController(
     )
     fun updateOrderStatusToInProgress(
         @RequestBody orderID: UUID,
-    ) = orderHandler.changeOrderStatus(OrderStatus.IN_PROGRESS, orderID)
+    ) = ResponseEntity.ok(orderHandler.changeOrderStatus(OrderStatus.IN_PROGRESS, orderID))
 
     @PostMapping("/ready", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -84,7 +86,7 @@ class OrderController(
     )
     fun updateOrderStatusToReady(
         @RequestBody orderID: UUID,
-    ) = orderHandler.changeOrderStatus(OrderStatus.READY, orderID)
+    ) = ResponseEntity.ok(orderHandler.changeOrderStatus(OrderStatus.READY, orderID))
 
     @PostMapping("/finished", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
@@ -94,5 +96,5 @@ class OrderController(
     )
     fun updateOrderStatusToFinished(
         @RequestBody orderID: UUID,
-    ) = orderHandler.changeOrderStatus(OrderStatus.FINISHED, orderID)
+    ) = ResponseEntity.ok(orderHandler.changeOrderStatus(OrderStatus.FINISHED, orderID))
 }

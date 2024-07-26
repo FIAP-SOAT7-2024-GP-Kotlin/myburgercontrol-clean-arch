@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.external.webservice.user
 
+import io.github.soat7.myburguercontrol.adapters.controller.UserHandler
 import io.github.soat7.myburguercontrol.external.webservice.user.api.UserCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.user.api.UserResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -33,7 +34,7 @@ class UserController(
         description = "Utilize esta rota para criar um novo usuário",
     )
     fun createUser(@RequestBody request: UserCreationRequest): ResponseEntity<UserResponse> =
-        userHandler.create(request)
+        ResponseEntity.ok(userHandler.create(request))
 
     @GetMapping("/{id}")
     @Operation(
@@ -42,7 +43,9 @@ class UserController(
         description = "Utilize esta rota para encontrar um usuário utilizando o identificador na base de dados",
     )
     @SecurityRequirement(name = "Bearer Authentication")
-    fun findUserById(@PathVariable("id") id: UUID): ResponseEntity<UserResponse> = userHandler.findUserById(id)
+    fun findUserById(@PathVariable("id") id: UUID): ResponseEntity<UserResponse> = userHandler.findUserById(id)?.let {
+        ResponseEntity.ok(it)
+    } ?: ResponseEntity.notFound().build()
 
     @GetMapping
     @Operation(
@@ -51,5 +54,8 @@ class UserController(
         description = "Utilize esta rota para encontrar um usuário utilizando o cpf",
     )
     @SecurityRequirement(name = "Bearer Authentication")
-    fun findUserByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<UserResponse> = userHandler.findUserByCpf(cpf)
+    fun findUserByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<UserResponse> =
+        userHandler.findUserByCpf(cpf)?.let {
+            ResponseEntity.ok(it)
+        } ?: ResponseEntity.notFound().build()
 }

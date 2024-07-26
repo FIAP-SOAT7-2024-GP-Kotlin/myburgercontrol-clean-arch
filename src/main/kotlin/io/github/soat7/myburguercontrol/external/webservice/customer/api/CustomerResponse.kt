@@ -1,4 +1,4 @@
-package io.github.soat7.myburguercontrol.external.webservice.customer.api.response
+package io.github.soat7.myburguercontrol.external.webservice.customer.api
 
 import java.util.UUID
 
