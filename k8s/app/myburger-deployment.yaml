@@ -28,6 +28,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: myburger-config
+            - secretRef:
+                name: myburger-secrets
           livenessProbe:
             httpGet:
               port: 8080

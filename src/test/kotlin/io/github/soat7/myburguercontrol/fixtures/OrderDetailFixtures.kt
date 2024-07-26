@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.fixtures
 
-import io.github.soat7.myburguercontrol.business.model.OrderDetail
-import io.github.soat7.myburguercontrol.business.model.Product
+import io.github.soat7.myburguercontrol.domain.entities.OrderDetail
+import io.github.soat7.myburguercontrol.domain.entities.Product
 
 object OrderDetailFixtures {
 

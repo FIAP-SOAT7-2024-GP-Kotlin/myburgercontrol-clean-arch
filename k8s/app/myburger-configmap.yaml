@@ -14,8 +14,5 @@ data:
     -XX:+CrashOnOutOfMemoryError
     -Xlog:gc
   DATABASE_URL: "postgresql://postgres:5432/my_burger"
-  DATABASE_USER: "my_burger"
-  DATABASE_PASSWORD: "password"
-  JWT_KEY: "lkjhaskljdajkdlsfjklsdgjklssdljkgff"
   WIREMOCK_URL: "http://wiremock:8080/mercadopago/pagamento"
   LOG_LEVEL: "DEBUG"

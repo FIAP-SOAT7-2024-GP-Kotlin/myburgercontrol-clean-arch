@@ -1,9 +1,9 @@
 package io.github.soat7.myburguercontrol.fixtures
 
-import io.github.soat7.myburguercontrol.business.enum.UserRole
-import io.github.soat7.myburguercontrol.business.model.User
-import io.github.soat7.myburguercontrol.database.user.entity.UserEntity
-import io.github.soat7.myburguercontrol.webservice.auth.api.UserCreationRequest
+import io.github.soat7.myburguercontrol.domain.entities.User
+import io.github.soat7.myburguercontrol.domain.entities.enum.UserRole
+import io.github.soat7.myburguercontrol.external.db.user.entity.UserEntity
+import io.github.soat7.myburguercontrol.external.webservice.user.api.UserCreationRequest
 import java.util.UUID
 
 object UserFixtures {

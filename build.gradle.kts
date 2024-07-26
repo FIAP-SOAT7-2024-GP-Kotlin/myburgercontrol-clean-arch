@@ -21,7 +21,7 @@ plugins {
     kotlin("plugin.allopen") version "1.9.25"
     jacoco
 
-    id("org.springframework.boot") version "3.3.1"
+    id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
     id("org.liquibase.gradle") version "2.2.2"
     id("org.barfuin.gradle.jacocolog") version "3.1.0"
@@ -187,7 +187,7 @@ liquibase {
             "password" to props["DATABASE_PASSWORD"],
             "referenceUrl" to "hibernate:spring:io.github.soat7.myburguercontrol.infrastructure.persistence?" +
                 "dialect=org.hibernate.dialect.PostgreSQLDialect&" +
-                "hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&" +
+                "hibernate.physical_naming_strategy=org.hibernate.boot.entities.naming.CamelCaseToUnderscoresNamingStrategy&" +
                 "hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
             "defaultSchemaName" to "myburguer",
             // "logLevel" to "debug",
