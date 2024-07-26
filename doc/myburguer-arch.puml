@@ -12,11 +12,14 @@ cloud Kubernetes {
     interface "MyBurguer\nSVC" as mbService #Yellow
     component "MyBurguer\nDeployment" as mbDeployment #Yellow
     component "MyBurguer\nConfigMap" as mbConfig #Yellow
+    component "MyBurguer\nSecret" as mbSecret #Yellow
     port "8080" as p8080 #Purple
 
     p8080 -r-> mbService
     mbService -r-> mbDeployment
-    mbDeployment .r.>mbConfig
+    mbDeployment .r.> mbConfig
+    mbDeployment .r.> mbSecret
+    mbConfig .d[hidden].> mbSecret
 
     interface "PostgreSQL\nSVC" as postgresService #Orange
     database "PostgreSQL\nDeployment" as postgresDeployment #Orange
@@ -29,7 +32,7 @@ cloud Kubernetes {
     postgresPVC -r-> postgresPV
     postgresDeployment .d.> postgresConfig
 
-    mbDeployment -d-> postgresService : port 5432
+    mbDeployment -d--> postgresService : port 5432
 }
 
 user --> p8080

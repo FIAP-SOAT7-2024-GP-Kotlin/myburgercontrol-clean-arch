@@ -3,7 +3,7 @@
 kubectl apply -f k8s/db/postgres-pv-do.yaml
 kubectl apply -f k8s/db/postgres-pvc-do.yaml
 
-kubectl apply -f k8s/db/postgres-configmap.yaml
+kubectl apply -f k8s/db/postgres-secret.yaml
 kubectl apply -f k8s/db/postgres-statefulset.yaml
 kubectl apply -f k8s/db/postgres-svc.yaml
 
