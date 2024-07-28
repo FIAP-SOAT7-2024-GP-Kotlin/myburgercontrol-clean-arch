@@ -29,6 +29,8 @@ class NotificationIpnUseCase(
         val parts = event.resource.split("/")
         val merchantId = parts.last()
 
+        if (event.topic == "payment") return true
+
         if (event.topic == "merchant_order") {
             try {
                 val merchantOrderResponse = getIpnMerchantDetail(merchantId)
@@ -42,9 +44,8 @@ class NotificationIpnUseCase(
                 throw ReasonCodeException(ReasonCode.UNEXPECTED_ERROR, ex)
             }
             return true
-        } else {
-            return false
         }
+        return false
     }
 
     private fun getIpnMerchantDetail(merchantId: String): MerchantOrderResponse {
