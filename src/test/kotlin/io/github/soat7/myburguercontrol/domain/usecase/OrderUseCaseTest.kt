@@ -30,8 +30,7 @@ class OrderUseCaseTest {
     private val repository = mockk<OrderGateway>()
     private val customerUseCase = mockk<CustomerUseCase>()
     private val productUseCase = mockk<ProductUseCase>()
-    private val paymentUseCase = mockk<PaymentUseCase>()
-    private val service = OrderUseCase(repository, customerUseCase, productUseCase, paymentUseCase)
+    private val service = OrderUseCase(repository, customerUseCase, productUseCase)
 
     @BeforeTest
     fun setUp() {
@@ -45,17 +44,12 @@ class OrderUseCaseTest {
         val cpf = "23282711034"
         val customer = mockDomainCustomer(cpf = cpf)
         val product = ProductFixtures.mockDomainProduct()
-        val payment = mockPayment()
 
         every { customerUseCase.findCustomerByCpf(cpf) } returns customer
         every { repository.create(any<OrderModel>()) } answers {
             (this.firstArg() as OrderModel).copy(id = UUID.randomUUID())
         }
         every { productUseCase.findById(any()) } returns product
-        every {
-            paymentUseCase.requestPayment(any())
-        } returns payment
-        every { paymentUseCase.createPayment() } returns payment
         every { repository.update(any<OrderModel>()) } answers {
             (this.firstArg() as OrderModel).copy(id = UUID.randomUUID())
         }
@@ -65,8 +59,6 @@ class OrderUseCaseTest {
         verify(exactly = 1) { customerUseCase.findCustomerByCpf(any()) }
         verify(exactly = 2) { repository.update(any()) }
         verify(exactly = 1) { repository.create(any()) }
-        verify(exactly = 1) { paymentUseCase.createPayment() }
-        verify(exactly = 1) { paymentUseCase.requestPayment(any()) }
 
         assertNotNull(order.id)
         assertEquals(cpf, order.customer.cpf)

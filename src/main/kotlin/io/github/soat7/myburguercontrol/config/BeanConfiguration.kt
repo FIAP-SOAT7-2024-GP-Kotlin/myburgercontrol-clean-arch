@@ -59,16 +59,17 @@ class BeanConfiguration {
         orderGateway = orderGateway,
         customerUseCase = customerUseCase,
         productUseCase = productUseCase,
-        paymentUseCase = paymentUseCase,
     )
 
     @Bean
     fun paymentService(
         paymentIntegrationRepository: PaymentIntegrationRepository,
         paymentGateway: PaymentGateway,
+        orderGateway: OrderGateway
     ) = PaymentUseCase(
         paymentIntegrationRepository = paymentIntegrationRepository,
         paymentGateway = paymentGateway,
+        orderGateway = orderGateway
     )
 
     @Bean

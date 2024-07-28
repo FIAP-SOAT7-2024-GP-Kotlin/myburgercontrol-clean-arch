@@ -9,6 +9,7 @@ import io.github.soat7.myburguercontrol.external.db.order.entity.OrderEntity
 import io.github.soat7.myburguercontrol.external.db.order.entity.OrderItemEntity
 import io.github.soat7.myburguercontrol.external.db.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
+import io.github.soat7.myburguercontrol.external.thirdparty.api.Item
 import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentIntegrationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderItemResponse

@@ -2,13 +2,11 @@ package io.github.soat7.myburguercontrol.external.thirdparty
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.soat7.myburguercontrol.adapters.gateway.PaymentIntegrationRepository
-import io.github.soat7.myburguercontrol.adapters.mapper.toDto
 import io.github.soat7.myburguercontrol.adapters.mapper.toPaymentRequest
 import io.github.soat7.myburguercontrol.domain.entities.Order
 import io.github.soat7.myburguercontrol.exception.ReasonCode
 import io.github.soat7.myburguercontrol.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentIntegrationResponse
-import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentResult
+import io.github.soat7.myburguercontrol.external.thirdparty.api.QRCodeData
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -62,14 +60,7 @@ class PaymentIntegrationClient(
                 throw ReasonCodeException(ReasonCode.UNEXPECTED_ERROR)
             }
         } catch (ex: RestClientResponseException) {
-            when (ex.statusCode.value()) {
-                402 -> return PaymentResult(null, false).also {
-                    logger.info { "Payment not authorized" }
-                }
-
-                else -> logger.warn { "Integration error" }
-                    .also { throw ex }
-            }
+            logger.warn { "Integration error" }.also { throw ex }
         }
     }
 }

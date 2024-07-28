@@ -1,10 +1,10 @@
-package io.github.soat7.myburguercontrol.business.service
+package io.github.soat7.myburguercontrol.domain.usecase
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.business.exception.ReasonCode
-import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.exception.ReasonCode
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
 import io.github.soat7.myburguercontrol.webservice.notification.api.IpnEvent
 import io.github.soat7.myburguercontrol.webservice.notification.api.MerchantOrderResponse
 import org.springframework.beans.factory.annotation.Value
@@ -24,7 +24,7 @@ class NotificationIpnService(
     @Value("\${mercadopago.acessToken}")
     private val mpAccessToken: String,
 
-    private val paymentService: PaymentService,
+    private val paymentUseCase: PaymentUseCase,
 ) {
 
     fun processIpn(headerEvent: Map<String, String>, bodyEvent: String): Boolean {
@@ -40,7 +40,7 @@ class NotificationIpnService(
             try {
                 val merchantOrderResponse = getIpnMerchantDetail(merchantId)
                 println(merchantOrderResponse.toString())
-                paymentService.updatePayment(
+                paymentUseCase.updatePayment(
                     merchantOrderResponse.externalReference.toString(),
                     merchantOrderResponse.orderStatus,
                 )

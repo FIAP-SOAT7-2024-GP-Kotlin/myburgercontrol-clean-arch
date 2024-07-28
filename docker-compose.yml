@@ -28,14 +28,6 @@ services:
       PAYMENT_INTEGRATION_URL: ${PAYMENT_INTEGRATION_URL}
       PAYMENT_INTEGRATION_AUTH_TOKEN: ${PAYMENT_INTEGRATION_AUTH_TOKEN}
       LOG_LEVEL: "DEBUG"
-  wiremock:
-    platform: linux/amd64
-    image: holomekc/wiremock-gui:3.5.7-alpine
-    ports:
-      - "9090:8080"
-    volumes:
-      - ./mappings:/home/wiremock/mappings
-    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
 
 volumes:
   pgdata:

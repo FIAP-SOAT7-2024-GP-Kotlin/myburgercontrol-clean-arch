@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.webservice.notification
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.business.service.NotificationIpnService
-import io.github.soat7.myburguercontrol.business.service.NotificationWebhookService
+import io.github.soat7.myburguercontrol.domain.usecase.NotificationIpnService
+import io.github.soat7.myburguercontrol.domain.usecase.NotificationWebhookService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType

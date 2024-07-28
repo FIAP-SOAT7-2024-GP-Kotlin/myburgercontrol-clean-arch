@@ -2,28 +2,31 @@ package io.github.soat7.myburguercontrol.domain.usecase
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.soat7.myburguercontrol.adapters.gateway.PaymentIntegrationRepository
-import io.github.soat7.myburguercontrol.domain.entities.Order
 import io.github.soat7.myburguercontrol.domain.entities.Payment
 import io.github.soat7.myburguercontrol.domain.entities.enum.PaymentStatus
 import io.github.soat7.myburguercontrol.exception.ReasonCode
 import io.github.soat7.myburguercontrol.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.external.db.order.OrderGateway
 import io.github.soat7.myburguercontrol.external.db.payment.PaymentGateway
+import io.github.soat7.myburguercontrol.external.thirdparty.api.QRCodeData
+import java.util.UUID
 
 private val logger = KotlinLogging.logger {}
 
 class PaymentUseCase(
     private val paymentIntegrationRepository: PaymentIntegrationRepository,
     private val paymentGateway: PaymentGateway,
+    private val orderGateway: OrderGateway
 ) {
 
     fun startPaymentRequest(orderId: UUID): QRCodeData {
-        val order = orderRepository.findById(orderId) ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
+        val order = orderGateway.findById(orderId) ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
 
         val payment = createPayment()
         val orderUpdated = order.copy(
             payment = payment,
         )
-        orderRepository.update(orderUpdated)
+        orderGateway.update(orderUpdated)
 
         return paymentIntegrationRepository.requestQRCodeDataForPayment(orderUpdated)
     }

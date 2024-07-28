@@ -1,7 +1,7 @@
 package io.github.soat7.myburguercontrol.webservice.payment
 
-import io.github.soat7.myburguercontrol.business.service.PaymentService
-import io.github.soat7.myburguercontrol.thirdparty.api.QRCodeData
+import io.github.soat7.myburguercontrol.adapters.controller.PaymentHandler
+import io.github.soat7.myburguercontrol.external.thirdparty.api.QRCodeData
 import io.github.soat7.myburguercontrol.webservice.payment.api.OrderIdentification
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
 class PaymentController(
-    private val paymentService: PaymentService,
+    private val paymentHandler: PaymentHandler,
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
@@ -31,6 +31,6 @@ class PaymentController(
         description = "Essa rota inicia a integração com o MercadoPago, solicitando os dados para a criação de um QRCode de pagamento",
     )
     fun startPayment(@RequestBody orderID: OrderIdentification): ResponseEntity<QRCodeData>? = run {
-        return ResponseEntity.ok(paymentService.startPaymentRequest(orderID.id))
+        return ResponseEntity.ok(paymentHandler.startPaymentRequest(orderID))
     }
 }

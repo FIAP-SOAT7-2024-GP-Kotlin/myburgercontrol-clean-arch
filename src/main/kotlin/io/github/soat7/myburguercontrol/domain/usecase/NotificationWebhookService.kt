@@ -1,10 +1,10 @@
-package io.github.soat7.myburguercontrol.business.service
+package io.github.soat7.myburguercontrol.domain.usecase
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.business.exception.ReasonCode
-import io.github.soat7.myburguercontrol.business.exception.ReasonCodeException
+import io.github.soat7.myburguercontrol.exception.ReasonCode
+import io.github.soat7.myburguercontrol.exception.ReasonCodeException
 import io.github.soat7.myburguercontrol.webservice.notification.api.WebhookEvent
 import io.github.soat7.myburguercontrol.webservice.notification.api.WebhookPaymentResponse
 import org.apache.commons.codec.digest.HmacUtils
@@ -28,7 +28,7 @@ class NotificationWebhookService(
     @Value("\${mercadopago.acessToken}")
     private val mpAccessToken: String,
 
-    private val paymentService: PaymentService,
+    private val paymentUseCase: PaymentUseCase,
 ) {
 
     fun processWebhook(headerEvent: Map<String, String>, bodyEvent: String): Boolean {
@@ -50,7 +50,7 @@ class NotificationWebhookService(
 
         if (webhookEvent.action == "payment.updated") {
             val mercadoPagoPayment = getWebhookPaymentDetail(webhookEvent.data.id)
-            paymentService.updatePayment(
+            paymentUseCase.updatePayment(
                 mercadoPagoPayment.externalReference.toString(),
                 mercadoPagoPayment.status,
             )
