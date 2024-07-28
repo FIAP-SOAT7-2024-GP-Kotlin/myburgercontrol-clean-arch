@@ -16,12 +16,14 @@ import io.github.soat7.myburguercontrol.external.db.order.OrderGateway
 import io.github.soat7.myburguercontrol.external.db.payment.PaymentGateway
 import io.github.soat7.myburguercontrol.external.db.product.ProductGateway
 import io.github.soat7.myburguercontrol.external.db.user.UserGateway
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
+@EnableConfigurationProperties(MercadoPagoProperties::class)
 class BeanConfiguration {
 
     @Bean

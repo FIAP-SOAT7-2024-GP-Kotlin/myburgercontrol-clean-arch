@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("mercadopago")
 data class MercadoPagoProperties(
-    val paymentURL: String,
-    val wbSecretKey: String,
+    val merchantURL: String,
+    val webhookKey: String,
     val accessToken: String,
 )

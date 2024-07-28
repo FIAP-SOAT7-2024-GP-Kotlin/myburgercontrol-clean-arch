@@ -48,7 +48,7 @@ class NotificationIpnUseCase(
     }
 
     private fun getIpnMerchantDetail(merchantId: String): MerchantOrderResponse {
-        val url = "${mercadoPagoProperties.paymentURL}/$merchantId"
+        val url = "${mercadoPagoProperties.merchantURL}/$merchantId"
         val restTemplate = RestTemplate()
         val headers = HttpHeaders()
         headers.setBearerAuth(mercadoPagoProperties.accessToken)

@@ -65,13 +65,13 @@ class NotificationWebhookUseCase(
         val ts = signatureValues["ts"]
         val v1 = signatureValues["v1"]
         val signedTemplate = "id:$xDataID;request-id:$xRequestId;ts:$ts;"
-        val cyphedSignature: String = HmacUtils("HmacSHA256", mercadoPagoProperties.wbSecretKey).hmacHex(signedTemplate)
+        val cyphedSignature: String = HmacUtils("HmacSHA256", mercadoPagoProperties.webhookKey).hmacHex(signedTemplate)
 
         return cyphedSignature == v1
     }
 
     private fun getWebhookPaymentDetail(paymentId: String): WebhookPaymentResponse {
-        val url = "${mercadoPagoProperties.paymentURL}/$paymentId"
+        val url = "${mercadoPagoProperties.merchantURL}/$paymentId"
         val restTemplate = RestTemplate()
         val headers = HttpHeaders()
         headers.setBearerAuth(mercadoPagoProperties.accessToken)
