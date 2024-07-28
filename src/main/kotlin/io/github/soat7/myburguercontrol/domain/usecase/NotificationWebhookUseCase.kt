@@ -19,12 +19,12 @@ private val logger: KLogger = KotlinLogging.logger {}
 class NotificationWebhookUseCase(
     private val mercadoPagoProperties: MercadoPagoProperties,
     private val paymentUseCase: PaymentUseCase,
+    private val objectMapper: ObjectMapper = ObjectMapper(),
 ) {
 
     fun processWebhook(headerEvent: Map<String, String>, bodyEvent: String): Boolean {
         logger.debug { "Process Webhook: $headerEvent $bodyEvent" }
         val validatedEvent: Boolean?
-        val objectMapper = ObjectMapper()
         val webhookEvent = objectMapper.readValue(bodyEvent, WebhookEvent::class.java)
 
         try {
@@ -86,7 +86,6 @@ class NotificationWebhookUseCase(
         )
 
         val json = response.body.toString()
-        val objectMapper = ObjectMapper()
 
         val webhookPaymentResponse = objectMapper.readValue(json, WebhookPaymentResponse::class.java)
 

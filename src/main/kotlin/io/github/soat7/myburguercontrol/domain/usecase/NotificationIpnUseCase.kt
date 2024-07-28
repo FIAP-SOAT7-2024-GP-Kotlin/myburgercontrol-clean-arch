@@ -18,12 +18,12 @@ private val logger: KLogger = KotlinLogging.logger {}
 class NotificationIpnUseCase(
     private val mercadoPagoProperties: MercadoPagoProperties,
     private val paymentUseCase: PaymentUseCase,
+    private val objectMapper: ObjectMapper = ObjectMapper(),
 ) {
 
     fun processIpn(headerEvent: Map<String, String>, bodyEvent: String): Boolean {
         logger.debug { "Process Webhook: $headerEvent $bodyEvent" }
 
-        val objectMapper = ObjectMapper()
         val event = objectMapper.readValue(bodyEvent, IpnEvent::class.java)
 
         val parts = event.resource.split("/")

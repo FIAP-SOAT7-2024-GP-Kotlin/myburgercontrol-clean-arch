@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class WebhookEvent(
     @JsonProperty("action") val action: String,
-    @JsonProperty("api_version") val api_version: String,
+    @JsonProperty("api_version") val apiVersion: String,
     @JsonProperty("data") val data: Data,
-    @JsonProperty("date_created") val date_created: String,
+    @JsonProperty("date_created") val dateCreated: String,
     @JsonProperty("id") val id: String,
-    @JsonProperty("live_mode") val live_mode: Boolean,
+    @JsonProperty("live_mode") val liveMode: Boolean,
     @JsonProperty("type") val type: String,
-    @JsonProperty("user_id") val user_id: Int,
+    @JsonProperty("user_id") val userId: Int,
 ) {
     data class Data(
         @JsonProperty("id") val id: String,
