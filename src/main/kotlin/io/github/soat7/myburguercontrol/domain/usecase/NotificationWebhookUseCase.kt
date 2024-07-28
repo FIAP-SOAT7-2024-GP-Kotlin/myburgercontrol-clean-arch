@@ -3,31 +3,21 @@ package io.github.soat7.myburguercontrol.domain.usecase
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.soat7.myburguercontrol.config.MercadoPagoProperties
 import io.github.soat7.myburguercontrol.exception.ReasonCode
 import io.github.soat7.myburguercontrol.exception.ReasonCodeException
-import io.github.soat7.myburguercontrol.webservice.notification.api.WebhookEvent
-import io.github.soat7.myburguercontrol.webservice.notification.api.WebhookPaymentResponse
+import io.github.soat7.myburguercontrol.external.webservice.notification.api.WebhookEvent
+import io.github.soat7.myburguercontrol.external.webservice.notification.api.WebhookPaymentResponse
 import org.apache.commons.codec.digest.HmacUtils
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
 private val logger: KLogger = KotlinLogging.logger {}
 
-@Service
-class NotificationWebhookService(
-    @Value("\${mercadopago.paymentURL}")
-    private val baseURL: String,
-
-    @Value("\${mercadopago.webhookKey}")
-    private val wbSecretKey: String,
-
-    @Value("\${mercadopago.acessToken}")
-    private val mpAccessToken: String,
-
+class NotificationWebhookUseCase(
+    private val mercadoPagoProperties: MercadoPagoProperties,
     private val paymentUseCase: PaymentUseCase,
 ) {
 
@@ -75,16 +65,16 @@ class NotificationWebhookService(
         val ts = signatureValues["ts"]
         val v1 = signatureValues["v1"]
         val signedTemplate = "id:$xDataID;request-id:$xRequestId;ts:$ts;"
-        val cyphedSignature: String = HmacUtils("HmacSHA256", wbSecretKey).hmacHex(signedTemplate)
+        val cyphedSignature: String = HmacUtils("HmacSHA256", mercadoPagoProperties.wbSecretKey).hmacHex(signedTemplate)
 
         return cyphedSignature == v1
     }
 
     private fun getWebhookPaymentDetail(paymentId: String): WebhookPaymentResponse {
-        val url = "$baseURL/$paymentId"
+        val url = "${mercadoPagoProperties.paymentURL}/$paymentId"
         val restTemplate = RestTemplate()
         val headers = HttpHeaders()
-        headers.setBearerAuth(mpAccessToken)
+        headers.setBearerAuth(mercadoPagoProperties.accessToken)
 
         val requestEntity = HttpEntity<Any>(headers)
 

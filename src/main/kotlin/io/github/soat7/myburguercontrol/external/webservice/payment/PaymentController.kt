@@ -1,8 +1,7 @@
-package io.github.soat7.myburguercontrol.webservice.payment
+package io.github.soat7.myburguercontrol.external.webservice.payment
 
 import io.github.soat7.myburguercontrol.adapters.controller.PaymentHandler
 import io.github.soat7.myburguercontrol.external.thirdparty.api.QRCodeData
-import io.github.soat7.myburguercontrol.webservice.payment.api.OrderIdentification
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.UUID
 
 @RestController("payment-controller")
 @RequestMapping(
@@ -30,7 +30,7 @@ class PaymentController(
         summary = "Utilize esta rota iniciar uma solicitação de QRCode para pagamento",
         description = "Essa rota inicia a integração com o MercadoPago, solicitando os dados para a criação de um QRCode de pagamento",
     )
-    fun startPayment(@RequestBody orderID: OrderIdentification): ResponseEntity<QRCodeData>? = run {
+    fun startPayment(@RequestBody orderID: UUID): ResponseEntity<QRCodeData>? = run {
         return ResponseEntity.ok(paymentHandler.startPaymentRequest(orderID))
     }
 }

@@ -13,8 +13,6 @@ object PaymentFixtures {
             authorizationId = null,
         )
     }
-}
 
-object QRCodeFixtures {
     fun mockQRCode(orderId: String) = QRCodeData("QRCodeData", orderId)
 }

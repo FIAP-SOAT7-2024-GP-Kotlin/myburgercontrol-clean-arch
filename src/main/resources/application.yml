@@ -69,8 +69,8 @@ spring:
 
 third-party:
   payment-integration:
-    url: ${PAYMENT_INTEGRATION_URL}
-    auth-token: ${PAYMENT_INTEGRATION_AUTH_TOKEN}
+    url: ${MP_REQUEST_URL}
+    auth-token: ${MP_AUTH_TOKEN}
     connectionTimeout: 5000
     readTimeout: 5000
 
@@ -102,6 +102,6 @@ jwt:
 mercadopago:
   paymentURL: ${MP_PAYMENT_URL}
   merchantURL: ${MP_MERCHANT_URL}
-  acessToken: ${MP_ACCESS_TOKEN}
+  accessToken: ${MP_ACCESS_TOKEN}
   webhookKey: ${MP_WEBHOOK_KEY}
   notificationUrl: ${MP_NOTIFICATION_URL}

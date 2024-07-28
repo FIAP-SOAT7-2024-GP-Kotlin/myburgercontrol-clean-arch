@@ -16,7 +16,7 @@ private val logger = KotlinLogging.logger {}
 class PaymentUseCase(
     private val paymentIntegrationRepository: PaymentIntegrationRepository,
     private val paymentGateway: PaymentGateway,
-    private val orderGateway: OrderGateway
+    private val orderGateway: OrderGateway,
 ) {
 
     fun startPaymentRequest(orderId: UUID): QRCodeData {

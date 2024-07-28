@@ -4,6 +4,8 @@ import io.github.soat7.myburguercontrol.adapters.gateway.PaymentIntegrationRepos
 import io.github.soat7.myburguercontrol.domain.usecase.AuthenticationUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.CustomUserDetailsUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.CustomerUseCase
+import io.github.soat7.myburguercontrol.domain.usecase.NotificationIpnUseCase
+import io.github.soat7.myburguercontrol.domain.usecase.NotificationWebhookUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.OrderUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.PaymentUseCase
 import io.github.soat7.myburguercontrol.domain.usecase.ProductUseCase
@@ -65,11 +67,11 @@ class BeanConfiguration {
     fun paymentService(
         paymentIntegrationRepository: PaymentIntegrationRepository,
         paymentGateway: PaymentGateway,
-        orderGateway: OrderGateway
+        orderGateway: OrderGateway,
     ) = PaymentUseCase(
         paymentIntegrationRepository = paymentIntegrationRepository,
         paymentGateway = paymentGateway,
-        orderGateway = orderGateway
+        orderGateway = orderGateway,
     )
 
     @Bean
@@ -93,5 +95,23 @@ class BeanConfiguration {
     ) = UserUseCase(
         userGateway = userGateway,
         encoder = encoder,
+    )
+
+    @Bean
+    fun notificationWebHookUseCase(
+        mercadoPagoProperties: MercadoPagoProperties,
+        paymentUseCase: PaymentUseCase,
+    ) = NotificationWebhookUseCase(
+        mercadoPagoProperties,
+        paymentUseCase,
+    )
+
+    @Bean
+    fun notificationIpnUseCase(
+        mercadoPagoProperties: MercadoPagoProperties,
+        paymentUseCase: PaymentUseCase,
+    ) = NotificationIpnUseCase(
+        mercadoPagoProperties,
+        paymentUseCase,
     )
 }

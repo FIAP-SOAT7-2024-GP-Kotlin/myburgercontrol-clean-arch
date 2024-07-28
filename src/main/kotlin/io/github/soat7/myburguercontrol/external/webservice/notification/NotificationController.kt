@@ -1,8 +1,7 @@
-package io.github.soat7.myburguercontrol.webservice.notification
+package io.github.soat7.myburguercontrol.external.webservice.notification
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.soat7.myburguercontrol.domain.usecase.NotificationIpnService
-import io.github.soat7.myburguercontrol.domain.usecase.NotificationWebhookService
+import io.github.soat7.myburguercontrol.adapters.controller.NotificationHandler
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.MediaType
@@ -25,8 +24,7 @@ private val logger = KotlinLogging.logger {}
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @SecurityRequirement(name = "Bearer Authentication")
 class NotificationController(
-    private val notificationWebhookService: NotificationWebhookService,
-    private val notificationIpnService: NotificationIpnService,
+    private val notificationHandler: NotificationHandler,
 ) {
 
     @PostMapping(
@@ -45,7 +43,7 @@ class NotificationController(
         @RequestBody body: String,
     ): ResponseEntity<String> = run {
         logger.debug { "\nRecebeu notificação IPN \n$header \n$body" }
-        val result = notificationIpnService.processIpn(header, body)
+        val result = notificationHandler.processIpn(header, body)
         return if (result) {
             ResponseEntity.ok().build()
         } else {
@@ -69,7 +67,7 @@ class NotificationController(
         @RequestBody body: String,
     ): ResponseEntity<String> = run {
         logger.debug { "\nRecebeu notificação WebHook \n$header \n$body" }
-        val result = notificationWebhookService.processWebhook(header, body)
+        val result = notificationHandler.processWebhook(header, body)
         return if (result) {
             ResponseEntity.ok().build()
         } else {

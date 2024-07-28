@@ -6,7 +6,7 @@ import io.github.soat7.myburguercontrol.external.db.payment.PaymentGateway
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
 import io.github.soat7.myburguercontrol.fixtures.OrderFixtures.mockOrder
 import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockPayment
-import io.github.soat7.myburguercontrol.fixtures.QRCodeFixtures.mockQRCode
+import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockQRCode
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -43,7 +43,7 @@ class PaymentUseCaseTest {
         every { paymentIntegrationRepository.requestQRCodeDataForPayment(any<OrderModel>()) } returns mockQRCode(
             UUID.randomUUID().toString(),
         )
-        every { orderGateway.findById(any())} returns order
+        every { orderGateway.findById(any()) } returns order
         every { orderGateway.update(any()) } returns order
         every { paymentGateway.findById(any()) } returns mockPayment()
         every { paymentGateway.create(any()) } returns mockPayment()
