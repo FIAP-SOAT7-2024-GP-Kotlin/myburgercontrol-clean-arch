@@ -64,7 +64,6 @@ class NotificationIpnUseCase(
         )
 
         val json = response.body.toString()
-        val objectMapper = ObjectMapper()
 
         val merchantResponse = objectMapper.readValue(json, MerchantOrderResponse::class.java)
 
