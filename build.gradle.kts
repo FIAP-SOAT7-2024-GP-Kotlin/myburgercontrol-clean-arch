@@ -15,14 +15,14 @@ try {
 }
 
 plugins {
-    kotlin("jvm") version "1.9.24"
-    kotlin("plugin.spring") version "1.9.24"
-    kotlin("plugin.jpa") version "1.9.24"
-    kotlin("plugin.allopen") version "1.9.24"
+    kotlin("jvm") version "1.9.25"
+    kotlin("plugin.spring") version "1.9.25"
+    kotlin("plugin.jpa") version "1.9.25"
+    kotlin("plugin.allopen") version "1.9.25"
     jacoco
 
-    id("org.springframework.boot") version "3.2.6"
-    id("io.spring.dependency-management") version "1.1.5"
+    id("org.springframework.boot") version "3.3.2"
+    id("io.spring.dependency-management") version "1.1.6"
     id("org.liquibase.gradle") version "2.2.2"
     id("org.barfuin.gradle.jacocolog") version "3.1.0"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
@@ -61,7 +61,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.+")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -76,9 +76,9 @@ dependencies {
     implementation("commons-codec:commons-codec:1.17.0")
 
     // jwt
-    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
-    implementation("io.jsonwebtoken:jjwt-impl:0.12.5")
-    implementation("io.jsonwebtoken:jjwt-jackson:0.12.5")
+    implementation("io.jsonwebtoken:jjwt-api:0.12.+")
+    implementation("io.jsonwebtoken:jjwt-impl:0.12.+")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.12.+")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
     // Test
@@ -87,11 +87,11 @@ dependencies {
     }
     testImplementation("com.ninja-squad:springmockk:4.+")
     testImplementation("io.mockk:mockk:1.+")
-    testImplementation("org.testcontainers:testcontainers")
-    testImplementation("org.testcontainers:postgresql")
-    testImplementation("org.testcontainers:mockserver")
-    testImplementation("org.mock-server:mockserver-client-java:5.13.2")
-    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:testcontainers:$testContainerVersion")
+    testImplementation("org.testcontainers:postgresql:$testContainerVersion")
+    testImplementation("org.testcontainers:mockserver:$testContainerVersion")
+    testImplementation("org.mock-server:mockserver-client-java:5.+")
+    testImplementation("org.testcontainers:junit-jupiter:$testContainerVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.awaitility:awaitility-kotlin:4.+")
@@ -137,7 +137,7 @@ tasks.withType<Test> {
 tasks.jacocoTestReport {
     reports {
         xml.required = true
-        csv.required = false
+        csv.required = true
         html.outputLocation = layout.buildDirectory.dir("reports/jacoco/test/html")
     }
     dependsOn(tasks.test)
@@ -189,7 +189,7 @@ liquibase {
             "password" to props["DATABASE_PASSWORD"],
             "referenceUrl" to "hibernate:spring:io.github.soat7.myburguercontrol.infrastructure.persistence?" +
                 "dialect=org.hibernate.dialect.PostgreSQLDialect&" +
-                "hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&" +
+                "hibernate.physical_naming_strategy=org.hibernate.boot.entities.naming.CamelCaseToUnderscoresNamingStrategy&" +
                 "hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
             "defaultSchemaName" to "myburguer",
             // "logLevel" to "debug",

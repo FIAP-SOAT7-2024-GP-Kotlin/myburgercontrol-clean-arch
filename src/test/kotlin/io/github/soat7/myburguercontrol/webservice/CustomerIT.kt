@@ -1,8 +1,8 @@
 package io.github.soat7.myburguercontrol.webservice
 
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
+import io.github.soat7.myburguercontrol.external.webservice.customer.api.CustomerResponse
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures
-import io.github.soat7.myburguercontrol.webservice.customer.api.response.CustomerResponse
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull

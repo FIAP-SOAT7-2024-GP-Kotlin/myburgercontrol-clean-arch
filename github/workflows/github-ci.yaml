@@ -22,8 +22,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: KtLint
+        run: ./gradlew clean ktlintCheck
+
+      - name: Compile
+        run: ./gradlew compileKotlin compileTestKotlin
 
       - name: Run tests
         run: ./gradlew test
@@ -41,3 +44,6 @@ jobs:
         with:
           name: jacoco-report
           path: build/reports/jacoco/test/html/
+
+      - name: Build with Gradle
+        run: ./gradlew build
