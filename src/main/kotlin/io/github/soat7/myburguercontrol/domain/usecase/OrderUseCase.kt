@@ -47,6 +47,7 @@ class OrderUseCase(
         logger.info { "Finding orders with status: [${OrderStatus.NEW}]" }
         return orderGateway.findNewOrders(OrderStatus.NEW.name, pageable)
     }
+
     fun findAll(pageable: Pageable): Page<Order> {
         logger.info { "Listing orders" }
         return orderGateway.findAll(pageable)
