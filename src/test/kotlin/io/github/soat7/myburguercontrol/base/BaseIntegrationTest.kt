@@ -9,7 +9,9 @@ import io.github.soat7.myburguercontrol.domain.entities.Payment
 import io.github.soat7.myburguercontrol.domain.entities.enum.UserRole
 import io.github.soat7.myburguercontrol.external.db.customer.entity.CustomerEntity
 import io.github.soat7.myburguercontrol.external.db.customer.repository.CustomerJpaRepository
+import io.github.soat7.myburguercontrol.external.db.order.entity.OrderEntity
 import io.github.soat7.myburguercontrol.external.db.order.repository.OrderJpaRepository
+import io.github.soat7.myburguercontrol.external.db.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.external.db.payment.repository.PaymentJpaRepository
 import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
 import io.github.soat7.myburguercontrol.external.db.product.repository.ProductJpaRepository
