@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.function.Executable
 import org.springframework.boot.test.web.client.exchange
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
