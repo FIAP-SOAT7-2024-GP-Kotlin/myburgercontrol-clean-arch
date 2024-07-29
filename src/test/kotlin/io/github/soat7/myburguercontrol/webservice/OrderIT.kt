@@ -2,6 +2,7 @@ package io.github.soat7.myburguercontrol.webservice
 
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
 import io.github.soat7.myburguercontrol.domain.entities.enum.OrderStatus
+import io.github.soat7.myburguercontrol.external.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
@@ -72,9 +73,6 @@ class OrderIT : BaseIntegrationTest() {
         val inProgressOrder = saveOrder(customer, product, payment, OrderStatus.IN_PROGRESS.name)
         val readyOrder = saveOrder(customer, product, payment, OrderStatus.READY.name)
 
-        println(readyOrder)
-        println(inProgressOrder)
-        println(receivedOrder)
         val response = restTemplate.exchange<PaginatedResponse<OrderResponse>>(
             url = "/orders/list",
             method = HttpMethod.GET,
@@ -83,7 +81,6 @@ class OrderIT : BaseIntegrationTest() {
 
         val orders = response.body!!.content
 
-        println(orders)
         assertAll(
             Executable { assertNotNull(response.body) },
             Executable { assertFalse(response.body!!.content.isEmpty()) },
