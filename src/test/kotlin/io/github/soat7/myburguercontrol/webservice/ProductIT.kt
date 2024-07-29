@@ -1,10 +1,10 @@
 package io.github.soat7.myburguercontrol.webservice
 
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
-import io.github.soat7.myburguercontrol.business.enum.ProductType
+import io.github.soat7.myburguercontrol.domain.entities.enum.ProductType
+import io.github.soat7.myburguercontrol.external.webservice.common.PaginatedResponse
+import io.github.soat7.myburguercontrol.external.webservice.product.api.ProductResponse
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
-import io.github.soat7.myburguercontrol.webservice.common.PaginatedResponse
-import io.github.soat7.myburguercontrol.webservice.product.api.ProductResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals

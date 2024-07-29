@@ -1,26 +1,24 @@
 package io.github.soat7.myburguercontrol.base
 
 import io.github.soat7.myburguercontrol.Application
-import io.github.soat7.myburguercontrol.business.enum.UserRole
-import io.github.soat7.myburguercontrol.business.mapper.toPersistence
-import io.github.soat7.myburguercontrol.business.model.Customer
-import io.github.soat7.myburguercontrol.business.model.Payment
+import io.github.soat7.myburguercontrol.adapters.mapper.toPersistence
 import io.github.soat7.myburguercontrol.container.MockServerContainer
 import io.github.soat7.myburguercontrol.container.PostgresContainer
-import io.github.soat7.myburguercontrol.database.customer.entity.CustomerEntity
-import io.github.soat7.myburguercontrol.database.customer.repository.CustomerJpaRepository
-import io.github.soat7.myburguercontrol.database.order.entity.OrderEntity
-import io.github.soat7.myburguercontrol.database.order.repository.OrderJpaRepository
-import io.github.soat7.myburguercontrol.database.payment.entity.PaymentEntity
-import io.github.soat7.myburguercontrol.database.payment.repository.PaymentJpaRepository
-import io.github.soat7.myburguercontrol.database.product.entity.ProductEntity
-import io.github.soat7.myburguercontrol.database.product.repository.ProductJpaRepository
-import io.github.soat7.myburguercontrol.database.user.repository.UserJpaRepository
+import io.github.soat7.myburguercontrol.domain.entities.Customer
+import io.github.soat7.myburguercontrol.domain.entities.Payment
+import io.github.soat7.myburguercontrol.domain.entities.enum.UserRole
+import io.github.soat7.myburguercontrol.external.db.customer.entity.CustomerEntity
+import io.github.soat7.myburguercontrol.external.db.customer.repository.CustomerJpaRepository
+import io.github.soat7.myburguercontrol.external.db.order.repository.OrderJpaRepository
+import io.github.soat7.myburguercontrol.external.db.payment.repository.PaymentJpaRepository
+import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
+import io.github.soat7.myburguercontrol.external.db.product.repository.ProductJpaRepository
+import io.github.soat7.myburguercontrol.external.db.user.repository.UserJpaRepository
+import io.github.soat7.myburguercontrol.external.webservice.auth.api.AuthenticationResponse
 import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
 import io.github.soat7.myburguercontrol.fixtures.OrderFixtures
 import io.github.soat7.myburguercontrol.fixtures.ProductFixtures
 import io.github.soat7.myburguercontrol.fixtures.UserFixtures
-import io.github.soat7.myburguercontrol.webservice.auth.api.AuthResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -101,7 +99,7 @@ class BaseIntegrationTest {
             ),
         )
 
-        val response = restTemplate.postForEntity<AuthResponse>(
+        val response = restTemplate.postForEntity<AuthenticationResponse>(
             "/auth",
             AuthFixtures.mockAuthCreationRequest(cpf, password),
         ).body
