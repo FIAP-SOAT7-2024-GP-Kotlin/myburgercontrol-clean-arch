@@ -6,8 +6,6 @@ import io.github.soat7.myburguercontrol.external.webservice.common.PaginatedResp
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
-import io.github.soat7.myburguercontrol.fixtures.HttpMockRequest
-import io.github.soat7.myburguercontrol.fixtures.OrderFixtures
 import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockPayment
 import io.github.soat7.myburguercontrol.util.toBigDecimal
 import org.junit.jupiter.api.Assertions.assertAll
