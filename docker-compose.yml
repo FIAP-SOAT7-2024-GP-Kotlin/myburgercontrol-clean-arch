@@ -21,20 +21,18 @@ services:
     depends_on:
       - db
     environment:
+      MP_PAYMENT_URL: ${MP_PAYMENT_URL}
+      MP_NOTIFICATION_URL: ${MP_NOTIFICATION_URL}
+      MP_MERCHANT_URL: ${MP_MERCHANT_URL}
+      MP_WEBHOOK_KEY: ${MP_WEBHOOK_KEY}
+      MP_ACCESS_TOKEN: ${MP_ACCESS_TOKEN}
       DATABASE_URL: ${DATABASE_URL}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       JWT_KEY: ${JWT_KEY}
-      WIREMOCK_URL: ${WIREMOCK_URL}
+      MP_REQUEST_URL: ${MP_REQUEST_URL}
+      MP_AUTH_TOKEN: ${MP_AUTH_TOKEN}
       LOG_LEVEL: "DEBUG"
-  wiremock:
-    platform: linux/amd64
-    image: holomekc/wiremock-gui:3.5.7-alpine
-    ports:
-      - "9090:8080"
-    volumes:
-      - ./mappings:/home/wiremock/mappings
-    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
 
 volumes:
   pgdata:

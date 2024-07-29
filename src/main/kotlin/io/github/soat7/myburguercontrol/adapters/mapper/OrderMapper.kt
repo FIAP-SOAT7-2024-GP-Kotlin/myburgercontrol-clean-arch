@@ -9,6 +9,7 @@ import io.github.soat7.myburguercontrol.external.db.order.entity.OrderEntity
 import io.github.soat7.myburguercontrol.external.db.order.entity.OrderItemEntity
 import io.github.soat7.myburguercontrol.external.db.payment.entity.PaymentEntity
 import io.github.soat7.myburguercontrol.external.db.product.entity.ProductEntity
+import io.github.soat7.myburguercontrol.external.thirdparty.api.Item
 import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentIntegrationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderItemResponse
@@ -83,8 +84,19 @@ fun OrderItemEntity.toDomain() = OrderItem(
     comment = this.comment,
 )
 
-fun Order.toPaymentRequest() = PaymentIntegrationRequest(
-    id = this.id.toString(),
-    cpf = this.customer.cpf,
-    value = this.total.toString(),
+fun Order.toPaymentRequest(notificationUrl: String) = PaymentIntegrationRequest(
+    description = "",
+    externalReference = this.payment?.id.toString(),
+    items = items.map { it.toPaymentRequestItem() },
+    totalAmount = this.total,
+    notificationUrl = notificationUrl,
+)
+
+fun OrderItem.toPaymentRequestItem() = Item(
+    title = this.product.name,
+    description = this.product.description,
+    unitPrice = this.product.price,
+    quantity = this.quantity,
+    unitMeasure = "Unit",
+    totalAmount = this.product.price.multiply(this.quantity.toBigDecimal()),
 )

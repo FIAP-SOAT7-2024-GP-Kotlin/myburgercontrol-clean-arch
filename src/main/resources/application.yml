@@ -69,7 +69,8 @@ spring:
 
 third-party:
   payment-integration:
-    url: ${WIREMOCK_URL}
+    url: ${MP_REQUEST_URL}
+    auth-token: ${MP_AUTH_TOKEN}
     connectionTimeout: 5000
     readTimeout: 5000
 
@@ -97,3 +98,10 @@ jwt:
   key: ${JWT_KEY}
   access-token-expiration: 3600000
   refresh-token-expiration: 86400000
+
+mercadopago:
+  paymentURL: ${MP_PAYMENT_URL}
+  merchantURL: ${MP_MERCHANT_URL}
+  accessToken: ${MP_ACCESS_TOKEN}
+  webhookKey: ${MP_WEBHOOK_KEY}
+  notificationUrl: ${MP_NOTIFICATION_URL}
