@@ -31,6 +31,8 @@ class OrderHandler(
         )
     }
 
+    fun findAll(request: PageRequest) = orderUseCase.findAll(request).map { it.toResponse() }
+
     fun changeOrderStatus(status: OrderStatus, orderId: UUID) =
         orderUseCase.changeOrderStatus(status, orderId).toResponse()
 }

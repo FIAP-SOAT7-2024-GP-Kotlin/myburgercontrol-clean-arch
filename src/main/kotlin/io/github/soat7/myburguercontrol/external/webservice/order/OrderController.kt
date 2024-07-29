@@ -7,6 +7,7 @@ import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreat
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -69,11 +70,11 @@ class OrderController(
         @RequestParam(defaultValue = "10") size: Int,
     ): ResponseEntity<PaginatedResponse<OrderResponse>> = run {
         val pageable = PageRequest.of(page, size)
-        val response = service.findAll(pageable)
+        val response = orderHandler.findAll(pageable)
 
         ResponseEntity.ok(
             PaginatedResponse(
-                content = response.content.map { it.toResponse() },
+                content = response.content.map { it },
                 totalPages = response.totalPages,
                 totalElements = response.totalElements,
                 currentPage = response.number,

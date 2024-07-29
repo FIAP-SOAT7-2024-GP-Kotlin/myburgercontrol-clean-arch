@@ -49,7 +49,7 @@ class OrderUseCase(
     }
     fun findAll(pageable: Pageable): Page<Order> {
         logger.info { "Listing orders" }
-        return orderRepository.findAll(pageable)
+        return orderGateway.findAll(pageable)
     }
 
     fun changeOrderStatus(status: OrderStatus, orderId: UUID): Order {
