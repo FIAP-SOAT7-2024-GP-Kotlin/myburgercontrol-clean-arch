@@ -73,6 +73,8 @@ dependencies {
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
 
+    implementation("commons-codec:commons-codec:1.17.0")
+
     // jwt
     implementation("io.jsonwebtoken:jjwt-api:0.12.+")
     implementation("io.jsonwebtoken:jjwt-impl:0.12.+")

@@ -19,7 +19,6 @@ class OrderUseCase(
     private val orderGateway: OrderGateway,
     private val customerUseCase: CustomerUseCase,
     private val productUseCase: ProductUseCase,
-    private val paymentUseCase: PaymentUseCase,
 ) {
 
     fun createOrder(orderDetail: OrderDetail): Order {
@@ -29,8 +28,6 @@ class OrderUseCase(
         val items = buildOrderItems(orderDetail)
 
         val order = setupOrder(customer, items)
-
-        paymentUseCase.requestPayment(order)
 
         return orderGateway.update(order.copy(status = OrderStatus.RECEIVED))
     }
@@ -86,8 +83,6 @@ class OrderUseCase(
             ),
         )
 
-        val payment = paymentUseCase.createPayment()
-
-        return orderGateway.update(order.copy(payment = payment))
+        return orderGateway.update(order.copy())
     }
 }

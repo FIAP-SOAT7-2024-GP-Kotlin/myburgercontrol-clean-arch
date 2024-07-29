@@ -3,11 +3,6 @@ package io.github.soat7.myburguercontrol.adapters.mapper
 import io.github.soat7.myburguercontrol.domain.entities.Payment
 import io.github.soat7.myburguercontrol.domain.entities.enum.PaymentStatus
 import io.github.soat7.myburguercontrol.external.db.payment.entity.PaymentEntity
-import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentIntegrationResponse
-import io.github.soat7.myburguercontrol.external.thirdparty.api.PaymentResult
-
-fun PaymentIntegrationResponse.toDto(approved: Boolean) =
-    PaymentResult(authorizationId = this.authorizationId, approved)
 
 fun Payment.toPersistence() = PaymentEntity(
     id = this.id,

@@ -8,6 +8,27 @@ ___
 Este projeto é um monolito para o curso de Software Architeture da turma 7SOAT na instituição FIAP no ano de 2024.
 ___
 
+## Índice
+
+1. [DDD](#ddd)
+2. [Componentes](#componentes)
+3. [Frameworks](#frameworks)
+4. [Inicialização da Aplicação](#inicialização-da-aplicação)
+5. [Jornadas](#jornadas)
+   - Jornada de Autenticação
+   - Jornada de Cliente
+   - Jornada de Pedido
+   - Jornada de Pagamento
+   - Administrativo
+6. [Liquibase](#liquibase)
+   - Gerando um XML do Liquibase Novo
+7. [Infraestrutura de Cloud](#infraestrutura-de-cloud)
+8. [Desenhos de Arquitetura](#arquitetura)
+   - [Video demonstrativo](#video-de-arquitetura)
+   - Arquitetura de negocio
+   - Arquiteutra de infra
+8. [Contatos](#contatos)
+
 ## DDD
 
 Acesse [aqui](https://miro.com/app/board/uXjVKWJ-8T0=/?share_link_id=109211348615) o miro com:
@@ -82,6 +103,10 @@ desejada na ordem de execução.
 - **[POST]** | */orders/ready* | Utilize esta rota para alterar o estado pedido para PRONTO.
 - **[POST]** | */orders/finished* | Utilize esta rota para alterar o estado pedido para FINALIZADO.
 
+#### Jornada de Pagamento
+- **[POST]** | */payment* | Utilize esta rota iniciar uma solicitação de QRCode para pagamento.
+
+
 #### Adminstrativo
 
 - **[POST]** | */products* | Utilize esta rota para cadastrar um novo produto.
@@ -114,10 +139,6 @@ dados em execução e a implementação do JPA que consta no código fonte.
 > liquibase
 > costuma não gerar nome de PKs, por exemplo.
 
-### Wiremock
-
-Para acessar a interface gráfica do wiremock basta acessar o endereço abaixo:
-> http://localhost:9090/__admin/webapp/mappings
 
 ## Infraestrutura de Cloud
 
@@ -126,6 +147,19 @@ Nós optamos por usar a DigitalOcean. Sendo assim precismos subir um cluester Ku
 Os scripts em `scripts/k8s-cluster` contém 2 shell scripts:
 - `create-cluster.sh` - que cria um cluster na Digital Ocean no projeto Myburger
 - `drop-cluster.sh` - que apaga o cluster. **Esse Script apaga TODOS OS RECURSOS associados ao cluster**
+
+## Arquitetura
+
+### Video de arquitetura
+Video demonstrando a arquitetura desenvolvida para o projeto [aqui](https://www.youtube.com/watch?v=DzmUBK7f0Ec&feature=youtu.be)
+
+### Arquitetura de negocio
+![img_1.png](doc/img_1.png)
+![img_2.png](doc/img_2.png)
+![img_3.png](doc/img_3.png)
+
+### Arquitetura de infra
+![img.png](doc/img.png)
 
 ## Contatos
 
