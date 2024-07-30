@@ -2,10 +2,10 @@ package io.github.soat7.myburguercontrol.webservice
 
 import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
 import io.github.soat7.myburguercontrol.domain.entities.enum.OrderStatus
+import io.github.soat7.myburguercontrol.external.webservice.common.PaginatedResponse
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreationRequest
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.github.soat7.myburguercontrol.fixtures.CustomerFixtures.mockDomainCustomer
-import io.github.soat7.myburguercontrol.fixtures.OrderFixtures
 import io.github.soat7.myburguercontrol.fixtures.PaymentFixtures.mockPayment
 import io.github.soat7.myburguercontrol.util.toBigDecimal
 import org.junit.jupiter.api.Assertions.assertAll
@@ -58,13 +58,43 @@ class OrderIT : BaseIntegrationTest() {
     }
 
     @Test
+    fun `should successfully find all orders with status different of FINISHED and ordered by status and createdAt`() {
+        val cpf = "34187595058"
+        val customer = insertCustomerData(mockDomainCustomer(cpf = cpf))
+        val product = insertProducts().first()
+        val payment = insertPaymentData(mockPayment())
+
+        saveOrder(customer, product, payment)
+
+        val receivedOrder = saveOrder(customer, product, payment, OrderStatus.RECEIVED.name)
+        val inProgressOrder = saveOrder(customer, product, payment, OrderStatus.IN_PROGRESS.name)
+        val readyOrder = saveOrder(customer, product, payment, OrderStatus.READY.name)
+
+        val response = restTemplate.exchange<PaginatedResponse<OrderResponse>>(
+            url = "/orders/list",
+            method = HttpMethod.GET,
+            requestEntity = HttpEntity(null, authenticationHeader),
+        )
+
+        val orders = response.body!!.content
+
+        assertAll(
+            Executable { assertNotNull(response.body) },
+            Executable { assertFalse(response.body!!.content.isEmpty()) },
+            Executable { assertEquals(readyOrder.id, orders.first().id) },
+            Executable { assertEquals(inProgressOrder.id, orders[1].id) },
+            Executable { assertEquals(receivedOrder.id, orders[2].id) },
+        )
+    }
+
+    @Test
     fun `should get orders using cpf`() {
         val cpf = "47052551004"
 
         val customer = insertCustomerData(mockDomainCustomer(cpf = cpf))
         val product = insertProducts().first()
         val payment = insertPaymentData(mockPayment())
-        orderJpaRepository.save(OrderFixtures.mockOrderEntity(customer, product, payment))
+        saveOrder(customer, product, payment)
 
         val orders = restTemplate.exchange<List<OrderResponse>>(
             url = "/orders?cpf={cpf}",

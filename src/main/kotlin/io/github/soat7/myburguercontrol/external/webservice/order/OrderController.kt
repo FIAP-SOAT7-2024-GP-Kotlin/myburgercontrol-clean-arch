@@ -7,6 +7,7 @@ import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderCreat
 import io.github.soat7.myburguercontrol.external.webservice.order.api.OrderResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -50,13 +51,37 @@ class OrderController(
     @GetMapping("/queue")
     @Operation(
         tags = ["2 - Jornada do Pedido"],
-        summary = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
-        description = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
+        summary = "Utilize esta rota para encontrar a fila de novos pedidos",
+        description = "Utilize esta rota para encontrar a fila de novos pedidos",
     )
     fun findOrderQueue(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
     ): ResponseEntity<PaginatedResponse<OrderResponse>> = ResponseEntity.ok(orderHandler.findOrderQueue(page, size))
+
+    @GetMapping("/list")
+    @Operation(
+        tags = ["2 - Jornada do Pedido"],
+        summary = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
+        description = "Utilize esta rota para encontrar a lista do(s) pedido(s)",
+    )
+    fun findAll(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int,
+    ): ResponseEntity<PaginatedResponse<OrderResponse>> = run {
+        val pageable = PageRequest.of(page, size)
+        val response = orderHandler.findAll(pageable)
+
+        ResponseEntity.ok(
+            PaginatedResponse(
+                content = response.content.map { it },
+                totalPages = response.totalPages,
+                totalElements = response.totalElements,
+                currentPage = response.number,
+                pageSize = response.size,
+            ),
+        )
+    }
 
     @PostMapping("/received", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(

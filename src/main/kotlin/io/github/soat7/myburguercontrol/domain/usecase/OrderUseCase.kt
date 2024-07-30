@@ -45,6 +45,11 @@ class OrderUseCase(
         return orderGateway.findNewOrders(OrderStatus.NEW.name, pageable)
     }
 
+    fun findAll(pageable: Pageable): Page<Order> {
+        logger.info { "Listing orders" }
+        return orderGateway.findAll(pageable)
+    }
+
     fun changeOrderStatus(status: OrderStatus, orderId: UUID): Order {
         return orderGateway.update(
             orderGateway.findById(orderId)?.copy(status = status)

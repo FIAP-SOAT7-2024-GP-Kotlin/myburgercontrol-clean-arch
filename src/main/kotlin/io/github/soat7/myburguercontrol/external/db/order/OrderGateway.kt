@@ -43,4 +43,9 @@ class OrderGateway(
     override fun findById(orderId: UUID): Order? {
         return repository.findById(orderId).get().toDomain()
     }
+
+    override fun findAll(pageable: Pageable): Page<Order> =
+        repository.findAll(pageable).map {
+            it.toDomain()
+        }
 }
