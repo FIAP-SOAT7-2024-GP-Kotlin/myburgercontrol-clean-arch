@@ -9,6 +9,7 @@ import io.github.soat7.myburguercontrol.exception.ReasonCodeException
 import io.github.soat7.myburguercontrol.external.db.order.OrderGateway
 import io.github.soat7.myburguercontrol.external.db.payment.PaymentGateway
 import io.github.soat7.myburguercontrol.external.thirdparty.api.QRCodeData
+import java.time.Instant
 import java.util.UUID
 
 private val logger = KotlinLogging.logger {}
@@ -46,6 +47,7 @@ class PaymentUseCase(
 
         val updatedPayment = payment.copy(
             status = PaymentStatus.fromString(paymentStatus),
+            updatedAt = Instant.now(),
         )
         paymentGateway.update(updatedPayment)
 
@@ -54,5 +56,11 @@ class PaymentUseCase(
         if (updatedPayment.status == PaymentStatus.DENIED) throw ReasonCodeException(ReasonCode.PAYMENT_INTEGRATION_ERROR)
 
         return updatedPayment
+    }
+
+    fun getPaymentStatus(orderId: UUID): Payment {
+        val order = orderGateway.findById(orderId) ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
+
+        return order.payment?.let { paymentGateway.findById(it.id) } ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
     }
 }

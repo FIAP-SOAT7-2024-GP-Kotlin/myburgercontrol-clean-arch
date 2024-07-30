@@ -23,12 +23,13 @@ ___
 6. [Liquibase](#liquibase)
    - Gerando um XML do Liquibase Novo
 7. [Infraestrutura de Cloud](#infraestrutura-de-cloud)
-8. [Desenhos de Arquitetura](#arquitetura)
-   - [Video demonstrativo](#video-de-arquitetura)
+8. [Videos demonstrativo](#videos-demonstrando-a-aplicação)
+9. [Desenhos de Arquitetura](#arquitetura)
    - Arquitetura de negocio
    - Arquiteutra de infra
-8. [Contatos](#contatos)
+10. [Contatos](#contatos)
 
+___
 ## DDD
 
 Acesse [aqui](https://miro.com/app/board/uXjVKWJ-8T0=/?share_link_id=109211348615) o miro com:
@@ -36,7 +37,7 @@ Acesse [aqui](https://miro.com/app/board/uXjVKWJ-8T0=/?share_link_id=10921134861
 - levantamento de requisitos
 - dicionário de linguagem ubíqua
 - event storming
-
+___
 ## Componentes
 
 Esta aplicação tem basicamente 3 componentes:
@@ -44,7 +45,7 @@ Esta aplicação tem basicamente 3 componentes:
 - Banco de dados PostgresSQL versão 16
 - Aplicação `myburgercontrol-monolith`
 - Wiremock
-
+___
 ## Frameworks
 
 Este projeto utiliza as seguintes tecnologias e linguagens:
@@ -54,7 +55,7 @@ Este projeto utiliza as seguintes tecnologias e linguagens:
 - Springboot 3
 - JaCoCo
 - Liquibase
-
+___
 ## Inicialização da aplicação
 
 O ambiente utiliza Docker Compose para iniciar os componentes da aplicação. Todas as configurações das variáveis de
@@ -114,8 +115,8 @@ desejada na ordem de execução.
   dados.
 - **[GET]** | */customer/{id}* | Utilize esta rota para encontrar um cliente utilizando o identificador na base de
   dados.
-
-### Liquibase
+___
+## Liquibase
 
 O Liquibase é um componente de gerenciamento de versões de alterações de banco de dados. Neste projeto, estamos
 utilizando o padrão XML do Liquibase, localizado na pasta `src/main/resources/db/changelog`. Todos os arquivos XML no
@@ -139,7 +140,7 @@ dados em execução e a implementação do JPA que consta no código fonte.
 > liquibase
 > costuma não gerar nome de PKs, por exemplo.
 
-
+___
 ## Infraestrutura de Cloud
 
 Nós optamos por usar a DigitalOcean. Sendo assim precismos subir um cluester Kubernetes (k8s) na cloud da DigitalOcean. Para tal vamos usar, nesse momento o `doctl` [CLI fornecido pela Digital Ocean](https://docs.digitalocean.com/reference/doctl/how-to/install/).
@@ -148,10 +149,14 @@ Os scripts em `scripts/k8s-cluster` contém 2 shell scripts:
 - `create-cluster.sh` - que cria um cluster na Digital Ocean no projeto Myburger
 - `drop-cluster.sh` - que apaga o cluster. **Esse Script apaga TODOS OS RECURSOS associados ao cluster**
 
-## Arquitetura
+___
+## Videos demonstrando a aplicação
+> Video demonstrando a arquitetura desenvolvida para o projeto [aqui](https://www.youtube.com/watch?v=DzmUBK7f0Ec&feature=youtu.be)
 
-### Video de arquitetura
-Video demonstrando a arquitetura desenvolvida para o projeto [aqui](https://www.youtube.com/watch?v=DzmUBK7f0Ec&feature=youtu.be)
+> Video demonstrando a integração com Mercado Pago [aqui](https://youtu.be/89De3PFDg_k)
+___
+
+## Arquitetura
 
 ### Arquitetura de negocio
 ![img_1.png](doc/img_1.png)
@@ -160,7 +165,7 @@ Video demonstrando a arquitetura desenvolvida para o projeto [aqui](https://www.
 
 ### Arquitetura de infra
 ![img.png](doc/img.png)
-
+___
 ## Contatos
 
 ### Grupo composto pelos os alunos
