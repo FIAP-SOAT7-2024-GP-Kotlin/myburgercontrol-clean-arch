@@ -55,4 +55,10 @@ class PaymentUseCase(
 
         return updatedPayment
     }
+
+    fun getPaymentStatus(orderId: UUID): Payment {
+        val order = orderGateway.findById(orderId) ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
+
+        return order.payment?.let { paymentGateway.findById(it.id) } ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
+    }
 }
