@@ -29,7 +29,7 @@ class PaymentController(
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(
-        tags = ["2 - Jornada de Pagamento"],
+        tags = ["3 - Jornada de Pagamento"],
         summary = "Utilize esta rota iniciar uma solicitação de QRCode para pagamento",
         description = "Essa rota inicia a integração com o MercadoPago, solicitando os dados para a criação de um QRCode de pagamento",
     )
@@ -39,7 +39,7 @@ class PaymentController(
 
     @GetMapping("/order/{id}")
     @Operation(
-        tags = ["2 - Jornada de Pagamento"],
+        tags = ["3 - Jornada de Pagamento"],
         summary = "Utilize esta rota consultar o status de um pagamento",
         description = "Essa rota consulta o status do pagamento de uma ordem e retorna seu valor",
     )
