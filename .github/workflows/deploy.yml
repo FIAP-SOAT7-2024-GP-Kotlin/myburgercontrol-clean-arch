@@ -3,7 +3,7 @@ name: CD Pipeline with Terraform (DigitalOcean)
 on:
   push:
     branches:
-      - main
+      - feature/start-deploy-actions
 
 jobs:
   deploy:
@@ -18,6 +18,18 @@ jobs:
 
       - name: Set DigitalOcean Credentials
         run: echo "${{ secrets.DO_TOKEN_ACCESS }}" > ~/.digitalocean_token
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DO_SSH_FINGERPRINT }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+      
+      - name: Deploy using Terraform
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
 
       - name: Initialize Terraform
         run: terraform init
