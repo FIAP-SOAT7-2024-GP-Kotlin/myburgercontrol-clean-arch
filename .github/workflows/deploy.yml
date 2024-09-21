@@ -3,19 +3,28 @@ name: CD Pipeline with Terraform (DigitalOcean)
 on:
   push:
     branches:
+      - main
       - feature/start-deploy-actions
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  terraform:
+    name: Deploy to DigitalOcean
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v2
+      # 1. Checkout do código do repositório
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-
+      # 2. Instalar Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+      
       - name: Set DigitalOcean Credentials
         run: echo "${{ secrets.DO_TOKEN_ACCESS }}" > ~/.digitalocean_token
 
@@ -30,9 +39,3 @@ jobs:
           cd terraform
           terraform init
           terraform apply -auto-approve
-
-      - name: Initialize Terraform
-        run: terraform init
-
-      - name: Apply Terraform
-        run: terraform apply -auto-approve
