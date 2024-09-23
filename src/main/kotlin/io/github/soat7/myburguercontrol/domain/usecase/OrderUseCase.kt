@@ -72,7 +72,7 @@ class OrderUseCase(
     }
 
     private fun setupOrder(
-        customer: Customer,
+        customer: Customer?,
         items: List<OrderItem>,
     ): Order {
         val order = orderGateway.create(
