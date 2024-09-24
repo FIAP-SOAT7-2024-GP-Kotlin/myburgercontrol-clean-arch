@@ -22,7 +22,12 @@ class OrderUseCase(
 ) {
 
     fun createOrder(orderDetail: OrderDetail): Order {
-        val customer = customerUseCase.findCustomerByCpf(orderDetail.customerCpf)
+        var customer: Customer? = null
+
+        if (orderDetail.customerCpf.all { it.isDigit() }) {
+            customer = customerUseCase.findCustomerByCpf(orderDetail.customerCpf)
+                ?: throw ReasonCodeException(ReasonCode.CUSTOMER_NOT_FOUND)
+        }
 
         val items = buildOrderItems(orderDetail)
 
