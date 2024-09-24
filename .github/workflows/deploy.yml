@@ -33,12 +33,12 @@ jobs:
         run: |
           doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
 
-      # Armazenar a lista de clusters na variável de ambiente
-      - name: List Clusters
+      # Armazenar o ID do primeiro cluster na variável de ambiente
+      - name: Get First Cluster ID
         run: |
-          kubectl get clusters
-#          CLUSTER_NAMES=$(kubectl config get-contexts -o name)
-#          echo "CLUSTER_NAMES=$CLUSTER_NAMES" >> $GITHUB_ENV
+          doctl kubernetes cluster list
+          CLUSTER_ID=$(doctl kubernetes cluster list --format ID --no-header | head -n 1)
+          echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
 #
 #      # Autenticação com o cluster Kubernetes
 #      - name: Set up Kubernetes
