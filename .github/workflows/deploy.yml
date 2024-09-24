@@ -24,7 +24,7 @@ jobs:
           token: ${{ secrets.DO_TOKEN_ACCESS }}
 
       # Listar as VPCs e obter o ID da primeira VPC
-      - name: Set up DigitalOcean
+      - name: Get VPC ID
         run: |
           VPC_ID=$(doctl vpcs list --format ID --no-header | head -n 1)
           echo "VPC ID: $VPC_ID"
@@ -49,7 +49,9 @@ jobs:
       # Aplicar os manifests do Kubernetes ou usar Helm
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/
+#          kubectl apply -f k8s/
+          chmod +x scripts/k8s-cluster/start_myburguer.sh
+          ./scripts/k8s-cluster/start_myburguer.sh
 
       # Armazenar o nome do deployment na variável de ambiente
       - name: Get Deployment Name
