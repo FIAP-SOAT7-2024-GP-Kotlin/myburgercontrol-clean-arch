@@ -6,7 +6,6 @@ import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
-import jakarta.persistence.ForeignKey
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -30,8 +29,8 @@ class OrderEntity(
     var id: UUID? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id", foreignKey = ForeignKey(name = "fk_customer"), nullable = false)
-    var customer: CustomerEntity,
+    @JoinColumn(name = "customer_id", nullable = true)
+    var customer: CustomerEntity?,
 
     @Column(name = "status", length = 255, nullable = false)
     var status: String,
