@@ -8,23 +8,42 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
-  terraform:
+  deploy:
     name: Deploy to DigitalOcean
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout do código do repositório
-      - name: Checkout code
+      # Checkout do repositório
+      - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - name: Set DigitalOcean Credentials
-        run: echo "${{ secrets.DO_TOKEN_ACCESS }}" > ~/.digitalocean_token
 
-      - name: Set up SSH
+      # Autenticação com a DigitalOcean
+      - name: Set up DigitalOcean
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_TOKEN_ACCESS }}
+
+      # Autenticação com a DigitalOcean
+      - name: Set up DigitalOcean
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DO_SSH_FINGERPRINT }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-    
+          doctl vpcs list
+
+#      # Criar um Droplet (opcional)
+#      - name: Create a Droplet
+#        run: |
+#          doctl compute droplet create <droplet-name> --size <size> --image <image> --region <region>
+#          doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc1 --vpc-uuid ba5f81a6-5df2-4149-ad14-10cb12440d95 soat7myburger
+#      # Autenticação com o cluster Kubernetes
+#      - name: Set up Kubernetes
+#        run: |
+#          doctl kubernetes cluster kubeconfig save <cluster-name>
+#
+#      # Aplicar os manifests do Kubernetes ou usar Helm
+#      - name: Deploy to Kubernetes
+#        run: |
+#          kubectl apply -f k8s/
+#
+#      # Verificar o status dos pods
+#      - name: Check pod status
+#        run: kubectl rollout status deployment <deployment-name>
