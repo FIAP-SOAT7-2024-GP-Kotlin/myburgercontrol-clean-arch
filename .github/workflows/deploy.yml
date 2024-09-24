@@ -33,7 +33,7 @@ jobs:
       # Criar um Droplet (opcional)
       - name: Create a Droplet
         run: |
-          doctl kubernetes cluster create ${{ env.CLUSTER_NAME }}-k8s --node-pool "name=${{ env.CLUSTER_NAME }}-node-pool;size=s-2vcpu-4gb;count=1;auto-scale=true;min-nodes=1;max-nodes=3" --region nyc3 --vpc-uuid ${{ env.VPC_ID }}
+          doctl kubernetes cluster create ${{ env.PROJECT_NAME }}-k8s --node-pool "name=${{ env.PROJECT_NAME }}-node-pool;size=s-2vcpu-4gb;count=1;auto-scale=true;min-nodes=1;max-nodes=3" --region nyc3 --vpc-uuid ${{ env.VPC_ID }}
 
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID
