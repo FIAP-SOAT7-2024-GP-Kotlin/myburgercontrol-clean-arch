@@ -1,4 +1,4 @@
-package io.github.soat7.myburguercontrol.config
+package io.github.soat7.myburguercontrol.container
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import liquibase.change.DatabaseChange
