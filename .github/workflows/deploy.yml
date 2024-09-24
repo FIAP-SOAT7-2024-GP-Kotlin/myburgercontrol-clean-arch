@@ -49,9 +49,7 @@ jobs:
       # Aplicar os manifests do Kubernetes ou usar Helm
       - name: Deploy to Kubernetes
         run: |
-#          kubectl apply -f k8s/
-          chmod +x script/k8s-cluster/start-myburger.sh
-          ./script/k8s-cluster/start-myburger.sh
+          kubectl apply -f k8s/app/myburger-deployment.yaml
 
       # Armazenar o nome do deployment na variável de ambiente
       - name: Get Deployment Name
