@@ -38,27 +38,25 @@ jobs:
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID
         run: |
-          doctl kubernetes cluster list
           CLUSTER_ID=$(doctl kubernetes cluster list --format ID --no-header | head -n 1)
           echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
 
       # Autenticação com o cluster Kubernetes
       - name: Set up Kubernetes
         run: |
-          echo ${{ env.CLUSTER_ID }}
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
-#
-#      # Aplicar os manifests do Kubernetes ou usar Helm
-#      - name: Deploy to Kubernetes
-#        run: |
-#          kubectl apply -f k8s/
-#
-#      # Armazenar o nome do deployment na variável de ambiente
-#      - name: Get Deployment Name
-#        run: |
-#          DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
-#          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
-#
-#      # Verificar o status dos pods
-#      - name: Check pod status
-#        run: kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
+
+      # Aplicar os manifests do Kubernetes ou usar Helm
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/
+
+      # Armazenar o nome do deployment na variável de ambiente
+      - name: Get Deployment Name
+        run: |
+          DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
+          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
+
+      # Verificar o status dos pods
+      - name: Check pod status
+        run: kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
