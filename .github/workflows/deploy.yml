@@ -1,13 +1,10 @@
-name: CD Pipeline with Terraform (DigitalOcean)
+name: CD [MyBurguer ≡] (DigitalOcean)
 
 on:
   push:
     branches:
       - main
       - feature/start-deploy-actions
-  pull_request:
-    branches:
-      - main
 jobs:
   deploy:
     name: Deploy to DigitalOcean
@@ -36,10 +33,17 @@ jobs:
         run: |
           doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
 
+      # Armazenar a lista de clusters na variável de ambiente
+      - name: List Clusters
+        run: |
+          CLUSTER_NAMES=$(kubectl config get-contexts -o name)
+          echo "CLUSTER_NAMES=$CLUSTER_NAMES" >> $GITHUB_ENV
+
       # Autenticação com o cluster Kubernetes
       - name: Set up Kubernetes
         run: |
-          doctl kubernetes cluster kubeconfig save soat7myburger
+          echo ${{ env.$CLUSTER_NAMES }}
+          doctl kubernetes cluster kubeconfig save ${{ env.$CLUSTER_NAMES }}
 
       # Aplicar os manifests do Kubernetes ou usar Helm
       - name: Deploy to Kubernetes
