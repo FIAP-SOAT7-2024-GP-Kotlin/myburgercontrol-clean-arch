@@ -43,7 +43,7 @@ jobs:
       - name: Set up Kubernetes
         run: |
           echo ${{ env.$CLUSTER_NAMES }}
-          doctl kubernetes cluster kubeconfig save ${{ env.$CLUSTER_NAMES }}
+          doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_NAMES }}
 
       # Aplicar os manifests do Kubernetes ou usar Helm
       - name: Deploy to Kubernetes
