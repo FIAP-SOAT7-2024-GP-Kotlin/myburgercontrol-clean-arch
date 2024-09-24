@@ -36,16 +36,22 @@ jobs:
         run: |
           doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
 
-#      # Autenticação com o cluster Kubernetes
-#      - name: Set up Kubernetes
-#        run: |
-#          doctl kubernetes cluster kubeconfig save <cluster-name>
-#
-#      # Aplicar os manifests do Kubernetes ou usar Helm
-#      - name: Deploy to Kubernetes
-#        run: |
-#          kubectl apply -f k8s/
-#
-#      # Verificar o status dos pods
-#      - name: Check pod status
-#        run: kubectl rollout status deployment <deployment-name>
+      # Autenticação com o cluster Kubernetes
+      - name: Set up Kubernetes
+        run: |
+          doctl kubernetes cluster kubeconfig save soat7myburger
+
+      # Aplicar os manifests do Kubernetes ou usar Helm
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/
+
+      # Armazenar o nome do deployment na variável de ambiente
+      - name: Get Deployment Name
+        run: |
+          DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
+          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
+
+      # Verificar o status dos pods
+      - name: Check pod status
+        run: kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
