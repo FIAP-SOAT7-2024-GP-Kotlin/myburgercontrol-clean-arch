@@ -42,7 +42,7 @@ jobs:
       # Autenticação com o cluster Kubernetes
       - name: Set up Kubernetes
         run: |
-          echo ${{ env.$CLUSTER_NAMES }}
+          echo ${{ env.CLUSTER_NAMES }}
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_NAMES }}
 
       # Aplicar os manifests do Kubernetes ou usar Helm
