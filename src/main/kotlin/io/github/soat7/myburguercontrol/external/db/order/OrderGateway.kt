@@ -19,7 +19,7 @@ class OrderGateway(
 
     override fun create(order: Order): Order = run {
         repository.save(
-            order.toPersistence(order.customer?.toPersistence(), order.payment?.toPersistence()) {
+            order.toPersistence(order.customer.toPersistence(), order.payment?.toPersistence()) {
                 productJpaRepository.findById(it).get()
             },
         ).toDomain()
@@ -34,7 +34,7 @@ class OrderGateway(
 
     override fun update(order: Order): Order {
         return repository.save(
-            order.toPersistence(order.customer?.toPersistence(), order.payment?.toPersistence()) {
+            order.toPersistence(order.customer.toPersistence(), order.payment?.toPersistence()) {
                 productJpaRepository.findById(it).get()
             },
         ).toDomain()

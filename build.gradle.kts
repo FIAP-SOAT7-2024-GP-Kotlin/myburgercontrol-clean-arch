@@ -184,14 +184,15 @@ liquibase {
         this.arguments = mapOf(
             "changelogFile" to "${layout.buildDirectory.get()}/tmp/diff-changelog.xml",
             "classpath" to sourceSets.main.get().output.resourcesDir?.absolutePath,
-            "url" to "jdbc:postgresql://127.0.0.1:5432/myburguer",
+            "url" to "jdbc:${props["DATABASE_URL"]}",
             "username" to props["DATABASE_USER"],
             "password" to props["DATABASE_PASSWORD"],
-            "referenceUrl" to "hibernate:spring:MY_MODEL_PACKAGE?" +
+            "referenceUrl" to "hibernate:spring:io.github.soat7.myburguercontrol.infrastructure.persistence?" +
                 "dialect=org.hibernate.dialect.PostgreSQLDialect&" +
-                "hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&" +
+                "hibernate.physical_naming_strategy=org.hibernate.boot.entities.naming.CamelCaseToUnderscoresNamingStrategy&" +
                 "hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
-            "defaultSchemaName" to "alloy_id",
+            "defaultSchemaName" to "myburguer",
+            // "logLevel" to "debug",
         )
     }
 }

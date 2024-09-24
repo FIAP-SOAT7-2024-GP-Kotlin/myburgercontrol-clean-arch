@@ -27,28 +27,26 @@ fun OrderCreationRequest.toOrderDetails() = OrderDetail(
     },
 )
 
-fun Order.toResponse() = this.customer?.let {
-    OrderResponse(
-        id = this.id,
-        customer = it.toResponse(),
-        status = this.status,
-        createdAt = this.createdAt,
-        total = this.total,
-    ).apply {
-        this.items.addAll(
-            this@toResponse.items.map {
-                OrderItemResponse(
-                    product = it.product.toOrderItemProductResponse(),
-                    quantity = it.quantity,
-                    comment = it.comment,
-                )
-            },
-        )
-    }
+fun Order.toResponse() = OrderResponse(
+    id = this.id,
+    customer = this.customer.toResponse(),
+    status = this.status,
+    createdAt = this.createdAt,
+    total = this.total,
+).apply {
+    this.items.addAll(
+        this@toResponse.items.map {
+            OrderItemResponse(
+                product = it.product.toOrderItemProductResponse(),
+                quantity = it.quantity,
+                comment = it.comment,
+            )
+        },
+    )
 }
 
 fun Order.toPersistence(
-    customerEntity: CustomerEntity?,
+    customerEntity: CustomerEntity,
     paymentEntity: PaymentEntity?,
     productFinder: (productId: UUID) -> ProductEntity,
 ) = OrderEntity(
@@ -72,7 +70,7 @@ fun OrderItem.toPersistence(orderEntity: OrderEntity, productFinder: (productId:
 
 fun OrderEntity.toDomain() = Order(
     id = this.id ?: UUID.randomUUID(),
-    customer = this.customer?.toDomain(),
+    customer = this.customer.toDomain(),
     status = OrderStatus.from(this.status),
     createdAt = this.createdAt,
     items = this.items.map { it.toDomain() },
