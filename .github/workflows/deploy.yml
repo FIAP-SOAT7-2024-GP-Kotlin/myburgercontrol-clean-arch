@@ -16,7 +16,7 @@ jobs:
     steps:
       # Checkout do repositório
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Autenticação com a DigitalOcean
       - name: Set up DigitalOcean
@@ -24,16 +24,18 @@ jobs:
         with:
           token: ${{ secrets.DO_TOKEN_ACCESS }}
 
-      # Autenticação com a DigitalOcean
+      # Listar as VPCs e obter o ID da primeira VPC
       - name: Set up DigitalOcean
         run: |
-          doctl vpcs list
+          VPC_ID=$(doctl vpcs list --format ID --no-header | head -n 1)
+          echo "VPC ID: $VPC_ID"
+          echo "VPC_ID=$VPC_ID" >> $GITHUB_ENV
 
-#      # Criar um Droplet (opcional)
-#      - name: Create a Droplet
-#        run: |
-#          doctl compute droplet create <droplet-name> --size <size> --image <image> --region <region>
-#          doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc1 --vpc-uuid ba5f81a6-5df2-4149-ad14-10cb12440d95 soat7myburger
+      # Criar um Droplet (opcional)
+      - name: Create a Droplet
+        run: |
+          doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
+
 #      # Autenticação com o cluster Kubernetes
 #      - name: Set up Kubernetes
 #        run: |
