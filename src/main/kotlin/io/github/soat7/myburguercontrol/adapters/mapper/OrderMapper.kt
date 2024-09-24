@@ -28,22 +28,22 @@ fun OrderCreationRequest.toOrderDetails() = OrderDetail(
 )
 
 fun Order.toResponse() = OrderResponse(
-        id = this.id,
-        customer = this.customer?.toResponse(),
-        status = this.status,
-        createdAt = this.createdAt,
-        total = this.total,
-    ).apply {
-        this.items.addAll(
-            this@toResponse.items.map {
-                OrderItemResponse(
-                    product = it.product.toOrderItemProductResponse(),
-                    quantity = it.quantity,
-                    comment = it.comment,
-                )
-            },
-        )
-    }
+    id = this.id,
+    customer = this.customer?.toResponse(),
+    status = this.status,
+    createdAt = this.createdAt,
+    total = this.total,
+).apply {
+    this.items.addAll(
+        this@toResponse.items.map {
+            OrderItemResponse(
+                product = it.product.toOrderItemProductResponse(),
+                quantity = it.quantity,
+                comment = it.comment,
+            )
+        },
+    )
+}
 
 fun Order.toPersistence(
     customerEntity: CustomerEntity?,
