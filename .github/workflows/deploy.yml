@@ -50,8 +50,8 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
 #          kubectl apply -f k8s/
-          chmod +x scripts/k8s-cluster/start_myburguer.sh
-          ./scripts/k8s-cluster/start_myburguer.sh
+          chmod +x script/k8s-cluster/start-myburger.sh
+          ./script/k8s-cluster/start-myburger.sh
 
       # Armazenar o nome do deployment na variável de ambiente
       - name: Get Deployment Name
