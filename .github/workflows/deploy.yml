@@ -36,26 +36,27 @@ jobs:
       # Armazenar a lista de clusters na variável de ambiente
       - name: List Clusters
         run: |
-          CLUSTER_NAMES=$(kubectl config get-contexts -o name)
-          echo "CLUSTER_NAMES=$CLUSTER_NAMES" >> $GITHUB_ENV
-
-      # Autenticação com o cluster Kubernetes
-      - name: Set up Kubernetes
-        run: |
-          echo ${{ env.CLUSTER_NAMES }}
-          doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_NAMES }}
-
-      # Aplicar os manifests do Kubernetes ou usar Helm
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/
-
-      # Armazenar o nome do deployment na variável de ambiente
-      - name: Get Deployment Name
-        run: |
-          DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
-          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
-
-      # Verificar o status dos pods
-      - name: Check pod status
-        run: kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
+          kubectl get clusters
+#          CLUSTER_NAMES=$(kubectl config get-contexts -o name)
+#          echo "CLUSTER_NAMES=$CLUSTER_NAMES" >> $GITHUB_ENV
+#
+#      # Autenticação com o cluster Kubernetes
+#      - name: Set up Kubernetes
+#        run: |
+#          echo ${{ env.CLUSTER_NAMES }}
+#          doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_NAMES }}
+#
+#      # Aplicar os manifests do Kubernetes ou usar Helm
+#      - name: Deploy to Kubernetes
+#        run: |
+#          kubectl apply -f k8s/
+#
+#      # Armazenar o nome do deployment na variável de ambiente
+#      - name: Get Deployment Name
+#        run: |
+#          DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
+#          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
+#
+#      # Verificar o status dos pods
+#      - name: Check pod status
+#        run: kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
