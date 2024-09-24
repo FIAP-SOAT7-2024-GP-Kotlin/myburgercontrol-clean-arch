@@ -9,6 +9,8 @@ jobs:
   deploy:
     name: Deploy to DigitalOcean
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: soat7myburger # Defina o nome do cluster aqui
 
     steps:
       # Checkout do repositório
@@ -31,7 +33,7 @@ jobs:
       # Criar um Droplet (opcional)
       - name: Create a Droplet
         run: |
-          doctl kubernetes cluster create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
+          doctl kubernetes cluster create ${{ env.CLUSTER_NAME }}-k8s --node-pool "name=${{ env.CLUSTER_NAME }}-node-pool;size=s-2vcpu-4gb;count=1;auto-scale=true;min-nodes=1;max-nodes=3" --region nyc3 --vpc-uuid ${{ env.VPC_ID }}
 
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID
