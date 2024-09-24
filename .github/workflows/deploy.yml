@@ -31,7 +31,7 @@ jobs:
       # Criar um Droplet (opcional)
       - name: Create a Droplet
         run: |
-          doctl compute droplet create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
+          doctl kubernetes cluster create --image docker-20-04 --size s-1vcpu-1gb --region nyc3 --vpc-uuid ${{ env.VPC_ID }} soat7myburger
 
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID
@@ -39,12 +39,12 @@ jobs:
           doctl kubernetes cluster list
           CLUSTER_ID=$(doctl kubernetes cluster list --format ID --no-header | head -n 1)
           echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
-#
-#      # Autenticação com o cluster Kubernetes
-#      - name: Set up Kubernetes
-#        run: |
-#          echo ${{ env.CLUSTER_NAMES }}
-#          doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_NAMES }}
+
+      # Autenticação com o cluster Kubernetes
+      - name: Set up Kubernetes
+        run: |
+          echo ${{ env.CLUSTER_ID }}
+          doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 #
 #      # Aplicar os manifests do Kubernetes ou usar Helm
 #      - name: Deploy to Kubernetes
