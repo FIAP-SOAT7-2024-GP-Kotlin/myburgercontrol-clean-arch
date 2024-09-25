@@ -54,6 +54,7 @@ jobs:
       # Armazenar o nome do deployment na variável de ambiente
       - name: Get Deployment Name
         run: |
+          kubectl get deployments
           DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
 
