@@ -45,7 +45,7 @@ class OrderController(
         summary = "Utilize esta rota para encontrar o(s) pedido(s) por cpf de cliente",
         description = "Utilize esta rota para encontrar o(s) pedido(s) por cpf de cliente",
     )
-    fun findOrdersByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<List<OrderResponse?>> =
+    fun findOrdersByCpf(@RequestParam("cpf") cpf: String): ResponseEntity<List<OrderResponse>> =
         ResponseEntity.ok(orderHandler.findOrdersByCustomerCpf(cpf))
 
     @GetMapping("/queue")
@@ -60,7 +60,7 @@ class OrderController(
     ): ResponseEntity<PaginatedResponse<OrderResponse>> = ResponseEntity.ok(
         orderHandler.findOrderQueue(page, size).let { paginatedResponse ->
             PaginatedResponse(
-                content = paginatedResponse.content.filterNotNull(),
+                content = paginatedResponse.content,
                 totalPages = paginatedResponse.totalPages,
                 totalElements = paginatedResponse.totalElements,
                 currentPage = paginatedResponse.currentPage,
