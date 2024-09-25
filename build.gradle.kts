@@ -69,9 +69,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.postgresql:postgresql:42.7.+")
     implementation("com.google.guava:guava:33.2.1-jre")
-
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
-
     implementation("commons-codec:commons-codec:1.17.0")
 
     // jwt
