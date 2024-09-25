@@ -39,6 +39,9 @@ jobs:
       - name: Validate Auth
         run: |
           kubectl get nodes
+          kubectl get configmap myburger-config
+          kubectl get secret myburger-secrets
+          kubectl logs soat7myburger-node-pool-wxvsj
 
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID
@@ -50,8 +53,6 @@ jobs:
       - name: Get First Cluster IP
         run: |
           doctl kubernetes cluster list
-          CLUSTER_ID=$(doctl kubernetes cluster list --format PublicIPv4 --no-header | head -n 1)
-          echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
 
       # Autenticação com o cluster Kubernetes
       - name: Set up Kubernetes
@@ -72,4 +73,5 @@ jobs:
 
       # Verificar o status dos pods
       - name: Check pod status
-        run: kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
+        run: |
+          kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
