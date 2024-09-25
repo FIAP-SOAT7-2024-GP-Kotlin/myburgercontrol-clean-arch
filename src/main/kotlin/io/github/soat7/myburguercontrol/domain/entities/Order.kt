@@ -9,7 +9,7 @@ import java.util.UUID
 
 data class Order(
     val id: UUID,
-    val customer: Customer,
+    val customer: Customer?,
     val items: List<OrderItem> = listOf(),
     val status: OrderStatus = OrderStatus.NEW,
     val createdAt: Instant = Instant.now(),

@@ -34,6 +34,7 @@ class SecurityConfiguration(
                         "/v3/api-docs/**",
                         "/webjars/**",
                         "/actuator/**",
+                        "/orders",
                     )
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/users")

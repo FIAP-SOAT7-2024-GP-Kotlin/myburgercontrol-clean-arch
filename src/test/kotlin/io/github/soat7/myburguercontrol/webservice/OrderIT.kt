@@ -51,7 +51,7 @@ class OrderIT : BaseIntegrationTest() {
 
         assertAll(
             Executable { assertNotNull(order) },
-            Executable { assertEquals(cpf, order!!.customer!!.cpf) },
+            Executable { order!!.customer?.let { assertEquals(cpf, it.cpf) } },
             Executable { assertEquals(OrderStatus.RECEIVED.name, order!!.status) },
             Executable { assertFalse(order!!.items.isEmpty()) },
         )
@@ -114,7 +114,7 @@ class OrderIT : BaseIntegrationTest() {
 
         assertAll(
             Executable { assertNotNull(order.id) },
-            Executable { assertEquals(cpf, order.customer.cpf) },
+            Executable { order.customer?.let { assertEquals(cpf, it.cpf) } },
             Executable { assertEquals(OrderStatus.NEW, order.status) },
             Executable { assertFalse(order.items.isEmpty()) },
             Executable { assertEquals(5.99.toBigDecimal(), order.total) },
@@ -139,5 +139,39 @@ class OrderIT : BaseIntegrationTest() {
         )
 
         assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
+    }
+
+    @Test
+    fun `should create a new order when cpf is not filled in`() {
+        val cpf = ""
+        val customer = insertCustomerData(mockDomainCustomer(cpf = cpf))
+        val items = insertProducts().map {
+            OrderCreationRequest.OrderItem(
+                productId = it.id!!,
+                quantity = 1,
+            )
+        }
+
+        val inputOrderData = OrderCreationRequest(customerCpf = customer.cpf, items)
+
+        val orderResponse = restTemplate.exchange<OrderResponse>(
+            url = "/orders",
+            method = HttpMethod.POST,
+            requestEntity = HttpEntity(inputOrderData, authenticationHeader),
+        )
+
+        assertAll(
+            Executable { assertTrue(orderResponse.statusCode.is2xxSuccessful) },
+            Executable { assertNotNull(orderResponse.body) },
+        )
+
+        val order = orderJpaRepository.findById(orderResponse.body!!.id).getOrNull()
+
+        assertAll(
+            Executable { assertNotNull(order) },
+            Executable { order!!.customer?.let { assertEquals(cpf, it.cpf) } },
+            Executable { assertEquals(OrderStatus.RECEIVED.name, order!!.status) },
+            Executable { assertFalse(order!!.items.isEmpty()) },
+        )
     }
 }

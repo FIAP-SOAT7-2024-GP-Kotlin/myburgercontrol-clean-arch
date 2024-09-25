@@ -60,7 +60,7 @@ class OrderUseCaseTest {
         verify(exactly = 1) { repository.create(any()) }
 
         assertNotNull(order.id)
-        assertEquals(cpf, order.customer!!.cpf)
+        order.customer?.let { assertEquals(cpf, it.cpf) }
         assertEquals(OrderStatus.RECEIVED, order.status)
         assertFalse(order.items.isEmpty())
         assertEquals(1.0.toBigDecimal(), order.total)

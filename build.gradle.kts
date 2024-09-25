@@ -69,9 +69,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.postgresql:postgresql:42.7.+")
     implementation("com.google.guava:guava:33.2.1-jre")
-
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
-
     implementation("commons-codec:commons-codec:1.17.0")
 
     // jwt
@@ -184,15 +182,14 @@ liquibase {
         this.arguments = mapOf(
             "changelogFile" to "${layout.buildDirectory.get()}/tmp/diff-changelog.xml",
             "classpath" to sourceSets.main.get().output.resourcesDir?.absolutePath,
-            "url" to "jdbc:${props["DATABASE_URL"]}",
+            "url" to "jdbc:postgresql://127.0.0.1:5432/myburguer",
             "username" to props["DATABASE_USER"],
             "password" to props["DATABASE_PASSWORD"],
-            "referenceUrl" to "hibernate:spring:io.github.soat7.myburguercontrol.infrastructure.persistence?" +
+            "referenceUrl" to "hibernate:spring:MY_MODEL_PACKAGE?" +
                 "dialect=org.hibernate.dialect.PostgreSQLDialect&" +
-                "hibernate.physical_naming_strategy=org.hibernate.boot.entities.naming.CamelCaseToUnderscoresNamingStrategy&" +
+                "hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&" +
                 "hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
-            "defaultSchemaName" to "myburguer",
-            // "logLevel" to "debug",
+            "defaultSchemaName" to "alloy_id",
         )
     }
 }

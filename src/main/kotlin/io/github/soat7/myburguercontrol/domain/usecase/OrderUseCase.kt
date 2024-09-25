@@ -22,8 +22,12 @@ class OrderUseCase(
 ) {
 
     fun createOrder(orderDetail: OrderDetail): Order {
-        val customer = customerUseCase.findCustomerByCpf(orderDetail.customerCpf)
-            ?: throw ReasonCodeException(ReasonCode.CUSTOMER_NOT_FOUND)
+        var customer: Customer? = null
+
+        if (orderDetail.customerCpf.isNotBlank()) {
+            customer = customerUseCase.findCustomerByCpf(orderDetail.customerCpf)
+                ?: throw ReasonCodeException(ReasonCode.CUSTOMER_NOT_FOUND)
+        }
 
         val items = buildOrderItems(orderDetail)
 
@@ -72,7 +76,7 @@ class OrderUseCase(
     }
 
     private fun setupOrder(
-        customer: Customer,
+        customer: Customer?,
         items: List<OrderItem>,
     ): Order {
         val order = orderGateway.create(
