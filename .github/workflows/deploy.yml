@@ -1,4 +1,4 @@
-name: CD [MyBurguer ≡] (DigitalOcean)
+name: CD [MyBurger ≡] (DigitalOcean)
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     name: Deploy to DigitalOcean
     runs-on: ubuntu-latest
     env:
-      PROJECT_NAME: soat7myburger # Defina o nome do cluster aqui
+       IMAGE_NAME: fiapmyburguer/myburgercontrol-clean-arch:latest
 
     steps:
       # Checkout do repositório
@@ -18,59 +18,40 @@ jobs:
         uses: actions/checkout@v4
 
       # Autenticação com a DigitalOcean
-      - name: Set up DigitalOcean
+      - name: Set up DigitalOcean [MyBurger ≡]
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_TOKEN_ACCESS }}
 
-      # Listar as VPCs e obter o ID da primeira VPC
-      - name: Get VPC ID
-        run: |
-          VPC_ID=$(doctl vpcs list --format ID --no-header | head -n 1)
-          echo "VPC ID: $VPC_ID"
-          echo "VPC_ID=$VPC_ID" >> $GITHUB_ENV
-
-      # Criar um Droplet (opcional)
-      - name: Create a Droplet
-        run: |
-          doctl kubernetes cluster create ${{ env.PROJECT_NAME }}-k8s --node-pool "name=${{ env.PROJECT_NAME }}-node-pool;size=s-1vcpu-2gb;count=1;auto-scale=true;min-nodes=1;max-nodes=3" --region nyc3 --vpc-uuid ${{ env.VPC_ID }}
-
-      # Validar autenticação
-      - name: Validate Auth
-        run: |
-          kubectl get nodes
-
       # Armazenar o ID do primeiro cluster na variável de ambiente
-      - name: Get First Cluster ID
+      - name: Get First Cluster ID [MyBurger ≡]
         run: |
           CLUSTER_ID=$(doctl kubernetes cluster list --format ID --no-header | head -n 1)
           echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
 
-      # Armazenar o IP do primeiro cluster na variável de ambiente
-      - name: Get First Cluster IP
-        run: |
-          doctl kubernetes cluster list
-
       # Autenticação com o cluster Kubernetes
-      - name: Set up Kubernetes
+      - name: Set up Kubernetes [MyBurger ≡]
         run: |
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 
-      # Aplicar os manifests do Kubernetes
-      - name: Deploy to Kubernetes
+      # Validar autenticação
+      - name: Validate Auth [MyBurger ≡]
         run: |
-          kubectl apply -f $GITHUB_WORKSPACE/k8s/app/myburger-configmap.yaml
-          kubectl apply -f $GITHUB_WORKSPACE/k8s/app/myburger-secret.yaml
-          kubectl apply -f $GITHUB_WORKSPACE/k8s/app/myburger-deployment.yaml
+          kubectl get nodes
 
       # Armazenar o nome do deployment na variável de ambiente
-      - name: Get Deployment Name
+      - name: Get Deployment Name [MyBurger ≡]
         run: |
           kubectl get deployments
           DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
 
-      # Verificar o status dos pods
-      - name: Check pod status
+      # Atualizar a imagem do deployment
+      - name: Update Image [MyBurger ≡]
         run: |
-          kubectl rollout status deployment ${{ env.DEPLOYMENT_NAME }}
+          kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} myburger=${{ env.IMAGE_NAME }}
+
+      # Verificar o status dos pods
+      - name: Check pod status [MyBurger ≡]
+        run: |
+          kubectl rollout status deployment/myburger-deployment
