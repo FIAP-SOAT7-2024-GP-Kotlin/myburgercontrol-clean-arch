@@ -68,7 +68,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.postgresql:postgresql:42.7.+")
-    implementation("org.liquibase:liquibase-core:4.+")
     implementation("com.google.guava:guava:33.2.1-jre")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
@@ -96,6 +95,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.awaitility:awaitility-kotlin:4.+")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.liquibase:liquibase-core:4.+")
 
     // Liquibase
     liquibaseRuntime("info.picocli:picocli:4.+")
