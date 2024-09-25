@@ -56,7 +56,7 @@ jobs:
         run: |
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 
-      # Aplicar os manifests do Kubernetes ou usar Helm
+      # Aplicar os manifests do Kubernetes
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/app/myburger-configmap.yaml
