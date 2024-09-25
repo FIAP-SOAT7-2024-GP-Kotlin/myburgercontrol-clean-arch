@@ -51,7 +51,7 @@ class OrderIT : BaseIntegrationTest() {
 
         assertAll(
             Executable { assertNotNull(order) },
-            Executable { assertEquals(cpf, order!!.customer.cpf) },
+            Executable { assertEquals(cpf, order!!.customer!!.cpf) },
             Executable { assertEquals(OrderStatus.RECEIVED.name, order!!.status) },
             Executable { assertFalse(order!!.items.isEmpty()) },
         )

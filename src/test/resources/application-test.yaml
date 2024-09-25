@@ -19,6 +19,10 @@ spring:
     properties:
       hibernate:
         default_schema: ${spring.datasource.schema}
+  liquibase:
+    change-log: classpath:/db/changelog/master.xml
+    enabled: true
+    default-schema: ${spring.datasource.schema}
 
 third-party:
   payment-integration:

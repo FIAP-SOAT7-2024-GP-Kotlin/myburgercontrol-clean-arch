@@ -62,10 +62,7 @@ spring:
       fail_on_empty_beans: false
       write_dates_as_timestamps: false
     property-naming-strategy: SNAKE_CASE
-  liquibase:
-    change-log: classpath:/db/changelog/master.xml
-    enabled: true
-    default-schema: ${spring.datasource.schema}
+
 
 third-party:
   payment-integration:
