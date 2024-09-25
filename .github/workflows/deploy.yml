@@ -39,9 +39,6 @@ jobs:
       - name: Validate Auth
         run: |
           kubectl get nodes
-          kubectl get configmap myburger-config
-          kubectl get secret myburger-secrets
-          kubectl logs soat7myburger-node-pool-wxvsj
 
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID
