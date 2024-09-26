@@ -38,6 +38,7 @@ jobs:
       - name: Validate Auth [MyBurger ≡]
         run: |
           kubectl get nodes
+          kubectl config get-contexts
           kubectl config use-context my-burger-node-pool-wos1k
 
       # Aplicar os manifests do Kubernetes
