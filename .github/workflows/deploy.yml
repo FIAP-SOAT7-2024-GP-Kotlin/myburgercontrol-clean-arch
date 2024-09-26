@@ -38,8 +38,17 @@ jobs:
       - name: Validate Auth [MyBurger ≡]
         run: |
           kubectl get nodes
-          kubectl config get-contexts
-          kubectl config use-context do-nyc1-my-burger-k8s
+
+      # Armazenar o Context do primeiro cluster na variável de ambiente
+      - name: Get First Context [MyBurger ≡]
+        run: |
+          KUBE_CONTEXT=$(kubectl config current-context --format CLUSTER --no-header | head -n 1)
+          echo "KUBE_CONTEXT=$KUBE_CONTEXT" >> $GITHUB_ENV
+
+      # Configura o contexto
+      - name: Config context [MyBurger ≡]
+        run: |
+          kubectl config use-context ${{ env.KUBE_CONTEXT }}
 
       # Aplicar os manifests do Kubernetes
       - name: Deploy to Kubernetes
@@ -65,7 +74,6 @@ jobs:
       # Verificar o status dos pods
       - name: Check pod status [MyBurger ≡]
         run: |
-          kubectl logs -l app=${{ env.DEPLOYMENT_NAME }} --tail=100
           kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
 
       # Ver logs dos pods atualizados
