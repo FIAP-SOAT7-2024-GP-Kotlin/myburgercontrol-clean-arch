@@ -42,9 +42,11 @@ jobs:
       # Aplicar os manifests do Kubernetes
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f $GITHUB_WORKSPACE/k8s/app/myburger-configmap.yaml
-          kubectl apply -f $GITHUB_WORKSPACE/k8s/app/myburger-secret.yaml
-          kubectl apply -f $GITHUB_WORKSPACE/k8s/app/myburger-deployment.yaml
+          kubectl apply -f k8s/app/myburger-configmap.yaml
+          kubectl apply -f k8s/app/myburger-secret.yaml
+          kubectl apply -f k8s/app/myburger-deployment.yaml
+          kubectl apply -f k8s/app/myburger-hpa.yaml
+          kubectl apply -f k8s/app/myburger-svc.yaml
 
       # Armazenar o nome do deployment na variável de ambiente
       - name: Get Deployment Name [MyBurger ≡]
@@ -61,4 +63,4 @@ jobs:
       # Verificar o status dos pods
       - name: Check pod status [MyBurger ≡]
         run: |
-          kubectl rollout status deployment/myburger-deployment
+          kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
