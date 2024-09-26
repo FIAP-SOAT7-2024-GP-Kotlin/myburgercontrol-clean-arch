@@ -39,7 +39,7 @@ jobs:
         run: |
           kubectl get nodes
           kubectl config get-contexts
-          kubectl config use-context my-burger-node-pool-wos1k
+          kubectl config use-context do-nyc1-my-burger-k8s
 
       # Aplicar os manifests do Kubernetes
       - name: Deploy to Kubernetes
