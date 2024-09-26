@@ -42,7 +42,7 @@ jobs:
       # Armazenar o Context do primeiro cluster na variável de ambiente
       - name: Get First Context [MyBurger ≡]
         run: |
-          KUBE_CONTEXT=$(kubectl config current-context --format CLUSTER --no-header | head -n 1)
+          KUBE_CONTEXT=$(kubectl config get-contexts --no-headers | head -n 1 | awk '{print $2}')
           echo "KUBE_CONTEXT=$KUBE_CONTEXT" >> $GITHUB_ENV
 
       # Configura o contexto
