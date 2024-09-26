@@ -63,6 +63,7 @@ jobs:
       # Verificar o status dos pods
       - name: Check pod status [MyBurger ≡]
         run: |
+          kubectl logs -l app=${{ env.DEPLOYMENT_NAME }} --tail=100
           kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
 
       # Ver logs dos pods atualizados
