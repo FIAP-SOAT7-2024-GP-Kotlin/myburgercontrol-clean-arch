@@ -22,11 +22,11 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: .github/workflows  # Especificar o diretório correto
+        working-directory: .github/workflows/  # Especificar o diretório correto
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: .github/workflows  # Especificar o diretório correto
+        working-directory: .github/workflows/  # Especificar o diretório correto
         env:
           DIGITALOCEAN_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
           SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
