@@ -34,19 +34,7 @@ jobs:
         run: |
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 
-      # Aplicar os manifests do Kubernetes
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/app/myburger-deployment.yaml
-
-      # Armazenar o nome do deployment na variável de ambiente
-      - name: Get Deployment Name [MyBurger ≡]
-        run: |
-          kubectl get deployments
-          DEPLOYMENT_NAME=$(kubectl get deployments --namespace=default -o jsonpath='{.items[0].metadata.name}')
-          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
-
       # Atualizar a imagem do deployment
       - name: Update Image [MyBurger ≡]
         run: |
-          kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} myburger=${{ env.IMAGE_NAME }}
+          kubectl set image deployment/myburger myburger=${{ env.IMAGE_NAME }}
