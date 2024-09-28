@@ -63,7 +63,7 @@ jobs:
       - name: Get Deployment Name [MyBurger ≡]
         run: |
           kubectl get deployments
-          DEPLOYMENT_NAME=$(kubectl get deployments -o jsonpath='{.items[0].metadata.name}')
+          DEPLOYMENT_NAME=$(kubectl get deployments --namespace=default -o jsonpath='{.items[0].metadata.name}')
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
 
       # Atualizar a imagem do deployment
