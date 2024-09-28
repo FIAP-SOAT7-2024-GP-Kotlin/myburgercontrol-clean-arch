@@ -6,7 +6,7 @@ terraform {
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"
-      version = "~> 2.0"  # Especifique a versão adequada (por exemplo, 2.0 ou outra)
+      version = "~> 2.0" # Especifique a versão adequada (por exemplo, 2.0 ou outra)
     }
   }
 }
@@ -30,8 +30,8 @@ resource "digitalocean_kubernetes_cluster" "my_k8s_cluster" {
 
   node_pool {
     name       = "my-burger-node-pool"
-    size       = "s-2vcpu-2gb"  # Escolha o tipo do nó
-    node_count = 2  # Número de nós no cluster
+    size       = "s-2vcpu-2gb" # Escolha o tipo do nó
+    node_count = 2             # Número de nós no cluster
 
     # A chave SSH será usada para acessar os nós do Kubernetes, se necessário
     ssh_ids = [var.ssh_fingerprint]
