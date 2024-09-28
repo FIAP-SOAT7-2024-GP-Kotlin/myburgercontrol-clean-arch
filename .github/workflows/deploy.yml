@@ -45,19 +45,18 @@ jobs:
         run: terraform fmt -check
         working-directory: .github/workflows/
 
-      - name: Terraform Plan
-        run: terraform plan -input=false -var-file="terraform.tfvars"
-        working-directory: .github/workflows/
-        env:
-          DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
-          SSH_FINGERPRINT: ${{ secrets.SSH_FINGERPRINT }}
+#      - name: Terraform Plan
+#        run: terraform plan -input=false -var-file="terraform.tfvars"
+#        working-directory: .github/workflows/
+#        env:
+#          DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+#          SSH_FINGERPRINT: ${{ secrets.SSH_FINGERPRINT }}
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false -var-file="terraform.tfvars"
         working-directory: .github/workflows/  # Especificar o diretório correto
         env:
-          DIGITALOCEAN_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
-          SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
+          DO_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
 
       - name: Deploy to Droplet
         run: |
