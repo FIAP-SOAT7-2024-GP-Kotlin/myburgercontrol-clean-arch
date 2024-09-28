@@ -46,15 +46,14 @@ jobs:
         working-directory: .github/workflows/
 
       - name: Terraform Plan
-        run: terraform plan -input=false \
-          -var "digitalocean_token=${{ secrets.DO_TOKEN_ACCESS }}" \
-          -var "ssh_fingerprint=${{ secrets.DO_SSH_FINGERPRINT }}"
+        run: terraform plan -input=false -var-file="terraform.tfvars"
         working-directory: .github/workflows/
+        env:
+          DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          SSH_FINGERPRINT: ${{ secrets.SSH_FINGERPRINT }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false \
-          -var "digitalocean_token=${{ secrets.DO_TOKEN_ACCESS }}" \
-          -var "ssh_fingerprint=${{ secrets.DO_SSH_FINGERPRINT }}"
+        run: terraform apply -auto-approve -input=false -var-file="terraform.tfvars"
         working-directory: .github/workflows/  # Especificar o diretório correto
         env:
           DIGITALOCEAN_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
