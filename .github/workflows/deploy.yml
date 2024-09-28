@@ -36,8 +36,16 @@ jobs:
         run: terraform init
         working-directory: .github/workflows/  # Especificar o diretório correto
 
+      - name: Terraform Format
+        run: terraform fmt -check
+        working-directory: .github/workflows/
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
+        working-directory: .github/workflows/
+
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
         working-directory: .github/workflows/  # Especificar o diretório correto
         env:
           DIGITALOCEAN_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
