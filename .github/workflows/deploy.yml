@@ -34,6 +34,11 @@ jobs:
         run: |
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 
+      # Aplicar os manifests do Kubernetes
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/app/myburger-deployment.yaml
+
       # Armazenar o nome do deployment na variável de ambiente
       - name: Get Deployment Name [MyBurger ≡]
         run: |
