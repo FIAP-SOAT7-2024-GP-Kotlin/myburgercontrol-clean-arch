@@ -11,15 +11,6 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-resource "digitalocean_droplet" "my_burger" {
-  image    = "docker-20-04"
-  name     = "my-burger-api-gtw"
-  region   = "nyc1"
-  size     = "s-1vcpu-1gb"
-  vpc_uuid = var.vpc_id
-  ssh_keys = [43452957, 43405929]
-}
-
 # Cria um cluster Kubernetes na DigitalOcean
 
 resource "digitalocean_kubernetes_cluster" "my_k8s_cluster" {
