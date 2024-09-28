@@ -37,12 +37,10 @@ resource "digitalocean_kubernetes_cluster" "my_k8s_cluster" {
     ssh_ids = [var.ssh_fingerprint]
   }
 }
-# Output do endpoint do cluster
 
 output "kubernetes_endpoint" {
   value = digitalocean_kubernetes_cluster.my_k8s_cluster.endpoint
 }
-# Output do token do cluster
 
 output "kubeconfig" {
   value = digitalocean_kubernetes_cluster.my_k8s_cluster.kube_config
