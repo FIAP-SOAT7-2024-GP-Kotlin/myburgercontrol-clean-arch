@@ -23,10 +23,6 @@ jobs:
         with:
           token: ${{ secrets.DO_TOKEN_ACCESS }}
 
-      - name: Create tfvars file
-        run: |
-          echo "digitalocean_token = \"${{ secrets.DO_TOKEN_ACCESS }}\"" >> terraform.tfvars
-          echo "ssh_fingerprint = \"${{ secrets.DO_SSH_FINGERPRINT }}\"" >> terraform.tfvars
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
@@ -42,17 +38,18 @@ jobs:
         working-directory: .github/workflows/
 
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file="terraform.tfvars" -var "pvt_key=$HOME/.ssh/id_rsa"
+        run: terraform plan -input=false
         working-directory: .github/workflows/
         env:
-          DO_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
-          SSH_FINGERPRINT: ${{ secrets.SSH_FINGERPRINT }}
+          DO_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
+          SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false -var-file="terraform.tfvars" -var "pvt_key=$HOME/.ssh/id_rsa"
+        run: terraform apply -auto-approve -input=false
         working-directory: .github/workflows/  # Especificar o diretório correto
         env:
           DO_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
+          SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
 
       - name: Deploy to Droplet
         run: |
