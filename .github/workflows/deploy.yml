@@ -23,12 +23,6 @@ jobs:
         with:
           token: ${{ secrets.DO_TOKEN_ACCESS }}
 
-      # Armazenar o ID do primeiro cluster na variável de ambiente
-      - name: Get First Cluster ID [MyBurger ≡]
-        run: |
-          CLUSTER_ID=$(doctl kubernetes cluster list --format ID --no-header | head -n 1)
-          echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
-
       - name: Create tfvars file
         run: |
           echo "digitalocean_token = \"${{ secrets.DO_TOKEN_ACCESS }}\"" >> terraform.tfvars
@@ -37,7 +31,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          cli_config_credentials_token: ${{ secrets.DO_TOKEN_ACCESS }}
+          terraform_version: 1.0.0
 
       - name: Terraform Init
         run: terraform init
@@ -69,6 +63,12 @@ jobs:
             docker rm myburger || true
             docker run -d --name myburger -p 80:8080 ${{ env.IMAGE_NAME }}
           EOF
+
+      # Armazenar o ID do primeiro cluster na variável de ambiente
+      - name: Get First Cluster ID [MyBurger ≡]
+        run: |
+          CLUSTER_ID=$(doctl kubernetes cluster list --format ID --no-header | head -n 1)
+          echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
 
       # Autenticação com o cluster Kubernetes
       - name: Set up Kubernetes [MyBurger ≡]

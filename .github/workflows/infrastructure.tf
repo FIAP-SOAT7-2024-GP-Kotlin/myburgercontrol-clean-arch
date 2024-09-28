@@ -13,7 +13,7 @@ provider "digitalocean" {
 
 # Cria um cluster Kubernetes na DigitalOcean
 
-resource "digitalocean_kubernetes_cluster" "my_k8s_cluster" {
+resource "digitalocean_kubernetes_cluster" "my_burger_kubernetes_cluster" {
   name     = "my-burger-k8s"
   region   = "nyc1"
   version  = "1.31.1-do.0"
@@ -21,23 +21,10 @@ resource "digitalocean_kubernetes_cluster" "my_k8s_cluster" {
 
   node_pool {
     name       = "my-burger-node-pool"
-    size       = "s-2vcpu-2gb" # Escolha o tipo do nó
-    node_count = 2             # Número de nós no cluster
-
-    #     # A chave SSH será usada para acessar os nós do Kubernetes, se necessário
-    #     ssh_ids = [var.ssh_fingerprint]
+    size       = "s-2vcpu-4gb"
+    node_count = 1
+    auto_scale = true
+    min_nodes  = 1
+    max_nodes  = 3
   }
-}
-
-output "kubernetes_endpoint" {
-  value = digitalocean_kubernetes_cluster.my_k8s_cluster.endpoint
-}
-
-output "kubeconfig" {
-  value     = digitalocean_kubernetes_cluster.my_k8s_cluster.kube_config
-  sensitive = true
-}
-
-output "droplet_ip" {
-  value = digitalocean_kubernetes_cluster.my_k8s_cluster.ipv4_address
 }
