@@ -33,8 +33,8 @@ resource "digitalocean_kubernetes_cluster" "my_k8s_cluster" {
     size       = "s-2vcpu-2gb" # Escolha o tipo do nó
     node_count = 2             # Número de nós no cluster
 
-#     # A chave SSH será usada para acessar os nós do Kubernetes, se necessário
-#     ssh_ids = [var.ssh_fingerprint]
+    #     # A chave SSH será usada para acessar os nós do Kubernetes, se necessário
+    #     ssh_ids = [var.ssh_fingerprint]
   }
 }
 
