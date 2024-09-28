@@ -45,7 +45,9 @@ jobs:
         working-directory: .github/workflows/
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false \
+          -var "digitalocean_token=${{ secrets.DO_TOKEN_ACCESS }}" \
+          -var "ssh_fingerprint=${{ secrets.DO_SSH_FINGERPRINT }}"
         working-directory: .github/workflows/  # Especificar o diretório correto
         env:
           DIGITALOCEAN_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
