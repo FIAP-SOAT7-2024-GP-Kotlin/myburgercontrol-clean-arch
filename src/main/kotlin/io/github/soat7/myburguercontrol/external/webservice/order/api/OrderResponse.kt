@@ -8,7 +8,7 @@ import java.util.UUID
 
 data class OrderResponse(
     val id: UUID,
-    val customer: CustomerResponse,
+    val customer: CustomerResponse?,
     val items: MutableList<OrderItemResponse> = mutableListOf(),
     val status: OrderStatus,
     val createdAt: Instant,

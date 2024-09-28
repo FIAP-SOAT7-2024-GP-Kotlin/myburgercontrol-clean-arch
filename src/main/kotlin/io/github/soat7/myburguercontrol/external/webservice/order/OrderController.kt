@@ -57,7 +57,17 @@ class OrderController(
     fun findOrderQueue(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-    ): ResponseEntity<PaginatedResponse<OrderResponse>> = ResponseEntity.ok(orderHandler.findOrderQueue(page, size))
+    ): ResponseEntity<PaginatedResponse<OrderResponse>> = ResponseEntity.ok(
+        orderHandler.findOrderQueue(page, size).let { paginatedResponse ->
+            PaginatedResponse(
+                content = paginatedResponse.content,
+                totalPages = paginatedResponse.totalPages,
+                totalElements = paginatedResponse.totalElements,
+                currentPage = paginatedResponse.currentPage,
+                pageSize = paginatedResponse.pageSize,
+            )
+        },
+    )
 
     @GetMapping("/list")
     @Operation(
@@ -74,7 +84,7 @@ class OrderController(
 
         ResponseEntity.ok(
             PaginatedResponse(
-                content = response.content.map { it },
+                content = response.content.filterNotNull(),
                 totalPages = response.totalPages,
                 totalElements = response.totalElements,
                 currentPage = response.number,
