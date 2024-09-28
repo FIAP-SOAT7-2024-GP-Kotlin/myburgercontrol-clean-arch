@@ -43,7 +43,8 @@ output "kubernetes_endpoint" {
 }
 
 output "kubeconfig" {
-  value = digitalocean_kubernetes_cluster.my_k8s_cluster.kube_config
+  value     = digitalocean_kubernetes_cluster.my_k8s_cluster.kube_config
+  sensitive = true
 }
 
 output "droplet_ip" {
