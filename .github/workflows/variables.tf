@@ -1,7 +1,7 @@
 variable "do_token" {
   description = "Token de autenticação para acessar a DigitalOcean"
   type        = string
-  default     = "default"
+  default     = ""
 }
 
 variable "vpc_id" {

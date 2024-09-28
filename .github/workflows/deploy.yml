@@ -42,14 +42,14 @@ jobs:
         working-directory: .github/workflows/
 
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file="terraform.tfvars"
+        run: terraform plan -input=false -var-file="terraform.tfvars" -var "pvt_key=$HOME/.ssh/id_rsa"
         working-directory: .github/workflows/
         env:
-          DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          DO_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
           SSH_FINGERPRINT: ${{ secrets.SSH_FINGERPRINT }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false -var-file="terraform.tfvars"
+        run: terraform apply -auto-approve -input=false -var-file="terraform.tfvars" -var "pvt_key=$HOME/.ssh/id_rsa"
         working-directory: .github/workflows/  # Especificar o diretório correto
         env:
           DO_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
