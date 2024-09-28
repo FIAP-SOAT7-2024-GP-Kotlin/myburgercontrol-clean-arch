@@ -23,44 +23,6 @@ jobs:
         with:
           token: ${{ secrets.DO_TOKEN_ACCESS }}
 
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.0
-
-      - name: Terraform Init
-        run: terraform init
-        working-directory: .github/workflows/  # Especificar o diretório correto
-
-      - name: Terraform Format
-        run: terraform fmt -check
-        working-directory: .github/workflows/
-
-      - name: Terraform Plan
-        run: terraform plan -input=false
-        working-directory: .github/workflows/
-        env:
-          DO_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
-          SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
-        working-directory: .github/workflows/  # Especificar o diretório correto
-        env:
-          DO_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
-          SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
-
-      - name: Deploy to Droplet
-        run: |
-          DROPLET_IP=$(terraform output -raw droplet_ip)
-          ssh root@${DROPLET_IP} <<EOF
-            docker pull ${{ env.IMAGE_NAME }}
-            docker stop myburger || true
-            docker rm myburger || true
-            docker run -d --name myburger -p 80:8080 ${{ env.IMAGE_NAME }}
-          EOF
-
       # Armazenar o ID do primeiro cluster na variável de ambiente
       - name: Get First Cluster ID [MyBurger ≡]
         run: |
@@ -104,17 +66,7 @@ jobs:
           DEPLOYMENT_NAME=$(kubectl get deployments --namespace=default -o jsonpath='{.items[0].metadata.name}')
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
 
-      # Atualizar a imagem do deployment
-      - name: Update Image [MyBurger ≡]
-        run: |
-          kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} myburger=${{ env.IMAGE_NAME }}
-
       # Verificar o status dos pods
       - name: Check pod status [MyBurger ≡]
         run: |
           kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
-
-      # Ver logs dos pods atualizados
-      - name: View Logs [MyBurger ≡]
-        run: |
-          kubectl logs -l app=${{ env.DEPLOYMENT_NAME }} --tail=100
