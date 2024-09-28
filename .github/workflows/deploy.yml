@@ -32,6 +32,11 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
+      - name: Create tfvars file
+        run: |
+          echo "digitalocean_token = \"${{ secrets.DO_TOKEN_ACCESS }}\"" >> terraform.tfvars
+          echo "ssh_fingerprint = \"${{ secrets.DO_SSH_FINGERPRINT }}\"" >> terraform.tfvars
+
       - name: Terraform Init
         run: terraform init
         working-directory: .github/workflows/  # Especificar o diretório correto
