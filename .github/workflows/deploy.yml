@@ -29,7 +29,7 @@ jobs:
           echo "CLUSTER_ID=$CLUSTER_ID" >> $GITHUB_ENV
 
       # Autenticação com o cluster Kubernetes
-      - name: Set up Kubernetes [MyBurger ≡]
+      - name: Set up Kubernetes save [MyBurger ≡]
         run: |
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 
