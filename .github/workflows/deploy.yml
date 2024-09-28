@@ -17,6 +17,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: .github/workflows  # Especificar o diretório correto
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: .github/workflows  # Especificar o diretório correto
+        env:
+          DIGITALOCEAN_TOKEN: ${{ secrets.DO_TOKEN_ACCESS }}
+          SSH_FINGERPRINT: ${{ secrets.DO_SSH_FINGERPRINT }}
+
+      - name: Deploy to Droplet
+        run: |
+          DROPLET_IP=$(terraform output -raw droplet_ip)
+          ssh root@${DROPLET_IP} <<EOF
+            docker pull fiapmyburguer/myburgercontrol:latest
+            docker stop myburgercontrol || true
+            docker rm myburgercontrol || true
+            docker run -d --name myburger -p 80:8080 fiapmyburguer/myburgercontrol:latest
+          EOF
+
       # Autenticação com a DigitalOcean
       - name: Set up DigitalOcean [MyBurger ≡]
         uses: digitalocean/action-doctl@v2
