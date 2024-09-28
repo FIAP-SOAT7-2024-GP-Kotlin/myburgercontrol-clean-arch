@@ -34,39 +34,7 @@ jobs:
         run: |
           doctl kubernetes cluster kubeconfig save ${{ env.CLUSTER_ID }}
 
-      # Validar autenticação
-      - name: Validate Auth [MyBurger ≡]
+      # Atualizar a imagem do deployment
+      - name: Update Image [MyBurger ≡]
         run: |
-          kubectl get nodes
-
-      # Armazenar o Context do primeiro cluster na variável de ambiente
-      - name: Get First Context [MyBurger ≡]
-        run: |
-          KUBE_CONTEXT=$(kubectl config get-contexts --no-headers | head -n 1 | awk '{print $2}')
-          echo "KUBE_CONTEXT=$KUBE_CONTEXT" >> $GITHUB_ENV
-
-      # Configura o contexto
-      - name: Config context [MyBurger ≡]
-        run: |
-          kubectl config use-context ${{ env.KUBE_CONTEXT }}
-
-      # Aplicar os manifests do Kubernetes
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/app/myburger-configmap.yaml
-          kubectl apply -f k8s/app/myburger-secret.yaml
-          kubectl apply -f k8s/app/myburger-deployment.yaml
-          kubectl apply -f k8s/app/myburger-hpa.yaml
-          kubectl apply -f k8s/app/myburger-svc.yaml
-
-      # Armazenar o nome do deployment na variável de ambiente
-      - name: Get Deployment Name [MyBurger ≡]
-        run: |
-          kubectl get deployments
-          DEPLOYMENT_NAME=$(kubectl get deployments --namespace=default -o jsonpath='{.items[0].metadata.name}')
-          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_ENV
-
-      # Verificar o status dos pods
-      - name: Check pod status [MyBurger ≡]
-        run: |
-          kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
+          kubectl set image deployment/myburger myburger=${{ env.IMAGE_NAME }}
