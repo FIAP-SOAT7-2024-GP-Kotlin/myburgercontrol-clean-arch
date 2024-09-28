@@ -46,7 +46,9 @@ jobs:
         working-directory: .github/workflows/
 
       - name: Terraform Plan
-        run: terraform plan -input=false
+        run: terraform plan -input=false \
+          -var "digitalocean_token=${{ secrets.DO_TOKEN_ACCESS }}" \
+          -var "ssh_fingerprint=${{ secrets.DO_SSH_FINGERPRINT }}"
         working-directory: .github/workflows/
 
       - name: Terraform Apply
