@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - feature/start-deploy-actions
+  workflow_run:
+    workflows: ["CI [MyBurger ≡]"] # Nome do workflow de build
+    types:
+      - completed # Executa após o build ser completado com sucesso
 jobs:
   deploy:
     name: Deploy to DigitalOcean
