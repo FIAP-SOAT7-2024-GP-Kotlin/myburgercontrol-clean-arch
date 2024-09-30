@@ -42,3 +42,13 @@ jobs:
       - name: Update Image [MyBurger ≡]
         run: |
           kubectl set image deployment/myburger myburger=${{ env.IMAGE_NAME }}
+
+      # Aguarda o rollout de deployment
+      - name: Wait for rollout
+        run: kubectl rollout status deployment/myburger-deployment
+
+      # Resgata os logs da pod
+      - name: Get logs from pod
+        run: |
+          POD_NAME=$(kubectl get pods --selector=app=myburger -o jsonpath='{.items[0].metadata.name}')
+          kubectl logs $POD_NAME
