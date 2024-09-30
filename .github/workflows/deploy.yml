@@ -45,7 +45,7 @@ jobs:
 
       # Aguarda o rollout de deployment
       - name: Wait for rollout
-        run: kubectl rollout status deployment/myburger-deployment
+        run: kubectl rollout status deployment/myburger
 
       # Resgata os logs da pod
       - name: Get logs from pod
