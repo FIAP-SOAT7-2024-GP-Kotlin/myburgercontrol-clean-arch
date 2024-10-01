@@ -1,13 +1,10 @@
-name: CD [MyBurger ≡] (DigitalOcean)
+name: CD MyBurger
 
 on:
-  push:
-    branches:
-      - main
   workflow_run:
-    workflows: ["CI [MyBurger ≡]"] # Nome do workflow de build
+    workflows: ["CI MyBurger"]
     types:
-      - completed # Executa após o build ser completado com sucesso
+      - completed
 jobs:
   deploy:
     name: Deploy to DigitalOcean

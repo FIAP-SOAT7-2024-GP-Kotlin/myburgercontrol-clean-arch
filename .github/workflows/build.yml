@@ -1,4 +1,4 @@
-name: CI [MyBurger ≡]
+name: CI MyBurger
 
 on: [push, pull_request]
 
