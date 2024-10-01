@@ -8,7 +8,7 @@ ___
 Este projeto é um monolito para o curso de Software Architeture da turma 7SOAT na instituição FIAP no ano de 2024.
 ___
 
-## Índice
+## Índice 
 
 1. [DDD](#ddd)
 2. [Componentes](#componentes)
