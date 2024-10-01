@@ -1,8 +1,8 @@
-name: CD [MyBurger ≡] (DigitalOcean)
+name: CD MyBurger
 
 on:
   workflow_run:
-    workflows: ["CI [MyBurger ≡]"]
+    workflows: ["CI MyBurger"]
     types:
       - completed
 jobs:
