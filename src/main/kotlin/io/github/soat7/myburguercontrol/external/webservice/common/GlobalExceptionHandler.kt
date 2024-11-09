@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.net.URI
 
-private val logger = KotlinLogging.logger {}
+private val log = KotlinLogging.logger {}
 
 @ControllerAdvice
 @Order(-2)
@@ -64,13 +64,13 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             "exception" to t.javaClass.simpleName,
             "status" to error.httpStatus.value().toString(),
             "code" to error.code,
-            "message" to t.message,
+            "message" to error.message,
             "cause" to t.cause?.message,
         ) {
             if (error.httpStatus == HttpStatus.INTERNAL_SERVER_ERROR) {
-                logger.error { "Unexpected error occurred while processing request" }
+                log.error(t) { "Unexpected error occurred while processing request" }
             } else {
-                logger.warn { "An error occurred while processing request" }
+                log.warn { "An error occurred while processing request" }
             }
         }
     }

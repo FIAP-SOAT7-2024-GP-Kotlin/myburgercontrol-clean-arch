@@ -1,5 +1,6 @@
 package io.github.soat7.myburguercontrol.base
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.soat7.myburguercontrol.Application
 import io.github.soat7.myburguercontrol.adapters.mapper.toPersistence
 import io.github.soat7.myburguercontrol.container.MockServerContainer
@@ -33,6 +34,8 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import java.util.UUID
+
+private val log = KotlinLogging.logger { }
 
 @ActiveProfiles("test")
 @SpringBootTest(
@@ -108,6 +111,7 @@ class BaseIntegrationTest {
             ?: throw RuntimeException("Failed to authenticate")
 
         val header: MultiValueMap<String, String> = LinkedMultiValueMap()
+        log.info { "######### token: ${response.accessToken}" }
         header.add("Authorization", "Bearer ${response.accessToken}")
         header.add("Content-Type", MediaType.APPLICATION_JSON_VALUE)
 

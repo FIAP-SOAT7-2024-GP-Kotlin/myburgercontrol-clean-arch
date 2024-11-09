@@ -16,6 +16,8 @@ enum class ReasonCode(
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "14", "No order was found by the given id"),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "15", "No product was found by the given id"),
 
+    BAD_CREDENTIALS(HttpStatus.UNAUTHORIZED, "16", "Invalid login"),
+
     PAYMENT_INTEGRATION_ERROR(
         HttpStatus.UNPROCESSABLE_ENTITY,
         "20",
