@@ -15,15 +15,15 @@ try {
 }
 
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    kotlin("plugin.jpa") version "1.9.25"
-    kotlin("plugin.allopen") version "1.9.25"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
+    kotlin("plugin.jpa") version "2.0.21"
+    kotlin("plugin.allopen") version "2.0.21"
     jacoco
 
-    id("org.springframework.boot") version "3.3.2"
+    id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.liquibase.gradle") version "2.2.2"
+    id("org.liquibase.gradle") version "3.0.1"
     id("org.barfuin.gradle.jacocolog") version "3.1.0"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
@@ -41,6 +41,16 @@ if (!javaVersion.isCompatibleWith(JavaVersion.current())) {
     )
 }
 
+buildscript {
+    val testContainerVersion by extra { "1.20.+" }
+    val liquibaseVersion by extra { "4.29+" }
+
+    dependencies {
+        classpath("org.liquibase:liquibase-core:$liquibaseVersion")
+    }
+}
+
+
 java {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
@@ -57,6 +67,9 @@ repositories {
 }
 
 dependencies {
+    val testContainerVersion: String by rootProject.extra
+    val liquibaseVersion: String by rootProject.extra
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
@@ -97,7 +110,7 @@ dependencies {
 
     // Liquibase
     liquibaseRuntime("info.picocli:picocli:4.+")
-    liquibaseRuntime("org.liquibase:liquibase-core:4.+")
+    liquibaseRuntime("org.liquibase:liquibase-core:$liquibaseVersion")
     liquibaseRuntime("org.postgresql:postgresql:42.7.+")
     liquibaseRuntime("org.liquibase.ext:liquibase-hibernate6:4.+")
     liquibaseRuntime("org.springframework.boot:spring-boot-starter-data-jpa")

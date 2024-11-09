@@ -49,7 +49,7 @@ class AuthIT : BaseIntegrationTest() {
         )
 
         assertAll(
-            Executable { assertTrue(response.statusCode.is5xxServerError) },
+            Executable { assertTrue(response.statusCode.is4xxClientError) },
             Executable { assertNotNull(response.body) },
             Executable {
                 assertThat(
