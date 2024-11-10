@@ -5,10 +5,8 @@ import io.github.soat7.myburguercontrol.base.BaseIntegrationTest
 import io.github.soat7.myburguercontrol.fixtures.AuthFixtures
 import io.github.soat7.myburguercontrol.fixtures.UserFixtures
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.function.Executable
 import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.http.HttpEntity
@@ -48,17 +46,13 @@ class AuthIT : BaseIntegrationTest() {
             requestEntity = HttpEntity(inputAuthData, null),
         )
 
-        assertAll(
-            Executable { assertTrue(response.statusCode.is4xxClientError) },
-            Executable { assertNotNull(response.body) },
-            Executable {
-                assertThat(
-                    objectMapper.readValue(
-                        response.body,
-                        ProblemDetail::class.java,
-                    ).detail!!.contains("Bad Credentials"),
-                )
-            },
+        assertTrue(response.statusCode.is4xxClientError)
+        assertNotNull(response.body)
+        assertThat(
+            objectMapper.readValue(
+                response.body,
+                ProblemDetail::class.java,
+            ).detail!!.contains("Bad Credentials"),
         )
     }
 }
