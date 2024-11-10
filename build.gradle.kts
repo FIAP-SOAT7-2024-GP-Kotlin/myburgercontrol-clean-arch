@@ -50,7 +50,6 @@ buildscript {
     }
 }
 
-
 java {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
